@@ -36,11 +36,11 @@ export default class CreateAccountForm extends Component {
       const errorCode = error.code;
       const errorMessage = error.message;
       // [START_EXCLUDE]
-      if (errorCode === 'auth/wrong-password') {
-        alert('Wrong password.');
-      } else {
+      // if (errorCode === 'auth/wrong-password') {
+      //   alert('Wrong password.');
+      // } else {
         alert(errorMessage);
-      }
+      // }
       console.log(error);
       // [END_EXCLUDE]
     });

@@ -25,6 +25,7 @@ export default class Login extends Component {
           keyboardType='email-address'
           autoCapitalize='none'
           autoCorrect={false}
+
           />
         <TextInput
           style={styles.input}
@@ -63,3 +64,5 @@ const styles = StyleSheet.create({
   },
 
 });
+// onChangeText={(text) => this.setState({email: text})}
+// value={this.state.email}

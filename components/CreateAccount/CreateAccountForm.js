@@ -1,20 +1,21 @@
 // Login Form Component
 import React, { Component } from 'react';
 import {
+  Platform,
   StyleSheet,
   Text,
   View,
   Image,
   TextInput,
-  KeyboardAvoidingView,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from 'react-native';
-import Login from './Login';
-import { StackNavigator } from 'react-navigation';
+import Login from '../Login/Login';
 import * as firebase from 'firebase';
+import firebaseApp from '../../services/firebase';
 
 
-export default class LoginForm extends Component {
+export default class CreateAccountForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,16 +23,15 @@ export default class LoginForm extends Component {
       email: '',
       password: ''
     }
-    this.login = this.login.bind(this);
   }
-  login(){
+  createaccount(){
     // TODO: will use for loading visual later
     this.setState({
       loaded: false
     })
     console.log(this.state.email);
     console.log(this.state.password);
-    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
       // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -44,8 +44,7 @@ export default class LoginForm extends Component {
       console.log(error);
       // [END_EXCLUDE]
     });
-    console.log('current loggged in user')
-    console.log(firebase.auth().currentUser);
+
     this.setState({
       email: '',
       password: '',
@@ -54,6 +53,7 @@ export default class LoginForm extends Component {
   }
   render() {
     const {navigate} = this.props.navigation;
+
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={styles.logoContainer}>
@@ -83,10 +83,10 @@ export default class LoginForm extends Component {
             ref={(input) => this.passwordInput = input}
             />
           <TouchableOpacity style={styles.buttonContainer}>
-            <Text style={styles.buttonText} onPress={this.login}> Login </Text>
+            <Text style={styles.buttonText} onPress={this.createaccount.bind(this)}> Create Account </Text>
           </TouchableOpacity>
-          <Text style={styles.textLink} onPress={() => navigate('CreateAccount')}>
-            Create an account
+          <Text style={styles.textLink} onPress={() => navigate('Login')}>
+            Already have an account? Login
           </Text>
         </View>
       </KeyboardAvoidingView>

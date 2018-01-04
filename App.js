@@ -21,13 +21,14 @@ import * as firebase from 'firebase';
 import { SignInStack } from './config/Router.js'
 import Map from './screens/Map';
 import UserProfile from './components/UserProfile/UserProfile';
+import UserList from './components/UsersFeed/UserList';
 
 
 export default class App extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <UserProfile />
+        <UserList />
       </View>
     );
   }

@@ -20,6 +20,8 @@ import firebaseApp from './services/firebase';
 import * as firebase from 'firebase';
 import { SignInStack } from './config/Router.js'
 import Map from './screens/Map';
+import UserProfile from './components/UserProfile/UserProfile';
+
 
 export default class App extends Component<{}> {
   render() {

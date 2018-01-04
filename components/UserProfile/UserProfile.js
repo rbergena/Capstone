@@ -5,43 +5,81 @@ import {
   Text,
   View,
   Image,
+  ScrollView,
 } from 'react-native';
-// import { List, ListItem } from 'react-native-elements'
+import { List, ListItem, SocialIcon, Tile } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
-
-const list = [
-  {
-    title: 'Appointments',
-    icon: 'av-timer'
-  },
-  {
-    title: 'Trips',
-    icon: 'flight-takeoff'
-  },
-]
-
 
 export default class UserProfile extends Component {
   constructor(props) {
     super(props);
 
     }
-
+// add on press prop for social icons that will then go to webview
   render() {
     return (
       <View style={styles.container}>
-      <List>
-        {
-          list.map((item, i) => (
-            <ListItem
-              key={i}
-              title={item.title}
-              leftIcon={{name: item.icon}}
-            />
-          ))
-        }
-      </List>
+      <ScrollView>
+        <Tile
+          imageSrc={{ uri: 'https://randomuser.me/api/portraits/women/7.jpg'}}
+          featured
+          title= 'full name'
+          caption= 'email address'
+        />
+        <View style={styles.socialContainer}>
+          <SocialIcon
+            raised={false}
+            type='soundcloud'
+          />
+          <SocialIcon
+          type='twitter'
+          />
+          <SocialIcon
+            light
+            type='youtube'
+          />
+          <SocialIcon
+            light
+            type='instagram'
+          />
+        </View>
+        <List>
+          <ListItem
+            title="Email"
+            rightTitle= 'email'
+            hideChevron
+          />
+          <ListItem
+            title="City, State"
+            rightTitle='city, state'
+            hideChevron
+          />
+        </List>
+
+
+        <List>
+          <ListItem
+            title='Description'
+            rightTitle='description'
+            hideChevron
+          />
+        </List>
+
+        <List>
+          <ListItem
+            title='Instruments'
+            rightTitle='instruments'
+            hideChevron
+          />
+          <ListItem
+            title='genres'
+            rightTitle='genres'
+            hideChevron
+          />
+        </List>
+      </ScrollView>
+
       </View>
     );
   }
@@ -50,7 +88,9 @@ export default class UserProfile extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'pink'
+  },
+  socialContainer: {
+    flexDirection: 'row',
   },
   logo: {
     width: 100,

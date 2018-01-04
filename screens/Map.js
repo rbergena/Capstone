@@ -5,16 +5,25 @@ import {
   Text,
   View,
   Image,
+  Dimensions,
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
+let { width, height } = Dimensions.get('window');
+
+const ASPECT_RATIO = width / height;
+const LATITUDE = 0;
+const LONGITUDE = 0;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export default class Map extends Component {
   render() {
     return (
-      <MapView style={styles.container}
+      <MapView
+         style={styles.container}
          initialRegion={{
            latitude: 37.78825,
            longitude: -122.4324,
@@ -76,3 +85,4 @@ const styles = StyleSheet.create({
 // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 //   <Text>Map Screen</Text>
 // </View>
+// provider={PROVIDER_GOOGLE}

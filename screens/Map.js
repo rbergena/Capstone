@@ -84,20 +84,32 @@ export default class Map extends Component {
   // parse firebase user data
   getUserData() {
     // fetch markers data from firebase
+    const usersRef = firebase.database().ref("users/");
+
     firebase.database().ref('/users/').once('value').then((snapshot) => {
       let results = [];
-      let users = snapshot.val();
+      let users = snapshot.val()
       console.log('snapshot');
       console.log(users);
       // get user data objects without having to know uid
+
       for(var propName in users) {
         if(users.hasOwnProperty(propName)) {
           var propValue = users[propName];
-          // do something with each element here
+          // user data objects in array
           console.log('propValue')
           console.log(propValue)
 
-          results.push(propValue)
+          const marker = {
+            ...propValue,
+            coordinates: {
+              latitude: propValue.coordinates.latitude,
+              longitude: propValue.coordinates.longitude,
+            }
+          }
+          results.push(marker)
+
+
           console.log('results after prop pushed in')
           console.log(results)
         }
@@ -132,6 +144,7 @@ export default class Map extends Component {
 
   render() {
     console.log(this.state.markers)
+    console.log('in render');
 
     return (
       <View style={styles.container}>
@@ -146,20 +159,17 @@ export default class Map extends Component {
         </View>
       </MapView.Marker>
       {this.state.markers.map((marker, index) => (
-  <MapView.Marker
-    key={index}
-    coordinate={marker.coordinates}
-  >
-    <MapView.Callout>
-        <View style={styles.callout}>
-          <Text>{marker.name}</Text>
-          <Button title='Click Me!' onPress={() => console.log('Clicked')} />
-        </View>
-    </MapView.Callout>
-  </MapView.Marker>
+        <MapView.Marker coordinate={marker.coordinates} key={index}>
+        <MapView.Callout >
 
-))}
+         <View style={styles.callout}>
+             <Text>{marker.name}</Text>
+          </View>
+         </MapView.Callout>
+        </MapView.Marker>
+      ))}
       </MapView>
+
 
       </View>
     );
@@ -215,3 +225,28 @@ const styles = StyleSheet.create({
     // ...StyleSheet.absoluteFillObject,
   },
 });
+
+// {this.state.markers.map((marker, index) => (
+// <MapView.Marker
+//   key={index}
+//   coordinate={marker.coordinates}
+// >
+//   <MapView.Callout>
+//       <View style={styles.callout}>
+//         <Text>{marker.name}</Text>
+//       </View>
+//   </MapView.Callout>
+// </MapView.Marker>
+// ))}
+
+// WORKING
+// {this.state.markers.map((marker, index) => (
+//   <MapView.Marker coordinate={marker.coordinate} key={index}>
+//   <MapView.Callout >
+//
+//    <View style={styles.callout}>
+//        <Text>This is a plain view</Text>
+//     </View>
+//    </MapView.Callout>
+//   </MapView.Marker>
+// ))}

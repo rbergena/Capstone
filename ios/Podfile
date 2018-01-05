@@ -2,4 +2,6 @@ platform :ios, '8.0'
 target 'CapstoneProject' do
 pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga/yoga.podspec'
 pod 'GoogleMaps'
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
 end

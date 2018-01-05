@@ -1,24 +1,103 @@
 // App Routing
 import React from 'react';
 import { TabNavigator, StackNavigator } from 'react-navigation';
-// TODO import { Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 
-import LoginForm from '../components/Login/LoginForm.js';
+import LoginScreen from '../screens/LoginScreen.js';
 import CreateAccountForm from '../components/CreateAccount/CreateAccountForm.js';
+import MyProfileScreen from '../screens/MyProfileScreen.js';
+import UserDetailsScreen from '../screens/UserDetailsScreen.js';
+import UsersFeedScreen from '../screens/UsersFeedScreen.js';
+import Map from '../screens/Map.js';
+
 
 export const SignInStack = StackNavigator({
   Login: {
-    screen: LoginForm,
-    navigationOptions: ({ navigation }) => ({
+    screen: LoginScreen,
+    // navigationOptions: ({ navigation }) => ({
+    navigationOptions: {
       title: 'Login',
       headerLeft: null
-    }),
+    }
+    // }),
   },
   CreateAccount: {
     screen: CreateAccountForm,
-    navigationOptions: ({ navigation }) => ({
+    // navigationOptions: ({ navigation }) => ({
+    navigationOptions: {
       title: 'Create Account',
       headerLeft: null
-    }),
+    }
+    // }),
   },
 });
+
+export const UsersFeedNavigator = StackNavigator({
+  UsersFeed: {
+    screen: UsersFeedScreen,
+    navigationOptions: {
+      title: 'Users List',
+    },
+  },
+  UserDetails: {
+    screen: UserDetailsScreen,
+    navigationOptions: {
+      title: 'User Details',
+    },
+  },
+});
+
+export const MapNavigator = StackNavigator({
+  UsersFeed: {
+    screen: Map,
+    navigationOptions: {
+      title: 'Map',
+    },
+  },
+  UsersDetails: {
+    screen: UserDetailsScreen,
+    navigationOptions: {
+      title: 'User Details',
+    },
+  },
+});
+
+export const TabsNavigator = TabNavigator({
+  MyProfile: {
+    screen: MyProfileScreen,
+    navigationOptions: {
+      title: 'My Profile',
+      tabBarIcon: ({ tintColor }) => <Icon name="account-circle" size={35} color={tintColor} />
+    }
+  },
+  Users: {
+    screen: UsersFeedNavigator,
+    navigationOptions: {
+      tabBarIcon: ({ tintColor }) => <Icon name="list" size={35} color={tintColor} />
+    }
+  },
+  Map: {
+    screen: MapNavigator,
+    navigationOptions: {
+    tabBarIcon: ({ tintColor }) => <Icon name="map" size={35} color={tintColor} />
+    }
+  },
+},
+// make headers consistent
+{
+  headerMode: 'none'
+});
+
+// TODO
+export const RootNavigator = StackNavigator({
+  SignIn: {
+    screen: SignInStack,
+  },
+  Tabs: {
+    screen: TabsNavigator,
+  },
+},
+// make headers consistent
+{
+  headerMode: 'none'
+})

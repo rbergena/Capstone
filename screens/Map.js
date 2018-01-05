@@ -100,14 +100,14 @@ export default class Map extends Component {
           console.log('propValue')
           console.log(propValue)
 
-          const marker = {
-            ...propValue,
-            coordinates: {
-              latitude: propValue.coordinates.latitude,
-              longitude: propValue.coordinates.longitude,
-            }
-          }
-          results.push(marker)
+          // const marker = {
+          //   ...propValue,
+          //   coordinates: {
+          //     latitude: propValue.coordinates.latitude,
+          //     longitude: propValue.coordinates.longitude,
+          //   }
+          // }
+          results.push(propValue)
 
 
           console.log('results after prop pushed in')
@@ -135,6 +135,9 @@ export default class Map extends Component {
 //     // console.log(userData.name);
 // });
       // change state of markers
+      // only using one works!
+      // markers: results.slice(0,1)
+
       this.setState({
         markers: results
       })
@@ -145,32 +148,35 @@ export default class Map extends Component {
   render() {
     console.log(this.state.markers)
     console.log('in render');
-
+    // make 1px or 
     return (
       <View style={styles.container}>
         <MapView
         style={styles.map}
         region={this.state.initialPosition}
-      >
-      <MapView.Marker
-        coordinate={this.state.markerPosition}>
-        <View style={styles.radius}>
-          <View style={styles.marker} />
-        </View>
-      </MapView.Marker>
-      {this.state.markers.map((marker, index) => (
-        <MapView.Marker coordinate={marker.coordinates} key={index}>
-        <MapView.Callout >
-
-         <View style={styles.callout}>
-             <Text>{marker.name}</Text>
+        >
+        <MapView.Marker
+          coordinate={this.state.markerPosition}
+          key={'me'+ Date.now}>
+          <View style={styles.radius}>
+            <View style={styles.marker} />
           </View>
-         </MapView.Callout>
-        </MapView.Marker>
-      ))}
-      </MapView>
+          <MapView.Callout tooltip={true}>
 
+          </MapView.Callout>
 
+          </MapView.Marker>
+        {this.state.markers.map((marker, index) => (
+          <MapView.Marker coordinate={marker.coordinates} key={index}>
+          <MapView.Callout tooltip={false}>
+            <View>
+               <Text>test</Text>
+            </View>
+           </MapView.Callout>
+          </MapView.Marker>
+        ))}
+
+          </MapView>
       </View>
     );
   }
@@ -250,3 +256,41 @@ const styles = StyleSheet.create({
 //    </MapView.Callout>
 //   </MapView.Marker>
 // ))}
+
+// {this.state.markers.map((marker, index) => (
+//   <MapView.Marker coordinate={marker.coordinates} key={index}>
+//   <MapView.Callout tooltip={false}>
+//     <View>
+//        <Text>test</Text>
+//     </View>
+//    </MapView.Callout>
+//   </MapView.Marker>
+// ))}
+// <MapView.Marker
+//   coordinate={this.state.markerPosition}
+//   key={0}>
+//   <View style={styles.radius}>
+//     <View style={styles.marker} />
+//   </View>
+//   </MapView.Marker>
+
+            // <MapView.Marker key={1} coordinate={{
+            //   latitude:47.606701,
+            //   longitude:-122.332501}
+            // }>
+            // <MapView.Callout tooltip={false}>
+            //   <View>
+            //      <Text>test2</Text>
+            //   </View>
+            //  </MapView.Callout>
+            // </MapView.Marker>
+            // <MapView.Marker key={2} coordinate={{
+            //   latitude: 47.60694,
+            //   longitude: -122.324065}
+            // }>
+            // <MapView.Callout tooltip={false}>
+            //   <View>
+            //      <Text>test2</Text>
+            //   </View>
+            //  </MapView.Callout>
+            // </MapView.Marker>

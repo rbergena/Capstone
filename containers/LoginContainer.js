@@ -9,12 +9,12 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
 } from 'react-native';
-import Login from './Login';
+// import Login from './Login';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 
 
-export default class LoginForm extends Component {
+export default class LoginContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,9 +45,26 @@ export default class LoginForm extends Component {
       password: '',
       loaded: true
     });
+    var user = firebase.auth().currentUser;
+    if (user) {
+      // If user is signed in. Then navigate to Tabs screen.
+      this.props.navigate('Tabs');
+    }
+  }
+  logout(){
+    firebase.auth().signOut().then(function() {
+      console.log('Signed Out');
+      console.log('is user logged in?')
+      console.log(firebase.auth().currentUser);
+    }, function(error) {
+      console.error('Sign Out Error', error);
+    });
+
   }
   render() {
-    const {navigate} = this.props.navigation;
+    // console.log('navigation props')
+    // console.log(this.props.navigate)
+
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={styles.logoContainer}>
@@ -81,6 +98,9 @@ export default class LoginForm extends Component {
           </TouchableOpacity>
           <Text style={styles.textLink} onPress={() => navigate('CreateAccount')}>
             Create an account
+          </Text>
+          <Text style={styles.textLink} onPress={this.logout}>
+            Logout
           </Text>
         </View>
       </KeyboardAvoidingView>

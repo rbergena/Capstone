@@ -17,6 +17,7 @@ export default class UserProfile extends Component {
 
     }
 // add on press prop for social icons that will then go to webview
+// try hard coded with a uid hardcoded from DB and pull information
   render() {
     return (
       <View style={styles.container}>

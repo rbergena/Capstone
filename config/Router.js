@@ -2,14 +2,14 @@
 import React from 'react';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
-
+// import screens
 import LoginScreen from '../screens/LoginScreen.js';
 import CreateAccountForm from '../components/CreateAccount/CreateAccountForm.js';
 import MyProfileScreen from '../screens/MyProfileScreen.js';
 import UserDetailsScreen from '../screens/UserDetailsScreen.js';
 import UsersFeedScreen from '../screens/UsersFeedScreen.js';
 import Map from '../screens/Map.js';
-
+import WebViewScreen from '../screens/WebViewScreen.js';
 
 export const SignInStack = StackNavigator({
   Login: {
@@ -45,6 +45,12 @@ export const UsersFeedNavigator = StackNavigator({
       title: 'User Details',
     },
   },
+  SocialMediaWebView: {
+    screen: WebViewScreen,
+    navigationOptions: {
+      title: 'Social Media Web View',
+    },
+  },
 });
 
 export const MapNavigator = StackNavigator({
@@ -58,6 +64,12 @@ export const MapNavigator = StackNavigator({
     screen: UserDetailsScreen,
     navigationOptions: {
       title: 'User Details',
+    },
+  },
+  SocialMediaWebView: {
+    screen: WebViewScreen,
+    navigationOptions: {
+      title: 'Social Media Web View',
     },
   },
 });

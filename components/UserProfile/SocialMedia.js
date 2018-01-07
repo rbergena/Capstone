@@ -70,7 +70,9 @@ export default class SocialMedia extends Component {
 
 const styles = StyleSheet.create({
   socialContainer: {
+    flex: 1,
     flexDirection: 'row',
+    justifyContent: 'center',
   },
 });
 

@@ -33,7 +33,10 @@ export default class UserProfileContainer extends Component {
 
     return (
       <View style={styles.container}>
-        <Background picture={this.props.userInfo.picture.thubmnail}/>
+        <Background picture={this.props.userInfo.picture.large}
+        city={this.props.userInfo.city_state}
+        email={this.props.userInfo.email}
+        />
         {this.props.userInfo.social_media ? (
           <SocialMedia links={this.props.userInfo.social_media}
           navigate={this.props.navigate}
@@ -48,9 +51,4 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  item: {
-  padding: 10,
-  fontSize: 18,
-  height: 70,
-},
 });

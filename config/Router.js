@@ -1,7 +1,10 @@
 // App Routing
 import React from 'react';
-import { TabNavigator, StackNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator, NavigationActions } from 'react-navigation';
 import { Icon } from 'react-native-elements';
+import {
+  Alert,
+} from 'react-native';
 // import screens
 import LoginScreen from '../screens/LoginScreen.js';
 import CreateAccountForm from '../components/CreateAccount/CreateAccountForm.js';
@@ -10,6 +13,9 @@ import UserDetailsScreen from '../screens/UserDetailsScreen.js';
 import UsersFeedScreen from '../screens/UsersFeedScreen.js';
 import Map from '../screens/Map.js';
 import WebViewScreen from '../screens/WebViewScreen.js';
+import LogoutScreen from '../screens/LogoutScreen.js';
+import * as firebase from 'firebase';
+
 
 export const SignInStack = StackNavigator({
   Login: {
@@ -94,6 +100,36 @@ export const TabsNavigator = TabNavigator({
     tabBarIcon: ({ tintColor }) => <Icon name="map" size={35} color={tintColor} />
     }
   },
+  Logout: {
+     screen: LogoutScreen,     // Empty screen, useless in this specific case
+      navigationOptions: ({navigation}) => ({
+           tabBarOnPress: (scene, jumpToIndex) => {
+               return Alert.alert(   // Shows the alert without redirecting anywhere
+                   'Confirmation required'
+                   ,'Do you really want to logout?'
+                   ,[
+                     {text: 'Accept', onPress: () => {
+                       // sign out user, then redirect to login route
+                       firebase.auth().signOut().then(function() {
+                        console.log('Signed Out');
+                        console.log('this is the result for current user')
+                        console.log(firebase.auth().currentUser);
+                      }, function(error) {
+                        console.error('Sign Out Error', error);
+                      });
+
+                       // navigate to login route
+                        navigation.dispatch(NavigationActions.navigate({ routeName: 'Login' }))
+                   }},
+                     {text: 'Cancel'}
+                    ]
+               );
+           },
+           tabBarIcon: ({ tintColor }) => <Icon name="exit-to-app" size={35} color={tintColor} />
+       })
+
+    },
+
 },
 // make headers consistent
 {

@@ -7,7 +7,6 @@ import LoginContainer from '../containers/LoginContainer'
 
 export default class LoginScreen extends React.Component {
   render() {
-    // const {navigate} = this.props.navigation;
 
     return (
         <LoginContainer navigate={ this.props.navigation.navigate}/>

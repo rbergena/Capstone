@@ -96,7 +96,7 @@ export default class LoginContainer extends Component {
           <TouchableOpacity style={styles.buttonContainer}>
             <Text style={styles.buttonText} onPress={this.login}> Login </Text>
           </TouchableOpacity>
-          <Text style={styles.textLink} onPress={() => navigate('CreateAccount')}>
+          <Text style={styles.textLink} onPress={() => this.props.navigate('CreateAccount')}>
             Create an account
           </Text>
           <Text style={styles.textLink} onPress={this.logout}>

@@ -4,72 +4,10 @@ import { View,
           ScrollView,
         } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
+import { FormLabel, FormInput } from 'react-native-elements'
+// import dropdown choices for instruments and genres
+import { instruments, genres } from '../config/InstrumentsGenres';
 import * as firebase from 'firebase';
-
-const items = [{
-    id: 'Piano',
-    name: 'Piano',
-  }, {
-    id: 'Trumpet',
-    name: 'Trumpet',
-  }, {
-    id: 'Trombone',
-    name: 'Trombone',
-  }, {
-    id: 'Violin',
-    name: 'Violin',
-  }, {
-    id: 'Djembe',
-    name: 'Djembe',
-  }, {
-    id: 'Triangle',
-    name: 'Triangle',
-  }, {
-    id: 'Drums',
-    name: 'Drums',
-  }, {
-    id: 'Cymbals',
-    name: 'Cymbals',
-  }, {
-    id: 'Flute',
-    name: 'Flute',
-  }, {
-    id: 'Flusdfgte',
-    name: 'Flsdfute',
-  }, {
-    id: 'Flsdfsdfute',
-    name: 'Flsdfsdfute',
-  }, {
-    id: 'Fludsasddsdsfsdte',
-    name: 'Fldsfsdfute',
-  }, {
-    id: 'Flutdfasdsde',
-    name: 'Flusdfsdfte',
-  }, {
-    id: 'Flsafdussaddfsdte',
-    name: 'Flutesdfsdf',
-  }, {
-    id: 'Flsaddussaddfsdte',
-    name: 'Flutesdfsdf',
-  }, {
-    id: 'Flsaduffssaddfsdte',
-    name: 'Flutesdfsdf',
-  }, {
-    id: 'Flsadudssaddfsdte',
-    name: 'Flutesdfsdf',
-  }, {
-    id: 'Flsadussasdfsddfsdte',
-    name: 'Flutesdfsdf',
-  }, {
-    id: 'Flsadusfsaddfsdte',
-    name: 'Flutesdfsdf',
-  }, {
-    id: 'Flsadusssdfsdaddfsdte',
-    name: 'Flutesdfsdf',
-  }
-
-
-];
 
 export default class MultiSelectExample extends Component {
   constructor(props) {
@@ -82,11 +20,88 @@ export default class MultiSelectExample extends Component {
   // set selected items to whatever is in DB if there are instruments and genres else selected genres and instruments state will be empty array
   // set state with already selected instruments
   componentDidMount(){
-    this.setState({
-      selectedInstruments: ['Djembe', 'Flute']
-    });
+    console.log(`######### MY PROFILE CONTAINER'S componentDidMount ##############`)
+    // this.setState({
+    //   selectedInstruments: ['Djembe', 'Flute']
+    // });
     // this.onSelectedInstrumentsChange;
+    let results = {};
+    let instrumentsArray = [];
+
+    const userId = firebase.auth().currentUser.uid;
+    // firebase.database().ref('/users/' + userId + '/instruments').once('value').then(function(snapshot) {
+    firebase.database().ref('/users/' + userId + '/instruments').once('value').then((snapshot) => {
+      // if the instrument node exists, set the state of selected instruments to those currently in the DB
+      // if(snapshot.val()) {
+        console.log('it returned a snapshot')
+        console.log(snapshot.val());
+        console.log('these are the snapshot instrument keys')
+        let instrumentsObject = snapshot.val();
+        console.log(Object.keys(instrumentsObject))
+        instrumentsArray.push(Object.keys(instrumentsObject))
+        results['selectedInstruments'] = instrumentsArray;
+
+        console.log('this is the results object')
+        console.log(results);
+        // set state with instruments in DB
+        // this.setState(results);
+        // this.setState({
+        //   selectedInstruments: ['Djembe', 'Flute']
+        // });
+        console.log('this is the selectedInstruments state after pulling from DB')
+        console.log(this.state.selectedInstruments)
+      // } else {
+      //   console.log('no snapshot')
+      // }
+    });
+    console.log('results outside of FB call')
+    console.log(results)
+    this.setState(results);
+    console.log('instrumentsArray outside of FB call')
+    console.log(instrumentsArray)
+    // this.setState({
+    //   selectedInstruments: instrumentsArray,
+    // });
+    // this.setState({
+    //   selectedInstruments: ['Djembe', 'Flute']
+    // });
+    // let result = this.getInstruments();
+    // console.log('result from get instruments')
+    // console.log(result)
+    // this.setState({
+    //   selectedInstruments: result,
+    // })
   }
+  // getInstruments() {
+  //   const userId = firebase.auth().currentUser.uid;
+  //   let instrumentsArray = [];
+  //
+  //   firebase.database().ref('/users/' + userId + '/instruments').once('value').then((snapshot) => {
+  //     // if the instrument node exists, set the state of selected instruments to those currently in the DB
+  //     if(snapshot.val()) {
+  //       console.log('it returned a snapshot')
+  //       console.log(snapshot.val());
+  //       console.log('these are the snapshot instrument keys')
+  //       let instrumentsObject = snapshot.val();
+  //       console.log(Object.keys(instrumentsObject))
+  //       instrumentsArray.push(Object.keys(instrumentsObject))
+  //       results['selectedInstruments'] = instrumentsArray;
+  //
+  //       console.log('this is the results object')
+  //       console.log(results);
+  //       // set state with instruments in DB
+  //       // this.setState(results);
+  //       // this.setState({
+  //       //   selectedInstruments: ['Djembe', 'Flute']
+  //       // });
+  //       console.log('this is the selectedInstruments state after pulling from DB')
+  //       console.log(this.state.selectedInstruments)
+  //     } else {
+  //       console.log('no snapshot')
+  //     }
+  //   });
+  //   return instrumentsArray;
+  // }
   onSelectedInstrumentsChange = selectedInstruments => {
     this.setState({ selectedInstruments });
     // when selected items change, write over DB instruments values
@@ -148,6 +163,7 @@ export default class MultiSelectExample extends Component {
       )
   };
   render() {
+    console.log('######### MY PROFILE CONTAINER ##############')
     console.log('selected items')
     console.log(this.state.selectedInstruments)
     const { selectedInstruments } = this.state;
@@ -157,37 +173,12 @@ export default class MultiSelectExample extends Component {
     console.log(this.multiSelect);
     return (
       <View style={{ flex: 1, marginTop: 50 }}>
-      <ScrollView>
 
-        <MultiSelect
-          hideTags
-          items={items}
-          uniqueKey="id"
-          ref={(component) => { this.multiSelect = component }}
-          onSelectedItemsChange={this.onSelectedInstrumentsChange}
-          selectedItems={selectedInstruments}
-          selectText="Pick Instruments"
-          searchInputPlaceholderText="Search Instruments..."
-          onChangeInput={ (text)=> console.log(text)}
-          tagRemoveIconColor="#CCC"
-          tagBorderColor="#CCC"
-          tagTextColor="#CCC"
-          selectedItemTextColor="#CCC"
-          selectedItemIconColor="#CCC"
-          itemTextColor="#000"
-          displayKey="name"
-          searchInputStyle={{ color: '#CCC' }}
-          submitButtonColor="#CCC"
-          submitButtonText="Submit"
-          hideTags={false}
-          fixedHeight={false}
-        />
-        </ScrollView>
 
         <ScrollView>
         <MultiSelect
           hideTags
-          items={items}
+          items={genres}
           uniqueKey="id"
           ref={(component) => { this.multiSelect = component }}
           onSelectedItemsChange={this.onSelectedGenresChange}
@@ -209,6 +200,33 @@ export default class MultiSelectExample extends Component {
           fixedHeight={false}
         />
         </ScrollView>
+
+        <ScrollView>
+
+          <MultiSelect
+            hideTags
+            items={instruments}
+            uniqueKey="id"
+            ref={(component) => { this.multiSelect = component }}
+            onSelectedItemsChange={this.onSelectedInstrumentsChange}
+            selectedItems={selectedInstruments}
+            selectText="Pick Instruments"
+            searchInputPlaceholderText="Search Instruments..."
+            onChangeInput={ (text)=> console.log(text)}
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#CCC"
+            selectedItemTextColor="#CCC"
+            selectedItemIconColor="#CCC"
+            itemTextColor="#000"
+            displayKey="name"
+            searchInputStyle={{ color: '#CCC' }}
+            submitButtonColor="#CCC"
+            submitButtonText="Submit"
+            hideTags={false}
+            fixedHeight={false}
+          />
+          </ScrollView>
       </View>
     );
   }

@@ -146,9 +146,10 @@ export default class Map extends Component {
   // could use onRegionChange to fetch every time we move map, but start off with just always rendering all markers
 
   render() {
+    console.log('########## MAP CONTAINER ###########')
     console.log(this.state.markers)
     console.log('in render');
-    // make 1px or 
+    // make 1px or
     return (
       <View style={styles.container}>
         <MapView

@@ -3,12 +3,16 @@ import {
   Text,
   View,
 } from 'react-native';
-export default class UsersFeedScreen extends React.Component {
+import MultiSelectExample from '../containers/MyProfileContainer';
+
+export default class MyProfileScreen extends React.Component {
   render() {
     return (
-      <View>
-        <Text>This is the My Profile screen of the app</Text>
-      </View>
-     )
+      <MultiSelectExample/>
+    )
    }
 }
+
+// <View>
+//   <Text>This is the My Profile screen of the app</Text>
+// </View>

@@ -87,6 +87,8 @@ export default class Map extends Component {
     const usersRef = firebase.database().ref("users/");
 
     firebase.database().ref('/users/').once('value').then((snapshot) => {
+      console.log('*******IN THE FIREBASE CALL  IN MAP PAGE ********')
+
       let results = [];
       let users = snapshot.val()
       console.log('snapshot');

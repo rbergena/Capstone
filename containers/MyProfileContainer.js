@@ -31,6 +31,7 @@ export default class MultiSelectExample extends Component {
     const userId = firebase.auth().currentUser.uid;
     // firebase.database().ref('/users/' + userId + '/instruments').once('value').then(function(snapshot) {
     firebase.database().ref('/users/' + userId + '/instruments').once('value').then((snapshot) => {
+      console.log('*******IN THE FIREBASE CALL  IN PROFILE PAGE ********')
       // if the instrument node exists, set the state of selected instruments to those currently in the DB
       // if(snapshot.val()) {
         console.log('it returned a snapshot')
@@ -38,13 +39,13 @@ export default class MultiSelectExample extends Component {
         console.log('these are the snapshot instrument keys')
         let instrumentsObject = snapshot.val();
         console.log(Object.keys(instrumentsObject))
-        instrumentsArray.push(Object.keys(instrumentsObject))
-        results['selectedInstruments'] = instrumentsArray;
+        // instrumentsArray concat(Object.keys(instrumentsObject))
+        results['selectedInstruments'] = Object.keys(instrumentsObject);
 
         console.log('this is the results object')
         console.log(results);
         // set state with instruments in DB
-        // this.setState(results);
+        this.setState(results);
         // this.setState({
         //   selectedInstruments: ['Djembe', 'Flute']
         // });
@@ -56,7 +57,7 @@ export default class MultiSelectExample extends Component {
     });
     console.log('results outside of FB call')
     console.log(results)
-    this.setState(results);
+    // this.setState(results);
     console.log('instrumentsArray outside of FB call')
     console.log(instrumentsArray)
     // this.setState({
@@ -163,7 +164,7 @@ export default class MultiSelectExample extends Component {
       )
   };
   render() {
-    console.log('######### MY PROFILE CONTAINER ##############')
+    console.log(`######### IN MY PROFILE CONTAINER'S RENDER ##############`)
     console.log('selected items')
     console.log(this.state.selectedInstruments)
     const { selectedInstruments } = this.state;
@@ -171,6 +172,7 @@ export default class MultiSelectExample extends Component {
 
     console.log('this is the multiselect')
     console.log(this.multiSelect);
+    // debugger
     return (
       <View style={{ flex: 1, marginTop: 50 }}>
 

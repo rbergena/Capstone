@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { List, ListItem } from "react-native-elements"
 import * as firebase from 'firebase';
+import {distance} from '../config/distance'
 
 export default class UsersListContainer extends Component {
   constructor(props) {
@@ -33,24 +34,45 @@ export default class UsersListContainer extends Component {
       console.log(snapshot.val())
       let users = snapshot.val()
       let results = [];
-      for(var propName in users) {
-          if(users.hasOwnProperty(propName)) {
-            console.log('this is the propName')
-            console.log(propName)
-            console.log('this is the propValue')
-            console.log(users[propName])
-              var propValue = users[propName];
+      let currentUser = [];
+      for(var uid in users) {
+          if(users.hasOwnProperty(uid)) {
+            console.log('this is the uid')
+            console.log(uid)
+            console.log('this is the uid object')
+            console.log(users[uid])
+              var userObject = users[uid];
               // propValue.uid = propName
-              console.log('prop value object after adding uid key and value')
-              console.log(propValue)
-              if (userId === propName) {
+              // console.log('prop value object after adding uid key and value')
+              console.log('this is the user object')
+              console.log(userObject)
+              if (userId === uid) {
                 console.log('this is the current user')
+                currentUser.push(userObject)
+                console.log('user id')
                 console.log(userId)
+                console.log('current user object')
+                console.log(currentUser[0])
               } else {
-              results.push(propValue)
+              results.push(userObject)
             }
           }
       }
+      // calculate distance between current user and other users
+      let dist = 0;
+      results.forEach((user) => {
+        console.log(`this is the current user's coordinates`)
+        console.log(currentUser[0].coordinates)
+        console.log(`this is the user you are comparing with's coordinates`)
+        console.log(user.coordinates)
+        dist = distance(currentUser[0].coordinates.latitude, currentUser[0].coordinates.longitude, user.coordinates.latitude, user.coordinates.longitude)
+        console.log('this is the distance')
+        console.log(dist)
+        //
+        user['distance'] = dist.toFixed(2)
+        console.log('this is the updated user object with distance')
+        console.log(user)
+      });
       // set users with result from DB
       this.setState({
         users: results,
@@ -84,6 +106,10 @@ export default class UsersListContainer extends Component {
                     }
                     { item.instruments ? (
                     <Text style={styles.text}>Instruments: {Object.keys(item.instruments).join(', ')}</Text> )
+                    : null
+                    }
+                    { item.distance ? (
+                    <Text style={styles.text}> {item.distance} miles away</Text> )
                     : null
                     }
                   </View>

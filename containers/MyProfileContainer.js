@@ -73,7 +73,37 @@ export default class MultiSelectExample extends Component {
     //   selectedInstruments: result,
     // })
   }
-  // getInstruments() {
+  getInstruments() {
+  let results = {};
+  let instrumentsArray = [];
+
+  const userId = firebase.auth().currentUser.uid;
+  // firebase.database().ref('/users/' + userId + '/instruments').once('value').then(function(snapshot) {
+  firebase.database().ref('/users/' + userId + '/instruments').once('value').then((snapshot) => {
+    console.log('*******IN THE FIREBASE CALL  IN PROFILE PAGE ********')
+    // if the instrument node exists, set the state of selected instruments to those currently in the DB
+    // if(snapshot.val()) {
+      console.log('it returned a snapshot')
+      console.log(snapshot.val());
+      console.log('these are the snapshot instrument keys')
+      let instrumentsObject = snapshot.val();
+      console.log(Object.keys(instrumentsObject))
+      // set results equal to selected instruments array
+      results['selectedInstruments'] = Object.keys(instrumentsObject);
+
+      console.log('this is the results object')
+      console.log(results);
+      // set state with instruments in DB
+      this.setState(results);
+      // this.setState({
+      //   selectedInstruments: ['Djembe', 'Flute']
+      // });
+      console.log('this is the selectedInstruments state after pulling from DB')
+      console.log(this.state.selectedInstruments)
+    // } else {
+    //   console.log('no snapshot')
+    // }
+  });
   //   const userId = firebase.auth().currentUser.uid;
   //   let instrumentsArray = [];
   //
@@ -102,7 +132,7 @@ export default class MultiSelectExample extends Component {
   //     }
   //   });
   //   return instrumentsArray;
-  // }
+  }
   onSelectedInstrumentsChange = selectedInstruments => {
     this.setState({ selectedInstruments });
     // when selected items change, write over DB instruments values

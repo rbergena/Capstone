@@ -20,21 +20,17 @@ import * as firebase from 'firebase';
 export const SignInStack = StackNavigator({
   Login: {
     screen: LoginScreen,
-    // navigationOptions: ({ navigation }) => ({
     navigationOptions: {
       title: 'Login',
       headerLeft: null
     }
-    // }),
   },
   CreateAccount: {
     screen: CreateAccountForm,
-    // navigationOptions: ({ navigation }) => ({
     navigationOptions: {
       title: 'Create Account',
       headerLeft: null
     }
-    // }),
   },
 });
 
@@ -45,46 +41,58 @@ export const UsersFeedNavigator = StackNavigator({
       title: 'Users List',
     },
   },
-  UserDetails: {
+  UserDetailsFromFeed: {
     screen: UserDetailsScreen,
-    navigationOptions: {
-      title: 'User Details',
-    },
+    navigationOptions: ({ navigation }) => ({
+      title: `${navigation.state.params.name}'s Profile`,
+      tabBarLabel: 'User Profile',
+    }),
   },
   SocialMediaWebView: {
     screen: WebViewScreen,
-    navigationOptions: {
-      title: 'Social Media Web View',
-    },
+    navigationOptions: ({ navigation }) => ({
+      // title: `${navigation.state.params.user}'s ${navigation.state.params.socialName}`,
+      tabBarLabel: 'Social',
+    }),
   },
 });
 
 export const MapNavigator = StackNavigator({
-  UsersFeed: {
+  MapView: {
     screen: Map,
     navigationOptions: {
       title: 'Map',
     },
   },
-  UsersDetails: {
+  UsersDetailsFromMap: {
     screen: UserDetailsScreen,
-    navigationOptions: {
-      title: 'User Details',
-    },
+    navigationOptions: ({ navigation }) => ({
+      title: `${navigation.state.params.name}'s Profile`,
+      tabBarLabel: 'User Profile',
+    }),
   },
   SocialMediaWebView: {
     screen: WebViewScreen,
     navigationOptions: {
-      title: 'Social Media Web View',
+      // title: 'Social',
+      tabBarLabel: 'Social',
     },
   },
 });
 
-export const TabsNavigator = TabNavigator({
+export const MyProfileNavigator = StackNavigator({
   MyProfile: {
     screen: MyProfileScreen,
     navigationOptions: {
       title: 'My Profile',
+    }
+  },
+})
+
+export const TabsNavigator = TabNavigator({
+  MyProfile: {
+    screen: MyProfileNavigator,
+    navigationOptions: {
       tabBarIcon: ({ tintColor }) => <Icon name="account-circle" size={35} color={tintColor} />
     }
   },
@@ -132,9 +140,10 @@ export const TabsNavigator = TabNavigator({
 
 },
 // make headers consistent
-{
-  headerMode: 'none'
-});
+// {
+//   headerMode: 'none'
+// }
+);
 
 // TODO
 export const RootNavigator = StackNavigator({

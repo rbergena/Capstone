@@ -42,22 +42,6 @@ export default class Map extends Component {
   }
 
   // add watch id if tracking changes in geolocation
-  // test markers
-  //  markers = [{
-  //   title: 'hello',
-  //   coordinates: {
-  //     latitude: 38.887849,
-  //     longitude: -77.1101395
-  //   },
-  // },
-  // {
-  //   title: 'hello',
-  //   coordinates: {
-  //     latitude: 38.8748958,
-  //     longitude: -77.0892632
-  //   },
-  // }]
-  // markers =[];
   componentDidMount() {
     // get current position through geolocation and store lat and lng
     // get current position accepts three parameters: success callback, an error callback, and a configuration object (in that order)
@@ -101,14 +85,9 @@ export default class Map extends Component {
           // user data objects in array
           console.log('propValue')
           console.log(propValue)
-
-          // const marker = {
-          //   ...propValue,
-          //   coordinates: {
-          //     latitude: propValue.coordinates.latitude,
-          //     longitude: propValue.coordinates.longitude,
-          //   }
-          // }
+          propValue.uid = propName
+          console.log('prop value object after adding uid key and value')
+          console.log(propValue)
           results.push(propValue)
 
 
@@ -145,6 +124,15 @@ export default class Map extends Component {
       })
     });
   }
+
+  // //navigate to user details page and pass selected user object
+  goToUserDetails(user){
+    console.log('callout was pressed: Now in userdetails event handler')
+    // this.props.navigate('UserDetails', {...user})
+    this.props.navigation.navigate('UsersDetailsFromMap', {...user})
+  }
+
+
   // could use onRegionChange to fetch every time we move map, but start off with just always rendering all markers
 
   render() {
@@ -171,9 +159,14 @@ export default class Map extends Component {
           </MapView.Marker>
         {this.state.markers.map((marker, index) => (
           <MapView.Marker coordinate={marker.coordinates} key={index}>
-          <MapView.Callout tooltip={false}>
+          <MapView.Callout
+            tooltip={false}
+            onPress={() => {this.goToUserDetails({...marker})}}
+            >
             <View>
-               <Text>test</Text>
+              <Text>{marker.name}</Text>
+              <Text>Genres: {Object.keys(marker.genres).join(', ')}</Text>
+              <Text>Instruments: {Object.keys(marker.instruments).join(', ')}</Text>
             </View>
            </MapView.Callout>
           </MapView.Marker>

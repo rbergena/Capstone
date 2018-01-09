@@ -24,12 +24,13 @@ export const Background = (props) => {
           rounded
           source={{uri: profilePicture}}
           activeOpacity={0.7}
+          containerStyle={{marginTop: 30}}
         />
         <Text style={styles.text}>
-          email: {email}
+          {email}
         </Text>
-        <Text>
-          city: {city}
+        <Text style={styles.font}>
+          {city}
         </Text>
     </View>
   );
@@ -39,16 +40,25 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    maxHeight: 300,
+    // maxHeight: 300,
     alignItems: 'center',
+    // backgroundColor: 'white',
   },
   text: {
     marginTop: 20,
+    fontSize: 16,
+    color: '#43484d',
+    // fontFamily: 'Helvetica Neue',
     // flex: 1,
     // flexDirection: 'row',
     // justifyContent: 'center',
     // alignItems: 'center',
   },
+  font: {
+    fontSize: 12,
+    color: '#43484d',
+    // fontFamily: 'Helvetica Neue',
+  }
   // item: {
   // padding: 10,
   // fontSize: 18,

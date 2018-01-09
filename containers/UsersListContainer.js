@@ -50,7 +50,7 @@ export default class UsersListContainer extends Component {
   }
   // //navigate to user details page and pass selected user object
   goToUserDetails(user){
-    this.props.navigate('UserDetails', {...user})
+    this.props.navigate('UserDetailsFromFeed', {...user})
   }
   // eventually refactor out presentational component
   // need to display instruments from object and genres from object
@@ -60,14 +60,25 @@ export default class UsersListContainer extends Component {
     console.log(this.state.users)
     return (
       <View style={styles.container}>
-        <List>
+        <List containerStyle={{marginTop: 0}}>
           <FlatList
             data={this.state.users}
             renderItem={({ item }) => (
               <ListItem
                 roundAvatar
                 title={item.name}
-                subtitle={item.description}
+                subtitle={
+                  <View>
+                    { item.genres ? (
+                      <Text style={styles.text}>Genres: {Object.keys(item.genres).join(', ')}</Text> )
+                      : null
+                    }
+                    { item.instruments ? (
+                    <Text style={styles.text}>Instruments: {Object.keys(item.instruments).join(', ')}</Text> )
+                    : null
+                    }
+                  </View>
+                }
                 avatar={{ uri: item.picture.thumbnail }}
                 keyExtractor={item => item.uid}
                 onPress={() => this.goToUserDetails({...item})}
@@ -89,6 +100,12 @@ const styles = StyleSheet.create({
   fontSize: 18,
   height: 70,
 },
+text: {
+  color: '#86939e',
+  fontSize: 14,
+  fontWeight: '600',
+  marginLeft: 10,
+}
 });
 
 // <FlatList

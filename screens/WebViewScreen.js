@@ -25,9 +25,3 @@ const styles = StyleSheet.create({
     // marginTop: 20,
   },
 });
-
-// <View>
-//   <Text>
-//     This is the webview screen
-//   </Text>
-// </View>

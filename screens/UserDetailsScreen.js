@@ -13,17 +13,7 @@ export default class UserDetailScreen extends React.Component {
     console.log('navigation state params')
     console.log(state.params)
     return (
-        <UserProfileContainer userInfo={ state.params} navigate={ this.props.navigation.navigate}/>
+        <UserProfileContainer userInfo={state.params} navigate={ this.props.navigation.navigate}/>
      )
    }
 }
-
-
-
-    // return (
-    //     <UserProfileContainer userInfo={ state.params}/>
-    //  )
-    //
-    // <View>
-    //   <Text>This is the User Details screen of the app {state.params.name}</Text>
-    // </View>

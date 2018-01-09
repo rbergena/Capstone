@@ -5,19 +5,17 @@ import {
   Text,
   View,
   Image,
+  ScrollView,
 } from 'react-native';
 import SocialMedia from '../components/UserProfile/SocialMedia';
 import { Background } from '../components/UserProfile/Background';
-
+import { Description } from '../components/UserProfile/Description';
 
 export default class UserProfileContainer extends Component {
   constructor(props) {
     super(props);
-    // don't need state?
-    // this.state = {
-    //   // users will be populated by the database
-    //   users: []
-    // }
+    // don't need state
+    // user information is passed through navigation props
   }
 
 
@@ -26,6 +24,7 @@ export default class UserProfileContainer extends Component {
   // pass social media links as props to the social media component
   // conditionally render social media section if the user has social media links
   render() {
+    // const { userInfo } = this.props
     console.log('user information')
     console.log(this.props.userInfo)
     console.log('social media information')
@@ -33,15 +32,23 @@ export default class UserProfileContainer extends Component {
 
     return (
       <View style={styles.container}>
+        <ScrollView>
         <Background picture={this.props.userInfo.picture.large}
         city={this.props.userInfo.city_state}
         email={this.props.userInfo.email}
         />
         {this.props.userInfo.social_media ? (
           <SocialMedia links={this.props.userInfo.social_media}
+          userName={this.props.userInfo.name}
           navigate={this.props.navigate}
           />
         ) : null}
+        <Description
+          description={this.props.userInfo.description}
+          genres={this.props.userInfo.genres}
+          instruments={this.props.userInfo.instruments}
+        />
+        </ScrollView>
       </View>
     );
   }
@@ -50,5 +57,10 @@ export default class UserProfileContainer extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'hsla(0, 100%, 90%, 0.2)'
+    // backgroundColor: 'rgba(255,255,255, 0.2)'
+    // backgroundColor: 'white',
+    // opacity: 0.5,
+    // paddingTop: 20,
   },
 });

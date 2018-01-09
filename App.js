@@ -6,12 +6,10 @@
 
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
-  Image,
-  KeyboardAvoidingView,
+  StatusBar,
 } from 'react-native';
 import Login from './components/Login/Login';
 // import LoginForm from './components/Login/LoginForm';
@@ -27,7 +25,7 @@ import UserList from './components/UsersFeed/UserList';
 export default class App extends Component<{}> {
   render() {
     return (
-      <View style={styles.container}>
+      <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
         <RootNavigator />
       </View>
     );

@@ -1,4 +1,4 @@
-// User Profile Component
+// Social Media Component
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -19,46 +19,44 @@ export default class SocialMedia extends Component {
     super(props);
     // this.goToWebView = this.goToWebView.bind(this);
   }
-
-  // navigate to webview based on which icon user pressed
-  goToWebView(uri, userhandle) {
+  // when a social icon is pressed, navigate to appropriate webview
+  goToWebView(uri, userhandle, socialName, user) {
     console.log('this is the url produced');
     console.log(uri + userhandle);
     const finalURI = uri + userhandle;
-    this.props.navigate('SocialMediaWebView', {finalURI})
-
+    this.props.navigate('SocialMediaWebView', {finalURI, socialName, user})
   }
-// add on press prop for social icons that will then go to webview
-// try hard coded with a uid hardcoded from DB and pull information
-// conditionally display icons
+  // conditionally display icons
   render() {
+    const {userName} = this.props;
+
     return (
         <View style={styles.socialContainer}>
         { this.props.links.soundcloud ? (
           <SocialIcon
             raised={false}
             type='soundcloud'
-            onPress={() => this.goToWebView(SOUNDCLOUD, this.props.links.soundcloud)}
+            onPress={() => this.goToWebView(SOUNDCLOUD, this.props.links.soundcloud, 'SoundCloud', userName)}
           />
         ) : null}
         {this.props.links.twitter ? (
           <SocialIcon
           type='twitter'
-          onPress={() => this.goToWebView(TWITTER, this.props.links.twitter)}
+          onPress={() => this.goToWebView(TWITTER, this.props.links.twitter, 'twitter', userName)}
           />
         ) : null}
         {this.props.links.youtube ? (
           <SocialIcon
             light
             type='youtube'
-            onPress={() => this.goToWebView(YOUTUBE, this.props.links.youtube)}
+            onPress={() => this.goToWebView(YOUTUBE, this.props.links.youtube, 'youtube', userName)}
           />
         ): null}
         {this.props.links.instagram ? (
           <SocialIcon
             light
             type='instagram'
-            onPress={() => this.goToWebView(INSTAGRAM, this.props.links.instagram)}
+            onPress={() => this.goToWebView(INSTAGRAM, this.props.links.instagram, 'instagram', userName)}
           />
         ): null}
 
@@ -73,6 +71,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

@@ -4,34 +4,36 @@ import { View,
           ScrollView,
         } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
-import { FormLabel, FormInput } from 'react-native-elements'
+import { FormLabel, FormInput, Avatar } from 'react-native-elements'
 // import dropdown choices for instruments and genres
 import { instruments, genres } from '../config/InstrumentsGenres';
 import * as firebase from 'firebase';
 
-export default class MultiSelectExample extends Component {
+export default class MultiSelectGenresInstruments extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedInstruments: [],
       selectedGenres: [],
+      avatar: '',
     }
   }
-  // set selected items to whatever is in DB if there are instruments and genres else selected genres and instruments state will be empty array
+  // set selected items to whatever is in DB for that user if there are instruments and genres. Otherwise selected genres and instruments state will be empty arrays
   // set state with already selected instruments
   componentDidMount(){
+    // TODO MAKE ONE CALL TO FB AND SET STATE FOR ALL PIECES
     console.log(`######### MY PROFILE CONTAINER'S componentDidMount ##############`)
     // this.setState({
     //   selectedInstruments: ['Djembe', 'Flute']
     // });
     // this.onSelectedInstrumentsChange;
-    let results = {};
-    let instrumentsArray = [];
+    let instrumentsResults = {};
+    let genresResults = {};
 
     const userId = firebase.auth().currentUser.uid;
     // firebase.database().ref('/users/' + userId + '/instruments').once('value').then(function(snapshot) {
     firebase.database().ref('/users/' + userId + '/instruments').once('value').then((snapshot) => {
-      console.log('*******IN THE FIREBASE CALL  IN PROFILE PAGE ********')
+      console.log('*******IN THE FIREBASE CALL INSTRUMENTS IN PROFILE PAGE ********')
       // if the instrument node exists, set the state of selected instruments to those currently in the DB
       // if(snapshot.val()) {
         console.log('it returned a snapshot')
@@ -39,100 +41,39 @@ export default class MultiSelectExample extends Component {
         console.log('these are the snapshot instrument keys')
         let instrumentsObject = snapshot.val();
         console.log(Object.keys(instrumentsObject))
-        // instrumentsArray concat(Object.keys(instrumentsObject))
-        results['selectedInstruments'] = Object.keys(instrumentsObject);
+        instrumentsResults['selectedInstruments'] = Object.keys(instrumentsObject);
 
         console.log('this is the results object')
-        console.log(results);
+        console.log(instrumentsResults);
         // set state with instruments in DB
-        this.setState(results);
-        // this.setState({
-        //   selectedInstruments: ['Djembe', 'Flute']
-        // });
+        this.setState(instrumentsResults);
         console.log('this is the selectedInstruments state after pulling from DB')
         console.log(this.state.selectedInstruments)
-      // } else {
-      //   console.log('no snapshot')
-      // }
     });
-    console.log('results outside of FB call')
-    console.log(results)
-    // this.setState(results);
-    console.log('instrumentsArray outside of FB call')
-    console.log(instrumentsArray)
-    // this.setState({
-    //   selectedInstruments: instrumentsArray,
-    // });
-    // this.setState({
-    //   selectedInstruments: ['Djembe', 'Flute']
-    // });
-    // let result = this.getInstruments();
-    // console.log('result from get instruments')
-    // console.log(result)
-    // this.setState({
-    //   selectedInstruments: result,
-    // })
-  }
-  getInstruments() {
-  let results = {};
-  let instrumentsArray = [];
+    firebase.database().ref('/users/' + userId + '/genres').once('value').then((snapshot) => {
+      console.log('*******IN THE FIREBASE CALL GENRES IN PROFILE PAGE ********')
+      // if the instrument node exists, set the state of selected instruments to those currently in the DB
+      // if(snapshot.val()) {
+        console.log('it returned a snapshot')
+        console.log(snapshot.val());
+        console.log('these are the snapshot instrument keys')
+        let genresObject = snapshot.val();
+        console.log(Object.keys(genresObject))
+        genresResults['selectedGenres'] = Object.keys(genresObject);
 
-  const userId = firebase.auth().currentUser.uid;
-  // firebase.database().ref('/users/' + userId + '/instruments').once('value').then(function(snapshot) {
-  firebase.database().ref('/users/' + userId + '/instruments').once('value').then((snapshot) => {
-    console.log('*******IN THE FIREBASE CALL  IN PROFILE PAGE ********')
-    // if the instrument node exists, set the state of selected instruments to those currently in the DB
-    // if(snapshot.val()) {
-      console.log('it returned a snapshot')
-      console.log(snapshot.val());
-      console.log('these are the snapshot instrument keys')
-      let instrumentsObject = snapshot.val();
-      console.log(Object.keys(instrumentsObject))
-      // set results equal to selected instruments array
-      results['selectedInstruments'] = Object.keys(instrumentsObject);
-
-      console.log('this is the results object')
-      console.log(results);
-      // set state with instruments in DB
-      this.setState(results);
-      // this.setState({
-      //   selectedInstruments: ['Djembe', 'Flute']
-      // });
-      console.log('this is the selectedInstruments state after pulling from DB')
-      console.log(this.state.selectedInstruments)
-    // } else {
-    //   console.log('no snapshot')
-    // }
+        console.log('this is the results object')
+        console.log(genresResults);
+        // set state with genres in DB
+        this.setState(genresResults);
+        console.log('this is the selectedGenres state after pulling from DB')
+        console.log(this.state.selectedGenres)
+    });
+    firebase.database().ref('/users/' + userId).once('value').then((snapshot) => {
+      let user = snapshot.val();
+      this.setState({avatar: user.picture.large})
   });
-  //   const userId = firebase.auth().currentUser.uid;
-  //   let instrumentsArray = [];
-  //
-  //   firebase.database().ref('/users/' + userId + '/instruments').once('value').then((snapshot) => {
-  //     // if the instrument node exists, set the state of selected instruments to those currently in the DB
-  //     if(snapshot.val()) {
-  //       console.log('it returned a snapshot')
-  //       console.log(snapshot.val());
-  //       console.log('these are the snapshot instrument keys')
-  //       let instrumentsObject = snapshot.val();
-  //       console.log(Object.keys(instrumentsObject))
-  //       instrumentsArray.push(Object.keys(instrumentsObject))
-  //       results['selectedInstruments'] = instrumentsArray;
-  //
-  //       console.log('this is the results object')
-  //       console.log(results);
-  //       // set state with instruments in DB
-  //       // this.setState(results);
-  //       // this.setState({
-  //       //   selectedInstruments: ['Djembe', 'Flute']
-  //       // });
-  //       console.log('this is the selectedInstruments state after pulling from DB')
-  //       console.log(this.state.selectedInstruments)
-  //     } else {
-  //       console.log('no snapshot')
-  //     }
-  //   });
-  //   return instrumentsArray;
-  }
+}
+
   onSelectedInstrumentsChange = selectedInstruments => {
     this.setState({ selectedInstruments });
     // when selected items change, write over DB instruments values
@@ -193,6 +134,7 @@ export default class MultiSelectExample extends Component {
         results
       )
   };
+  // TODO conditionally set source uri
   render() {
     console.log(`######### IN MY PROFILE CONTAINER'S RENDER ##############`)
     console.log('selected items')
@@ -205,13 +147,27 @@ export default class MultiSelectExample extends Component {
     // debugger
     return (
       <View style={{ flex: 1, marginTop: 50 }}>
-
-
+      <ScrollView>
+      <Avatar
+        xlarge
+        rounded
+        source={{uri: this.state.avatar}}
+        activeOpacity={0.7}
+        containerStyle={{marginTop: 30, justifyContent: 'center'}}
+      />
+      <FormLabel>Name</FormLabel>
+      <FormInput onChangeText={() => console.log('form input changed')}/>
+      <FormLabel>Email</FormLabel>
+      <FormInput onChangeText={() => console.log('form input changed')}/>
+      <FormLabel>Description</FormLabel>
+      <FormInput onChangeText={() => console.log('form input changed')}/>
+      <FormLabel>Social Media</FormLabel>
+      <FormInput onChangeText={() => console.log('form input changed')}/>
         <ScrollView>
         <MultiSelect
           hideTags
           items={genres}
-          uniqueKey="id"
+          uniqueKey="genre"
           ref={(component) => { this.multiSelect = component }}
           onSelectedItemsChange={this.onSelectedGenresChange}
           selectedItems={selectedGenres}
@@ -259,6 +215,8 @@ export default class MultiSelectExample extends Component {
             fixedHeight={false}
           />
           </ScrollView>
+          </ScrollView>
+
       </View>
     );
   }

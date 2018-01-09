@@ -3,12 +3,12 @@ import {
   Text,
   View,
 } from 'react-native';
-import MultiSelectExample from '../containers/MyProfileContainer';
+import MultiSelectGenresInstruments from '../containers/MyProfileContainer';
 
 export default class MyProfileScreen extends React.Component {
   render() {
     return (
-      <MultiSelectExample/>
+      <MultiSelectGenresInstruments/>
     )
    }
 }

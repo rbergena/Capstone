@@ -64,49 +64,49 @@ export const instruments = [{
 
 // Genres
 export const genres = [{
-    id: 'Blues',
+    genre: 'Blues',
     name: 'Blues',
   }, {
-    id: 'Classical',
+    genre: 'Classical',
     name: 'Classical',
   }, {
-    id: 'Country',
+    genre: 'Country',
     name: 'Country',
   }, {
-    id: 'Electronic',
+    genre: 'Electronic',
     name: 'Electronic',
   }, {
-    id: 'Folk',
+    genre: 'Folk',
     name: 'Folk',
   }, {
-    id: 'Funk',
+    genre: 'Funk',
     name: 'Funk',
   }, {
-    id: 'Hip Hop',
+    genre: 'Hip Hop',
     name: 'Hip Hop',
   }, {
-    id: 'Jazz',
+    genre: 'Jazz',
     name: 'Jazz',
   }, {
-    id: 'Latin',
+    genre: 'Latin',
     name: 'Latin',
   }, {
-    id: 'Metal',
+    genre: 'Metal',
     name: 'Metal',
   }, {
-    id: 'Pop',
+    genre: 'Pop',
     name: 'Pop',
   }, {
-    id: 'R&B',
+    genre: 'R&B',
     name: 'R&B',
   }, {
-    id: 'Reggae',
+    genre: 'Reggae',
     name: 'Reggae',
   }, {
-    id: 'Rock',
+    genre: 'Rock',
     name: 'Rock',
   }, {
-    id: 'Soul',
+    genre: 'Soul',
     name: 'Soul',
   },
 ];

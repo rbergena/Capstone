@@ -20,10 +20,14 @@ export default class UsersListContainer extends Component {
   }
   // after component mounts, get users data from FBDB in order to populate list
   componentDidMount(){
+
     this.getUsersData();
   }
   // TODO: exclude currently logged in user (use user's uid and then only add to results array if currently logged in user's uid does not equal propName)
   getUsersData(){
+    const userId = firebase.auth().currentUser.uid;
+    // async and await promises
+    // non api call
     firebase.database().ref('/users/').once('value').then((snapshot) => {
       console.log('in component did mount')
       console.log(snapshot.val())
@@ -36,10 +40,15 @@ export default class UsersListContainer extends Component {
             console.log('this is the propValue')
             console.log(users[propName])
               var propValue = users[propName];
-              propValue.uid = propName
+              // propValue.uid = propName
               console.log('prop value object after adding uid key and value')
               console.log(propValue)
+              if (userId === propName) {
+                console.log('this is the current user')
+                console.log(userId)
+              } else {
               results.push(propValue)
+            }
           }
       }
       // set users with result from DB

@@ -39,12 +39,25 @@ export default class CreateAccountForm extends Component {
       console.log(error);
     });
 
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        firebase.database().ref('users/' + user.uid).set({
+            email: user.email,
+            uid : user.uid,
+        });
+        console.log("User added to DB.");
+      } else {
+         console.log("No user added to DB.");
+      }
+    });
+
     this.setState({
       email: '',
       password: '',
       loaded: true
     });
   }
+
   render() {
     const {navigate} = this.props.navigation;
 

@@ -158,7 +158,8 @@ export default class Map extends Component {
 
           </MapView.Marker>
         {this.state.markers.map((marker, index) => (
-          <MapView.Marker coordinate={marker.coordinates} key={index}>
+          marker.coordinates ? (
+            <MapView.Marker coordinate={marker.coordinates} key={index}>
           <MapView.Callout
             tooltip={false}
             onPress={() => {this.goToUserDetails({...marker})}}
@@ -170,6 +171,7 @@ export default class Map extends Component {
             </View>
            </MapView.Callout>
           </MapView.Marker>
+        ) : null
         ))}
 
           </MapView>

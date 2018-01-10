@@ -122,10 +122,10 @@ export default class UsersListContainer extends Component {
                   </View>
                 }
                 avatar={{ uri: item.picture.thumbnail }}
-                keyExtractor={item => item.uid}
                 onPress={() => this.goToUserDetails({...item})}
               />
             )}
+            keyExtractor={item => item.uid}
           />
         </List>
       </View>

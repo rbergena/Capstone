@@ -24,7 +24,7 @@ export default class UsersListContainer extends Component {
 
     this.getUsersData();
   }
-  // TODO: exclude currently logged in user (use user's uid and then only add to results array if currently logged in user's uid does not equal propName)
+
   getUsersData(){
     const userId = firebase.auth().currentUser.uid;
     // async and await promises
@@ -46,6 +46,7 @@ export default class UsersListContainer extends Component {
               // console.log('prop value object after adding uid key and value')
               console.log('this is the user object')
               console.log(userObject)
+                // exclude currently logged in user (use user's uid and then only add to results array if currently logged in user's uid does not equal the userObject's uid)
               if (userId === uid) {
                 console.log('this is the current user')
                 currentUser.push(userObject)
@@ -73,6 +74,12 @@ export default class UsersListContainer extends Component {
         console.log('this is the updated user object with distance')
         console.log(user)
       });
+      // sort resulting musicians in ascending order by distance
+      results.sort(function(a, b) {
+        return a.distance - b.distance;
+      });
+      console.log('these are the musicians after sorting')
+      console.log(results)
       // set users with result from DB
       this.setState({
         users: results,

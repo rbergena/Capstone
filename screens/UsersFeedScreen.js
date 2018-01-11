@@ -4,13 +4,16 @@ import {
   View,
 } from 'react-native';
 import UsersListContainer from '../containers/UsersListContainer'
+import FilterableUsersTable from '../containers/FilterableUsersTable'
+
 
 export default class UsersFeedScreen extends React.Component {
   render() {
-    // const {navigate} = this.props.navigation;
 
     return (
-        <UsersListContainer navigate={ this.props.navigation.navigate}/>
+        <FilterableUsersTable navigate={ this.props.navigation.navigate}/>
      )
    }
 }
+
+// <UsersListContainer navigate={ this.props.navigation.navigate}/>

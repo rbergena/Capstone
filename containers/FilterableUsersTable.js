@@ -128,6 +128,8 @@ export default class FilterableUsersTable extends Component {
         onFilterTextChange={this.handleFilterTextChange}
       />
       <UsersListContainer
+        filterText={this.state.filterText}
+        filterIndex={this.state.filterIndex}
         navigate={this.props.navigate}
         users={this.state.users}
       />

@@ -3,26 +3,16 @@ import {
   StyleSheet,
   Text,
   View,
-
 } from 'react-native';
 import { ButtonGroup, SearchBar} from "react-native-elements"
 
 
 export default class SearchFilterBar extends React.Component {
-
-  constructor () {
-  super()
-  // this.state = {
-  //   selectedIndex: 2
-  // }
-  this.handlePress = this.handlePress.bind(this)
-  this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
-  // this.updateIndex = this.updateIndex.bind(this)
-}
-
-// updateIndex (selectedIndex) {
-//   this.setState({selectedIndex})
-// }
+  constructor(props) {
+    super(props);
+    this.handlePress = this.handlePress.bind(this);
+    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+  }
 
   handlePress(filterIndex) {
     this.props.onPress(filterIndex)
@@ -32,11 +22,12 @@ export default class SearchFilterBar extends React.Component {
   this.props.onFilterTextChange(text);
   }
 
-
   render() {
     const filterText = this.props.filterText;
     const filterIndex = this.props.filterIndex;
     const buttons = ['Instruments', 'Genres']
+    console.log('onFilterTextChange editing')
+    console.log(this.props.onFilterTextChange)
     return (
       <View>
       <ButtonGroup

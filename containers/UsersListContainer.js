@@ -191,7 +191,7 @@ export default class UsersListContainer extends Component {
                     : null
                     }
                     { item.distance ? (
-                    <Text style={styles.text}> {item.distance} miles away</Text> )
+                    <Text style={[styles.text, styles.distance]}> {item.distance} miles away</Text> )
                     : null
                     }
                   </View>
@@ -223,6 +223,9 @@ text: {
   fontSize: 14,
   fontWeight: '600',
   marginLeft: 10,
+},
+distance: {
+  // textAlign: 'right',
 }
 });
 

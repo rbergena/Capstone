@@ -11,7 +11,9 @@ import CreateAccountForm from '../components/CreateAccount/CreateAccountForm.js'
 import MyProfileScreen from '../screens/MyProfileScreen.js';
 import UserDetailsScreen from '../screens/UserDetailsScreen.js';
 import UsersFeedScreen from '../screens/UsersFeedScreen.js';
-import Map from '../screens/Map.js';
+// import Map from '../screens/Map.js';
+import MapScreen from '../screens/MapScreen.js';
+
 import WebViewScreen from '../screens/WebViewScreen.js';
 import LogoutScreen from '../screens/LogoutScreen.js';
 import * as firebase from 'firebase';
@@ -59,7 +61,7 @@ export const UsersFeedNavigator = StackNavigator({
 
 export const MapNavigator = StackNavigator({
   MapView: {
-    screen: Map,
+    screen: MapScreen,
     navigationOptions: {
       title: 'Map',
     },

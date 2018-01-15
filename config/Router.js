@@ -40,14 +40,14 @@ export const UsersFeedNavigator = StackNavigator({
   UsersFeed: {
     screen: UsersFeedScreen,
     navigationOptions: {
-      title: 'Users List',
+      title: 'Musicians List',
     },
   },
   UserDetailsFromFeed: {
     screen: UserDetailsScreen,
     navigationOptions: ({ navigation }) => ({
       title: `${navigation.state.params.name}'s Profile`,
-      tabBarLabel: 'User Profile',
+      tabBarLabel: 'Musician Profile',
     }),
   },
   SocialMediaWebView: {
@@ -70,7 +70,7 @@ export const MapNavigator = StackNavigator({
     screen: UserDetailsScreen,
     navigationOptions: ({ navigation }) => ({
       title: `${navigation.state.params.name}'s Profile`,
-      tabBarLabel: 'User Profile',
+      tabBarLabel: 'Musician Profile',
     }),
   },
   SocialMediaWebView: {

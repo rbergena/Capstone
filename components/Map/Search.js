@@ -48,7 +48,7 @@ export default class Search extends React.Component {
         selectedIndex={this.props.searchIndex}
         buttons={buttons}
         containerStyle={{height: 50}}
-        selectedBackgroundColor="pink"
+        selectedBackgroundColor="#D8E2DC"
       />
       <SearchBar
         round
@@ -69,9 +69,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   instruments: {
-    color: 'blue',
+    // color: '#9C7178',
+    // color: '#548089'
+    color: '#00171F',
+    fontWeight: 'bold',
   },
   genres: {
-    color: 'red',
+    // color: '#829356',
+    // color: '#9C7178'
+    color: '#003459',
+    fontWeight: 'bold',
   },
 });

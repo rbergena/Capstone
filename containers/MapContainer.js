@@ -167,12 +167,15 @@ export default class Map extends Component {
             <MapView.Marker coordinate={marker.coordinates} key={index}>
           <MapView.Callout
             tooltip={false}
+            style={styles.callout}
             onPress={() => {this.goToUserDetails({...marker})}}
             >
             <View>
               <Text style={styles.name}>{marker.name}</Text>
               <Text style={styles.genres}>{Object.keys(marker.genres).join(', ')}</Text>
               <Text style={styles.instruments}>{Object.keys(marker.instruments).join(', ')}</Text>
+              <Text style={{ fontFamily: 'Al Nile' }}>Custom Font</Text>
+
             </View>
            </MapView.Callout>
           </MapView.Marker>
@@ -234,13 +237,28 @@ const styles = StyleSheet.create({
     // ...StyleSheet.absoluteFillObject,
   },
   instruments: {
-    color: 'blue',
+    // color: '#9C7178',
+    // color: '#548089'
+    color: '#00171F',
+    fontWeight: 'bold',
   },
   genres: {
-    color: 'red',
+    // color: '#829356',
+    // color: '#9C7178'
+    color: '#003459',
+    fontWeight: 'bold',
   },
   name: {
-    // textAlign: 'center',
+    color: '#86939e',
+    textAlign: 'center',
+    fontWeight: '800',
+
+  },
+  callout: {
+  width: 140,
+  },
+  icons: {
+    flexDirection: 'row',
   }
 });
 
@@ -306,3 +324,13 @@ const styles = StyleSheet.create({
             //   </View>
             //  </MapView.Callout>
             // </MapView.Marker>
+
+
+            // <View style={styles.icons}>
+            // <Image source={require('../assets/Djembe.png')}
+            // style={{width: 25, height: 25, marginRight: 5}}
+            // />
+            // <Image source={require('../assets/Djembe.png')}
+            // style={{width: 25, height: 25, marginRight: 5}}
+            // />
+            // </View>

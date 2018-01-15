@@ -14,6 +14,20 @@ import { FormLabel, FormInput, Avatar, Button, List, listItem, SocialIcon, Icon 
 // import dropdown choices for instruments and genres
 import { instruments, genres } from '../config/InstrumentsGenres';
 import * as firebase from 'firebase';
+var ImagePicker = require('react-native-image-picker');
+
+// before uploading image to firebase storage, we need to convert it to the blob format (required for firebase image storage)
+
+// More info on all the options is below in the README...just some common use cases shown here
+var options = {
+  title: 'Select Profile Picture',
+  storageOptions: {
+    skipBackup: true,
+    path: 'images'
+  }
+};
+
+
 
 export default class MultiSelectGenresInstruments extends Component {
   constructor(props) {
@@ -31,6 +45,7 @@ export default class MultiSelectGenresInstruments extends Component {
       // email: '',
       // description: '',
     }
+    this.showImagePicker = this.showImagePicker.bind(this);
   }
   // set selected items to whatever is in DB for that user if there are instruments and genres. Otherwise selected genres and instruments state will be empty arrays
   // set state with already selected instruments
@@ -241,7 +256,37 @@ export default class MultiSelectGenresInstruments extends Component {
       this.state.youtube,
     );
   }
+  /**
+   * The first arg is the options object for customization (it can also be null or omitted for default options),
+   * The second arg is the callback which sends object: response (more info below in README)
+   */
+   showImagePicker() {
+     ImagePicker.showImagePicker(options, (response) => {
+    console.log('Response = ', response);
 
+    if (response.didCancel) {
+      console.log('User cancelled image picker');
+    }
+    else if (response.error) {
+      console.log('ImagePicker Error: ', response.error);
+    }
+    // else if (response.customButton) {
+    //   console.log('User tapped custom button: ', response.customButton);
+    // }
+    else {
+      let source = { uri: response.uri };
+
+      // You can also display the image using data:
+      // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+      console.log('this is the response uri')
+      console.log(response.uri)
+
+      // this.setState({
+      //   avatar: response.uri
+      // });
+    }
+  });
+}
 
   // TODO conditionally set source uri
   render() {
@@ -281,6 +326,15 @@ export default class MultiSelectGenresInstruments extends Component {
       <TouchableOpacity style={{ borderRadius: 15, backgroundColor: '#4A6D7C', paddingVertical: 6, paddingHorizontal: 11}}>
         <Text style={styles.buttonText}>Edit Photo</Text>
       </TouchableOpacity>
+      <Button
+        raised
+        icon={{name: 'photo'}}
+        title='Edit'
+        backgroundColor='#4A6D7C'
+        borderRadius={15}
+        containerViewStyle={{borderRadius: 15, height: 20 }}
+        onPress={this.showImagePicker}
+         />
 
       </View>
       <View style={styles.socialContainer}>

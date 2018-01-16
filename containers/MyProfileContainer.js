@@ -8,6 +8,7 @@ import { View,
           AlertIOS,
           TouchableOpacity,
           Text,
+          Platform,
         } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import { FormLabel, FormInput, Avatar, Button, List, listItem, SocialIcon, Icon } from 'react-native-elements'
@@ -17,8 +18,14 @@ import * as firebase from 'firebase';
 var ImagePicker = require('react-native-image-picker');
 
 // before uploading image to firebase storage, we need to convert it to the blob format (required for firebase image storage)
+import RNFetchBlob from 'react-native-fetch-blob';
+// fetch variables needed to convert image to blobconst Blob = RNFetchBlob.polyfill.Blob
+const Blob = RNFetchBlob.polyfill.Blob
+const fs = RNFetchBlob.fs
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
 
-// More info on all the options is below in the README...just some common use cases shown here
+// options for image picker
 var options = {
   title: 'Select Profile Picture',
   storageOptions: {
@@ -36,14 +43,14 @@ export default class MultiSelectGenresInstruments extends Component {
       loading: false,
       selectedInstruments: [],
       selectedGenres: [],
-      avatar: '',
+      avatar: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
       soundcloud: '',
       twitter: '',
       instagram: '',
       youtube: '',
-      // name: '',
-      // email: '',
-      // description: '',
+      name: '',
+      email: '',
+      description: '',
     }
     this.showImagePicker = this.showImagePicker.bind(this);
   }
@@ -58,16 +65,26 @@ export default class MultiSelectGenresInstruments extends Component {
     // get users information from user/uid node
       firebase.database().ref('/users/' + userId).once('value').then((snapshot) => {
         console.log('*******IN THE FIREBASE CALL USER/UID IN PROFILE PAGE ********')
+        let instrumentsObject = [];
+        let genresObject = [];
+        let avatar = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
         // if the instrument node exists, set the state of selected instruments to those currently in the DB
         // if(snapshot.val()) {
         // TODO first check if node exists, if not then don't change selected instruments or genres
           console.log('it returned a snapshot')
           console.log(snapshot.val());
           let currentUserObject = snapshot.val();
-          let instrumentsObject =  Object.keys(currentUserObject.instruments)
+          // if instruments or genres exist
+          if(currentUserObject.instruments) {
+            instrumentsObject =  Object.keys(currentUserObject.instruments)
+          }
+
           console.log('this is the instruments object')
           console.log(instrumentsObject)
-          let genresObject = Object.keys(currentUserObject.genres)
+          if(currentUserObject.genres) {
+            genresObject = Object.keys(currentUserObject.genres)
+          }
+
           console.log('this is the genres object')
           console.log(genresObject)
           let name = '';
@@ -105,13 +122,20 @@ export default class MultiSelectGenresInstruments extends Component {
               soundcloud = currentUserObject.social_media.soundcloud;
             }
           }
+          if(currentUserObject.picture) {
+            if(currentUserObject.picture.large) {
+              avatar = currentUserObject.picture.large;
+            }
+          }
           // get user name, email, description
           this.setState({
             selectedInstruments: instrumentsObject,
             selectedGenres: genresObject,
             name: name,
             email: email,
-            avatar: currentUserObject.picture.large,
+            // check if photo exists first otherwise keep with default photo
+            // avatar: currentUserObject.picture.large,
+            avatar: avatar,
             description: description,
             loading: false,
             twitter: twitter,
@@ -256,11 +280,39 @@ export default class MultiSelectGenresInstruments extends Component {
       this.state.youtube,
     );
   }
+
+  uploadImage (uri, mime = 'image/jpg') {
+  return new Promise((resolve, reject) => {
+    const userId = firebase.auth().currentUser.uid;
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+      let uploadBlob = null
+      const imageRef = firebase.storage().ref(`images/${userId}`).child('profile')
+      fs.readFile(uploadUri, 'base64')
+      .then((data) => {
+        return Blob.build(data, { type: `${mime};BASE64` })
+      })
+      .then((blob) => {
+        uploadBlob = blob
+        return imageRef.put(blob, { contentType: mime })
+      })
+      .then(() => {
+        uploadBlob.close()
+        return imageRef.getDownloadURL()
+      })
+      .then((url) => {
+        resolve(url)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
   /**
    * The first arg is the options object for customization (it can also be null or omitted for default options),
    * The second arg is the callback which sends object: response (more info below in README)
    */
    showImagePicker() {
+     const userId = firebase.auth().currentUser.uid;
      ImagePicker.showImagePicker(options, (response) => {
     console.log('Response = ', response);
 
@@ -280,7 +332,16 @@ export default class MultiSelectGenresInstruments extends Component {
       // let source = { uri: 'data:image/jpeg;base64,' + response.data };
       console.log('this is the response uri')
       console.log(response.uri)
-
+      this.uploadImage(response.uri)
+        // after the image is added to firebase storage, add it to appropriate location in FB RTDB under users/uid/picture/
+        .then(url => {
+          firebase.database().ref('users/' + userId + '/picture/large').set(url)
+          firebase.database().ref('users/' + userId + '/picture/thumbnail').set(url)
+          this.setState({avatar: url})
+        })
+        // .then(url => { alert('uploaded'); this.setState({avatar: url}) })
+        .catch(error => console.log(error))
+      // }
       // this.setState({
       //   avatar: response.uri
       // });

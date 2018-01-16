@@ -125,7 +125,10 @@ export default class UsersListContainer extends Component {
                     }
                   </View>
                 }
-                avatar={{ uri: item.picture.thumbnail }}
+                avatar={
+                item.picture ? ({ uri: item.picture.thumbnail }) : ({ uri:  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' })
+
+              }
                 onPress={() => this.goToUserDetails({...item})}
               />
             )}
@@ -182,3 +185,11 @@ genres: {
 // style={{width: 25, height: 25, marginRight: 5}}
 // />
 // </View>
+// 128
+// avatar={{ uri: item.picture.thumbnail }}
+// onPress={() => this.goToUserDetails({...item})}
+
+// { item.picture ?
+//   avatar={{ uri: item.picture.thumbnail }}
+//   : avatar={{ uri:  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' }}
+// }

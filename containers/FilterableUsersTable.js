@@ -72,28 +72,55 @@ export default class FilterableUsersTable extends Component {
       }
       // calculate distance between current user and other users
       let dist = 0;
+      let finalUsers = [];
       results.forEach((user) => {
         console.log(`this is the current user's coordinates`)
+        // if current user has provided coordinates, use those otherwise get coordinates and set then compare
+        let lat = '';
+        let long = '';
+        if(!currentUser[0].coordinates) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            lat = position.coords.latitude;
+            long = position.coords.longitude;
+            firebase.database().ref('users/' + userId + '/coordinates').set({
+              latitude: lat,
+              longitude: long,
+              })
+          });
+          currentUser[0].coordinates = {
+            latitude: lat,
+            longitude: long,
+          }
+        }
+
+
         console.log(currentUser[0].coordinates)
         console.log(`this is the user you are comparing with's coordinates`)
-        console.log(user.coordinates)
-        dist = distance(currentUser[0].coordinates.latitude, currentUser[0].coordinates.longitude, user.coordinates.latitude, user.coordinates.longitude)
-        console.log('this is the distance')
-        console.log(dist)
-        //
-        user['distance'] = dist.toFixed(2)
-        console.log('this is the updated user object with distance')
-        console.log(user)
+        if(user.coordinates) {
+          console.log(user.coordinates)
+          dist = distance(currentUser[0].coordinates.latitude, currentUser[0].coordinates.longitude, user.coordinates.latitude, user.coordinates.longitude)
+          console.log('this is the distance')
+          console.log(dist)
+          //
+          user['distance'] = dist.toFixed(2)
+          console.log('this is the updated user object with distance')
+          console.log(user)
+        }
+        finalUsers.push(user)
+
       });
       // sort resulting musicians in ascending order by distance
-      results.sort(function(a, b) {
+      // results.sort(function(a, b) {
+      //   return a.distance - b.distance;
+      // });
+      finalUsers.sort(function(a, b) {
         return a.distance - b.distance;
       });
       console.log('these are the musicians after sorting')
-      console.log(results)
+      console.log(finalUsers)
       // set users with result from DB
       this.setState({
-        users: results,
+        users: finalUsers,
       })
     });
   }

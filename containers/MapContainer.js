@@ -37,6 +37,9 @@ export default class Map extends Component {
         longitude: 0
       },
     }
+    this.onRegionChange = this.onRegionChange.bind(this);
+    // this.onRegionChangeComplete = this.onRegionChangeComplete.bind(this);
+
   }
 
   componentDidMount() {
@@ -62,12 +65,22 @@ export default class Map extends Component {
   // //navigate to user details page and pass selected user object
   goToUserDetails(user){
     console.log('callout was pressed: Now in userdetails event handler')
-    // this.props.navigate('UserDetails', {...user})
     this.props.navigate('UsersDetailsFromMap', {...user})
   }
 
 
   // could use onRegionChange to fetch every time we move map, but start off with just always rendering all markers
+  onRegionChange(region) {
+    console.log('this is the region')
+    console.log(region)
+    // this.setState({initialPosition: region});
+  }
+  // onRegionChangeComplete(region) {
+  //   // console.log('this is the region')
+  //   // console.log(region)
+  //   // this.setState({initialPosition: region});
+  // }
+
 
   render() {
     console.log('########## MAP CONTAINER ###########')
@@ -147,21 +160,14 @@ export default class Map extends Component {
   }
     return (
       <View style={styles.container}>
-        <MapView
+        <MapView.Animated
         style={styles.map}
         region={this.state.initialPosition}
+        showsUserLocation={true}
+        userLocationAnnotationTitle={''}
+        onRegionChange={this.onRegionChange}
         >
-        <MapView.Marker
-          coordinate={this.state.markerPosition}
-          key={'me'+ Date.now}>
-          <View style={styles.radius}>
-            <View style={styles.marker} />
-          </View>
-          <MapView.Callout tooltip={true}>
 
-          </MapView.Callout>
-
-          </MapView.Marker>
         {filteredUsers.map((marker, index) => (
           marker.coordinates ? (
             <MapView.Marker coordinate={marker.coordinates} key={index}>
@@ -182,7 +188,7 @@ export default class Map extends Component {
         ) : null
         ))}
 
-          </MapView>
+          </MapView.Animated>
       </View>
     );
   }
@@ -334,3 +340,14 @@ const styles = StyleSheet.create({
             // style={{width: 25, height: 25, marginRight: 5}}
             // />
             // </View>
+            // <MapView.Marker
+            //   coordinate={this.state.markerPosition}
+            //   key={'me'+ Date.now}>
+            //   <View style={styles.radius}>
+            //     <View style={styles.marker} />
+            //   </View>
+            //   <MapView.Callout tooltip={true}>
+            //
+            //   </MapView.Callout>
+            //
+            //   </MapView.Marker>

@@ -37,12 +37,14 @@ export default class SocialMedia extends Component {
             raised={false}
             type='soundcloud'
             onPress={() => this.goToWebView(SOUNDCLOUD, this.props.links.soundcloud, 'SoundCloud', userName)}
+            onLongPress={() => this.goToWebView(SOUNDCLOUD, this.props.links.soundcloud, 'SoundCloud', userName)}
           />
         ) : null}
         {this.props.links.twitter ? (
           <SocialIcon
           type='twitter'
           onPress={() => this.goToWebView(TWITTER, this.props.links.twitter, 'twitter', userName)}
+          onLongPress={() => this.goToWebView(TWITTER, this.props.links.twitter, 'twitter', userName)}
           />
         ) : null}
         {this.props.links.youtube ? (
@@ -57,6 +59,7 @@ export default class SocialMedia extends Component {
             light
             type='instagram'
             onPress={() => this.goToWebView(INSTAGRAM, this.props.links.instagram, 'instagram', userName)}
+            onLongPress={() => this.goToWebView(INSTAGRAM, this.props.links.instagram, 'instagram', userName)}
           />
         ): null}
 

@@ -8,34 +8,60 @@ import { View,
           AlertIOS,
           TouchableOpacity,
           Text,
+          Platform,
+          Image
         } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import { FormLabel, FormInput, Avatar, Button, List, listItem, SocialIcon, Icon } from 'react-native-elements'
 // import dropdown choices for instruments and genres
 import { instruments, genres } from '../config/InstrumentsGenres';
 import * as firebase from 'firebase';
+var ImagePicker = require('react-native-image-picker');
+
+// before uploading image to firebase storage, we need to convert it to the blob format (required for firebase image storage)
+import RNFetchBlob from 'react-native-fetch-blob';
+// fetch variables needed to convert image to blob
+const Blob = RNFetchBlob.polyfill.Blob
+const fs = RNFetchBlob.fs
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
+
+// options for image picker
+var options = {
+  title: 'Select Profile Picture',
+  storageOptions: {
+    skipBackup: true,
+    path: 'images'
+  }
+};
 
 export default class MultiSelectGenresInstruments extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: false,
-      selectedInstruments: [],
-      selectedGenres: [],
-      avatar: '',
+      // selectedInstruments: [],
+      // selectedGenres: [],
+      // avatar: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
       soundcloud: '',
       twitter: '',
       instagram: '',
       youtube: '',
-      // name: '',
-      // email: '',
-      // description: '',
+      name: '',
+      email: '',
+      description: '',
     }
+    this.showImagePicker = this.showImagePicker.bind(this);
+    this.youtubePressed = this.youtubePressed.bind(this);
+    this.instagramPressed = this.instagramPressed.bind(this);
+    this.twitterPressed = this.twitterPressed.bind(this);
+    this.soundcloudPressed = this.soundcloudPressed.bind(this);
+
+
+
   }
   // set selected items to whatever is in DB for that user if there are instruments and genres. Otherwise selected genres and instruments state will be empty arrays
-  // set state with already selected instruments
   componentDidMount(){
-    // TODO MAKE ONE CALL TO FB AND SET STATE FOR ALL PIECES
     this.setState({ loading: true });
     console.log(`######### MY PROFILE CONTAINER'S componentDidMount ##############`)
 
@@ -43,16 +69,22 @@ export default class MultiSelectGenresInstruments extends Component {
     // get users information from user/uid node
       firebase.database().ref('/users/' + userId).once('value').then((snapshot) => {
         console.log('*******IN THE FIREBASE CALL USER/UID IN PROFILE PAGE ********')
+        let instrumentsObject = [];
+        let genresObject = [];
+        let avatar = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
         // if the instrument node exists, set the state of selected instruments to those currently in the DB
-        // if(snapshot.val()) {
-        // TODO first check if node exists, if not then don't change selected instruments or genres
           console.log('it returned a snapshot')
           console.log(snapshot.val());
           let currentUserObject = snapshot.val();
-          let instrumentsObject =  Object.keys(currentUserObject.instruments)
+          // if instruments or genres exist
+          if(currentUserObject.instruments) {
+            instrumentsObject =  Object.keys(currentUserObject.instruments)
+          }
           console.log('this is the instruments object')
           console.log(instrumentsObject)
-          let genresObject = Object.keys(currentUserObject.genres)
+          if(currentUserObject.genres) {
+            genresObject = Object.keys(currentUserObject.genres)
+          }
           console.log('this is the genres object')
           console.log(genresObject)
           let name = '';
@@ -62,16 +94,12 @@ export default class MultiSelectGenresInstruments extends Component {
           let instagram = '';
           let soundcloud = '';
           let youtube = '';
-
           // if node exists, change state to value in DB, otherwise leave as empty string
           if(currentUserObject.name) {
             name = currentUserObject.name
           }
           if(currentUserObject.email) {
             email = currentUserObject.email
-          }
-          if(currentUserObject.description) {
-            description = currentUserObject.description
           }
           if(currentUserObject.description) {
             description = currentUserObject.description
@@ -90,13 +118,18 @@ export default class MultiSelectGenresInstruments extends Component {
               soundcloud = currentUserObject.social_media.soundcloud;
             }
           }
-          // get user name, email, description
+          if(currentUserObject.picture) {
+            if(currentUserObject.picture.large) {
+              avatar = currentUserObject.picture.large;
+            }
+          }
+          // set profile attributes
           this.setState({
             selectedInstruments: instrumentsObject,
             selectedGenres: genresObject,
             name: name,
             email: email,
-            avatar: currentUserObject.picture.large,
+            avatar: avatar,
             description: description,
             loading: false,
             twitter: twitter,
@@ -111,12 +144,12 @@ export default class MultiSelectGenresInstruments extends Component {
     this.setState({ selectedInstruments });
     // when selected items change, write over DB instruments values
     // first find the current user's uid
-    const user = firebase.auth().currentUser
-    console.log('this is the current user');
-    console.log(user)
-    console.log(`this is the current user's uid`);
-    console.log(user.uid)
-    const userId = user.uid;
+    const userId = firebase.auth().currentUser.uid
+    // console.log('this is the current user');
+    // console.log(user)
+    // console.log(`this is the current user's uid`);
+    // console.log(user.uid)
+    // const userId = user.uid;
 
     console.log('these are the selected items in the callback');
     console.log(selectedInstruments);
@@ -224,7 +257,7 @@ export default class MultiSelectGenresInstruments extends Component {
       this.state.instagram,
     );
   }
-  youtubePressed(text) {
+  youtubePressed() {
     AlertIOS.prompt(
       'Enter Youtube Username', null,
       text => {
@@ -242,8 +275,66 @@ export default class MultiSelectGenresInstruments extends Component {
     );
   }
 
+  uploadImage (uri, mime = 'image/jpg') {
+  return new Promise((resolve, reject) => {
+    const userId = firebase.auth().currentUser.uid;
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+      let uploadBlob = null
+      const imageRef = firebase.storage().ref(`images/${userId}`).child('profile')
+      fs.readFile(uploadUri, 'base64')
+      .then((data) => {
+        return Blob.build(data, { type: `${mime};BASE64` })
+      })
+      .then((blob) => {
+        uploadBlob = blob
+        return imageRef.put(blob, { contentType: mime })
+      })
+      .then(() => {
+        uploadBlob.close()
+        return imageRef.getDownloadURL()
+      })
+      .then((url) => {
+        resolve(url)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+  /**
+   * The first arg is the options object for customization (it can also be null or omitted for default options),
+   * The second arg is the callback which sends object: response (more info below in README)
+   */
+   showImagePicker() {
+     const userId = firebase.auth().currentUser.uid;
+     ImagePicker.showImagePicker(options, (response) => {
+    console.log('Response = ', response);
 
-  // TODO conditionally set source uri
+    if (response.didCancel) {
+      console.log('User cancelled image picker');
+    }
+    else if (response.error) {
+      console.log('ImagePicker Error: ', response.error);
+    }
+    else {
+      let source = { uri: response.uri };
+
+      // You can also display the image using data:
+      // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+      console.log('this is the response uri')
+      console.log(response.uri)
+      this.uploadImage(response.uri)
+        // after the image is added to firebase storage, add it to appropriate location in FB RTDB under users/uid/picture/
+        .then(url => {
+          firebase.database().ref('users/' + userId + '/picture/large').set(url)
+          firebase.database().ref('users/' + userId + '/picture/thumbnail').set(url)
+          this.setState({avatar: url})
+        })
+        .catch(error => console.log(error))
+    }
+  });
+}
+
   render() {
     console.log(`######### IN MY PROFILE CONTAINER'S RENDER ##############`)
     console.log('this is the soundcloud profile name')
@@ -278,30 +369,38 @@ export default class MultiSelectGenresInstruments extends Component {
       />
       </View>
       <View style={styles.button}>
-      <TouchableOpacity style={{ borderRadius: 15, backgroundColor: '#4A6D7C', paddingVertical: 6, paddingHorizontal: 11}}>
+      <TouchableOpacity
+      style={{ borderRadius: 15, backgroundColor: '#4A6D7C', paddingVertical: 6, paddingHorizontal: 11}}
+      onPress={this.showImagePicker}
+      >
         <Text style={styles.buttonText}>Edit Photo</Text>
       </TouchableOpacity>
+
 
       </View>
       <View style={styles.socialContainer}>
         <SocialIcon
           raised={false}
           type='soundcloud'
-          onPress={(text) => this.soundcloudPressed(text)}
+          onPress={this.soundcloudPressed}
+          onLongPress={this.soundcloudPressed}
         />
         <SocialIcon
         type='twitter'
-        onPress={(text) => this.twitterPressed(text)}
+        onPress={this.twitterPressed}
+        onLongPress={this.twitterPressed}
         />
         <SocialIcon
           light
           type='youtube'
-          onPress={(text) => this.youtubePressed(text)}
+          onPress={this.youtubePressed}
+          onLongPress={this.youtubePressed}
         />
         <SocialIcon
           light
           type='instagram'
-          onPress={(text) => this.instagramPressed(text)}
+          onPress={this.instagramPressed}
+          onLongPress={this.instagramPressed}
         />
       </View>
       </View>
@@ -443,6 +542,7 @@ buttonText: {
 // <View>
 //   {this.multiSelect.getSelectedItemsExt(selectedItems)}
 // </View>
+//
 // <Button
 //   raised
 //   icon={{name: 'photo'}}
@@ -450,4 +550,5 @@ buttonText: {
 //   backgroundColor='#4A6D7C'
 //   borderRadius={15}
 //   containerViewStyle={{borderRadius: 15, height: 20 }}
+//   onPress={this.showImagePicker}
 //    />

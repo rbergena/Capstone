@@ -6,50 +6,54 @@ import {
 } from 'react-native';
 import { ButtonGroup, SearchBar} from "react-native-elements"
 
-const Instruments = () => <Text style={styles.instruments}>Instruments</Text>
+  const Instruments = () => <Text style={styles.instruments}>Instruments</Text>
 const Genres = () => <Text style={styles.genres}>Genres</Text>
 
-export default class SearchFilterBar extends React.Component {
+export default class Search extends React.Component {
+
   constructor(props) {
-    super(props);
-    this.handlePress = this.handlePress.bind(this);
-    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
-    this.handleOnClearText=this.handleOnClearText.bind(this);
-  }
+  super(props);
+  this.handlePress = this.handlePress.bind(this);
+  this.handleSubmitEditing = this.handleSubmitEditing.bind(this);
+  this.handleOnClearText=this.handleOnClearText.bind(this);
+}
 
-  handlePress(filterIndex) {
-    this.props.onPress(filterIndex)
+  handlePress(searchIndex) {
+    this.props.onPress(searchIndex)
   }
-  // pass search text to onFilterTextChange prop which calls handle filter text change in parent which sets state to current text in search
-  handleFilterTextChange(text) {
-  this.props.onFilterTextChange(text);
+  // pass search text to onSubmitEditing prop which calls handleSubmitEditing in parent which sets state to current text in search
+  handleSubmitEditing(text) {
+    console.log('event native elevent')
+    console.log(text)
+    this.props.onSumbitEditing(text);
   }
-
-  // clear text should repopulate list with users
+  // clear text should repopulate map with markers
   handleOnClearText() {
     console.log('text cleared')
-    this.props.onFilterTextChange('');
+    this.props.onSumbitEditing('');
   }
 
   render() {
-    const filterText = this.props.filterText;
-    const filterIndex = this.props.filterIndex;
+    const searchText = this.props.searchText;
+    const searchIndex = this.props.searchIndex;
     // const buttons = ['Instruments', 'Genres']
     const buttons = [{ element: Instruments }, { element: Genres }]
-    console.log('onFilterTextChange editing')
-    console.log(this.props.onFilterTextChange)
+
+    console.log('submit editing')
+    console.log(this.props.onSubmitEditing)
     return (
       <View>
       <ButtonGroup
         onPress={this.handlePress}
-        selectedIndex={this.props.filterIndex}
+        selectedIndex={this.props.searchIndex}
         buttons={buttons}
         containerStyle={{height: 50}}
-        selectedBackgroundColor='#9CAFB7'
+        selectedBackgroundColor="#D8E2DC"
       />
       <SearchBar
         round
-        onChangeText={(text) => {this.handleFilterTextChange(text)}}
+        onSubmitEditing
+        ={(event) => this.handleSubmitEditing(event.nativeEvent.text)}
         onClearText={this.handleOnClearText}
         placeholder='Search'
         clearIcon={{name: 'clear'}}

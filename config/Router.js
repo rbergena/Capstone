@@ -11,7 +11,9 @@ import CreateAccountForm from '../components/CreateAccount/CreateAccountForm.js'
 import MyProfileScreen from '../screens/MyProfileScreen.js';
 import UserDetailsScreen from '../screens/UserDetailsScreen.js';
 import UsersFeedScreen from '../screens/UsersFeedScreen.js';
-import Map from '../screens/Map.js';
+// import Map from '../screens/Map.js';
+import MapScreen from '../screens/MapScreen.js';
+
 import WebViewScreen from '../screens/WebViewScreen.js';
 import LogoutScreen from '../screens/LogoutScreen.js';
 import * as firebase from 'firebase';
@@ -38,14 +40,14 @@ export const UsersFeedNavigator = StackNavigator({
   UsersFeed: {
     screen: UsersFeedScreen,
     navigationOptions: {
-      title: 'Users List',
+      title: 'Musicians List',
     },
   },
   UserDetailsFromFeed: {
     screen: UserDetailsScreen,
     navigationOptions: ({ navigation }) => ({
       title: `${navigation.state.params.name}'s Profile`,
-      tabBarLabel: 'User Profile',
+      tabBarLabel: 'Musician Profile',
     }),
   },
   SocialMediaWebView: {
@@ -59,7 +61,7 @@ export const UsersFeedNavigator = StackNavigator({
 
 export const MapNavigator = StackNavigator({
   MapView: {
-    screen: Map,
+    screen: MapScreen,
     navigationOptions: {
       title: 'Map',
     },
@@ -68,7 +70,7 @@ export const MapNavigator = StackNavigator({
     screen: UserDetailsScreen,
     navigationOptions: ({ navigation }) => ({
       title: `${navigation.state.params.name}'s Profile`,
-      tabBarLabel: 'User Profile',
+      tabBarLabel: 'Musician Profile',
     }),
   },
   SocialMediaWebView: {

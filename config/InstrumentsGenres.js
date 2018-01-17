@@ -1,65 +1,119 @@
 // Instruments
-export const instruments = [{
-    id: 'Piano',
-    name: 'Piano',
-  }, {
-    id: 'Trumpet',
-    name: 'Trumpet',
-  }, {
-    id: 'Trombone',
-    name: 'Trombone',
-  }, {
-    id: 'Violin',
-    name: 'Violin',
-  }, {
+export const instruments = [
+  {
+    id: 'Accordian',
+    name: 'Accordian',
+  },
+  {
+    id: 'Cello',
+    name: 'Cello',
+  },
+  {
+    id: 'Clarinet',
+    name: 'Clarinet',
+  },
+  {
+    id: 'Congas',
+    name: 'Congas',
+  },
+  {
     id: 'Djembe',
     name: 'Djembe',
   }, {
-    id: 'Triangle',
-    name: 'Triangle',
+    id: 'Double Bass',
+    name: 'Double Bass',
   }, {
-    id: 'Drums',
-    name: 'Drums',
-  }, {
-    id: 'Cymbals',
-    name: 'Cymbals',
+    id: 'Drum Set',
+    name: 'Drum Set',
   }, {
     id: 'Flute',
     name: 'Flute',
   }, {
-    id: 'Flusdfgte',
-    name: 'Flsdfute',
+    id: 'French Horn',
+    name: 'French Horn',
   }, {
-    id: 'Flsdfsdfute',
-    name: 'Flsdfsdfute',
+    id: 'Guitar',
+    name: 'Guitar',
   }, {
-    id: 'Fludsasddsdsfsdte',
-    name: 'Fldsfsdfute',
-  }, {
-    id: 'Flutdfasdsde',
-    name: 'Flusdfsdfte',
-  }, {
-    id: 'Flsafdussaddfsdte',
-    name: 'Flutesdfsdf',
-  }, {
-    id: 'Flsaddussaddfsdte',
-    name: 'Flutesdfsdf',
-  }, {
-    id: 'Flsaduffssaddfsdte',
-    name: 'Flutesdfsdf',
-  }, {
-    id: 'Flsadudssaddfsdte',
-    name: 'Flutesdfsdf',
-  }, {
-    id: 'Flsadussasdfsddfsdte',
-    name: 'Flutesdfsdf',
-  }, {
-    id: 'Flsadusfsaddfsdte',
-    name: 'Flutesdfsdf',
-  }, {
-    id: 'Flsadusssdfsdaddfsdte',
-    name: 'Flutesdfsdf',
-  }
+    id: 'Harmonica',
+    name: 'Harmonica',
+  },
+  {
+   id: 'Harp',
+   name: 'Harp',
+ },
+  {
+    id: 'Harpsichord',
+    name: 'Harpsichord',
+  },
+  {
+    id: 'Marimba',
+    name: 'Marimba',
+  },
+  {
+    id: 'Oboe',
+    name: 'Oboe',
+  },
+  {
+    id: 'Organ',
+    name: 'Organ',
+  },
+  {
+    id: 'Piano',
+    name: 'Piano',
+  },
+  {
+    id: 'Piccolo',
+    name: 'Piccolo',
+  },
+  {
+    id: 'Saxophone',
+    name: 'Saxophone',
+  },
+  {
+    id: 'Snare Drum',
+    name: 'Snare Drum',
+  },
+  {
+    id: 'Steel Pan',
+    name: 'Steel Pan',
+  },
+  {
+   id: 'Trombone',
+   name: 'Trombone',
+  },
+  {
+    id: 'Trumpet',
+    name: 'Trumpet',
+  },
+  {
+    id: 'Tuba',
+    name: 'Tuba',
+  },
+  {
+    id: 'Ukulele',
+    name: 'Ukulele',
+  },
+  {
+    id: 'Vibraphone',
+    name: 'Vibraphone',
+  },
+  {
+    id: 'Viola',
+    name: 'Viola',
+  },
+  {
+    id: 'Violin',
+    name: 'Violin',
+  },
+  {
+    id: 'Vocals',
+    name: 'Vocals',
+  },
+  {
+    id: 'Xylophone',
+    name: 'Xylophone',
+  },
 ];
 
 // Genres

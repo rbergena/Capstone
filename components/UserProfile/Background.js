@@ -29,9 +29,11 @@ export const Background = (props) => {
         <Text style={styles.text}>
           {email}
         </Text>
+        { props.city ? (
         <Text style={styles.font}>
           {city}
-        </Text>
+        </Text>) : null
+      }
     </View>
   );
 }

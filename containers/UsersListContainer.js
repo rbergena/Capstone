@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 import { List, ListItem } from "react-native-elements"
 import * as firebase from 'firebase';
-import {distance} from '../config/distance'
+import {distance} from '../config/distance';
+import {Icons} from '../config/InstrumentsGenres';
 
 export default class UsersListContainer extends Component {
   constructor(props) {
@@ -119,6 +120,11 @@ export default class UsersListContainer extends Component {
                     <Text style={[styles.text, styles.instruments]}> {Object.keys(item.instruments).join(', ')}</Text> )
                     : null
                     }
+                    <View style={styles.icons}>
+                    { item.instruments ? (<Icons instruments={Object.keys(item.instruments)} />)
+                    : null
+                    }
+                    </View>
                     { item.distance ? (
                     <Text style={[styles.text, styles.distance]}> {item.distance} miles away</Text> )
                     : null
@@ -192,4 +198,12 @@ genres: {
 // { item.picture ?
 //   avatar={{ uri: item.picture.thumbnail }}
 //   : avatar={{ uri:  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' }}
+// }
+// { item.instruments ? (
+//   Object.keys(item.instruments).forEach((instrument) => {Icons(instrument)}) )
+// : null
+// }
+// { item.instruments ? (
+//   Object.keys(item.instruments).forEach((instrument) => {Icons(instrument)}) )
+// : null
 // }

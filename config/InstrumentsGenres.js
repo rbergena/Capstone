@@ -1,3 +1,6 @@
+import React from 'react';
+import { Image } from 'react-native';
+
 // Instruments
 export const instruments = [
   {
@@ -180,3 +183,59 @@ export const genres = [{
 // Reggae
 // Rock
 // Soul
+
+// export function Icons(instrument) {
+//   console.log('in icons')
+//   console.log(instrument)
+//   if(instrument === 'Djembe') {
+//     console.log('in Djembe')
+//     return (<Image source={require('../assets/Djembe.png')}
+//     style={{width: 25, height: 25, marginRight: 5}}
+//     />)
+//   } else if(instrument === 'Harmonica')  {
+//     return (<Image source={require('../assets/Harmonica.png')}
+//     style={{width: 25, height: 25, marginRight: 5}}
+//     />)
+//   }
+// 		// return <img src='https://s3.amazonaws.com/codecademy-content/courses/React/react_photo-octopus.jpg' />;
+// }
+
+export const Icons = (props) => {
+    let instruments = props.instruments;
+    console.log('in icons')
+    console.log(instruments)
+    result = [];
+    instruments.forEach((instrument) => {
+      if(instrument === 'Djembe') {
+        console.log('in Djembe')
+        result.push(<Image source={require('../assets/Djembe.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      } else if(instrument === 'Harmonica')  {
+        result.push(<Image source={require('../assets/Harmonica.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      }
+    })
+      return result
+
+
+
+
+    // // if(instrument === 'Djembe') {
+    // //   console.log('in Djembe')
+    //   return (<Image source={require('../assets/Djembe.png')}
+    //   style={{width: 25, height: 25, marginRight: 5}}
+    //   />)
+    // } else if(instrument === 'Harmonica')  {
+    //   return (<Image source={require('../assets/Harmonica.png')}
+    //   style={{width: 25, height: 25, marginRight: 5}}
+    //   />)
+    // }
+    // return (
+    //   <div>
+    //     <h1>Cute Guinea Pigs</h1>
+    //     <img src={src} />
+    //   </div>
+    // );
+}

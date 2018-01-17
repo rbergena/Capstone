@@ -11,6 +11,7 @@ import {
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import {Icons} from '../config/InstrumentsGenres';
 
 let { width, height } = Dimensions.get('window');
 
@@ -186,7 +187,11 @@ export default class Map extends Component {
               <Text style={styles.name}>{marker.name}</Text>
               <Text style={styles.genres}>{Object.keys(marker.genres).join(', ')}</Text>
               <Text style={styles.instruments}>{Object.keys(marker.instruments).join(', ')}</Text>
-
+              <View style={styles.icons}>
+              { marker.instruments ? (<Icons instruments={Object.keys(marker.instruments)} />)
+              : null
+              }
+              </View>
 
             </View>
            </MapView.Callout>
@@ -269,9 +274,14 @@ const styles = StyleSheet.create({
   callout: {
   width: 140,
   },
+  // icons: {
+  //   flexDirection: 'row',
+  // }
   icons: {
     flexDirection: 'row',
-  }
+    marginRight: 10,
+    marginTop: 5,
+  },
 });
 
 // {this.state.markers.map((marker, index) => (

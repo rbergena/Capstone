@@ -7,6 +7,8 @@ import {
   ScrollView,
 } from 'react-native';
 import { List, ListItem } from 'react-native-elements'
+import {Icons} from '../../config/InstrumentsGenres';
+
 
 // description component receives user description as props from user profile container
 // export default class Description extends Component {
@@ -33,16 +35,22 @@ export const Description = (props) => {
                 </List>
               ) : null}
               { props.instruments ? (
-                <List>
+                <List containerStyle={{borderBottomColor: '#bbb', borderBottomWidth: 1}}>
                 <ListItem
                   title="Instruments"
                   titleStyle={styles.title}
                   hideChevron
                 />
                 <ListItem
+                  containerStyle={{borderBottomWidth: 0}}
                   subtitle={Object.keys(props.instruments).join(', ')}
                   hideChevron
                 />
+                <View style={styles.icons}>
+                { props.instruments ? (<Icons instruments={Object.keys(props.instruments)} />)
+                : null
+                }
+                </View>
                 </List>
               ) : null}
               { props.genres ? (
@@ -75,6 +83,13 @@ const styles = StyleSheet.create({
   // titleContainer: {
   //   borderBottomWidth: 3,
   // }
+  icons: {
+    flexDirection: 'row',
+    marginRight: 10,
+    marginTop: 5,
+    marginBottom: 10,
+    paddingLeft: 20,
+  },
 
 });
 

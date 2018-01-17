@@ -94,6 +94,12 @@ export default class Map extends Component {
     console.log('this is the props filterIndex')
     console.log(this.props.searchIndex)
     let filteredUsers = [];
+    // exclude users with no name, instruments, or genres
+    // this.props.users.forEach((user) => {
+    //   if(user.name && user.instruments && user.genres) {
+    //
+    //   }
+    // })
     // if filtertext is not an empty string, filter users by instrument and genre
     if(this.props.searchText !== '') {
       // filter by instrument (at index 0)
@@ -180,7 +186,7 @@ export default class Map extends Component {
               <Text style={styles.name}>{marker.name}</Text>
               <Text style={styles.genres}>{Object.keys(marker.genres).join(', ')}</Text>
               <Text style={styles.instruments}>{Object.keys(marker.instruments).join(', ')}</Text>
-              <Text style={{ fontFamily: 'Al Nile' }}>Custom Font</Text>
+
 
             </View>
            </MapView.Callout>
@@ -351,3 +357,5 @@ const styles = StyleSheet.create({
             //   </MapView.Callout>
             //
             //   </MapView.Marker>
+
+        // <Text style={{ fontFamily: 'Al Nile' }}>Custom Font</Text>

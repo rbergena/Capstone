@@ -73,25 +73,33 @@ export default class FilterableUsersTable extends Component {
       // calculate distance between current user and other users
       let dist = 0;
       let finalUsers = [];
+      // if(!currentUser[0].coordinates) {
+      // set user's location to current lat long
+      // TODO MAKE THIS A PROMISE ONCE THE VALUES ARE SET THEN PASS TO DIST CALCULATION WITH .THEN
+      let lat = 0;
+      let long = 0;
+        navigator.geolocation.getCurrentPosition((position) => {
+          lat = position.coords.latitude;
+          long = position.coords.longitude;
+          firebase.database().ref('users/' + userId + '/coordinates').set({
+            latitude: lat,
+            longitude: long,
+            })
+            currentUser[0].coordinates = {
+              latitude: lat,
+              longitude: long,
+            }
+        });
+        // currentUser[0].coordinates = {
+        //   latitude: lat,
+        //   longitude: long,
+        // }
+      // }
       results.forEach((user) => {
         console.log(`this is the current user's coordinates`)
         // if current user has provided coordinates, use those otherwise get coordinates and set then compare
-        let lat = '';
-        let long = '';
-        if(!currentUser[0].coordinates) {
-          navigator.geolocation.getCurrentPosition((position) => {
-            lat = position.coords.latitude;
-            long = position.coords.longitude;
-            firebase.database().ref('users/' + userId + '/coordinates').set({
-              latitude: lat,
-              longitude: long,
-              })
-          });
-          currentUser[0].coordinates = {
-            latitude: lat,
-            longitude: long,
-          }
-        }
+
+
 
 
         console.log(currentUser[0].coordinates)

@@ -8,6 +8,14 @@ export const instruments = [
     name: 'Accordian',
   },
   {
+    id: 'Banjo',
+    name: 'Banjo',
+  },
+  {
+     id: 'Bongos',
+     name: 'Bongos',
+   },
+  {
     id: 'Cello',
     name: 'Cello',
   },
@@ -29,6 +37,9 @@ export const instruments = [
     id: 'Drum Set',
     name: 'Drum Set',
   }, {
+    id: 'Electric Guitar',
+    name: 'Electric Guitar',
+  },{
     id: 'Flute',
     name: 'Flute',
   }, {
@@ -54,6 +65,10 @@ export const instruments = [
     name: 'Marimba',
   },
   {
+    id: 'Mandolin',
+    name: 'Mandolin',
+  },
+  {
     id: 'Oboe',
     name: 'Oboe',
   },
@@ -64,6 +79,10 @@ export const instruments = [
   {
     id: 'Piano',
     name: 'Piano',
+  },
+  {
+    id: 'Pan Flute',
+    name: 'Pan Flute',
   },
   {
     id: 'Piccolo',
@@ -82,12 +101,20 @@ export const instruments = [
     name: 'Steel Pan',
   },
   {
+   id: 'Tambourine',
+   name: 'Tambourine',
+  },
+  {
    id: 'Trombone',
    name: 'Trombone',
   },
   {
     id: 'Trumpet',
     name: 'Trumpet',
+  },
+  {
+    id: 'Triangle',
+    name: 'Triangle',
   },
   {
     id: 'Tuba',
@@ -215,6 +242,101 @@ export const Icons = (props) => {
         result.push(<Image source={require('../assets/Harmonica.png')}
         style={{width: 25, height: 25, marginRight: 5}}
         />)
+      } else if(instrument === 'Xylophone' || instrument === 'Marimba')  {
+        result.push(<Image source={require('../assets/Xylophone.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      } else if(instrument === 'Triangle')  {
+        result.push(<Image source={require('../assets/Triangle.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      }  else if(instrument === 'Pan Flute') {
+        result.push(<Image source={require('../assets/PanFlute.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      }  else if(instrument === 'Saxophone') {
+        result.push(<Image source={require('../assets/Saxophone.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      }  else if(instrument === 'Vocals') {
+        result.push(<Image source={require('../assets/Vocals.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      } else if(instrument === 'Accordian') {
+        result.push(<Image source={require('../assets/Accordian.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      } else if(instrument === 'Banjo') {
+        result.push(<Image source={require('../assets/Banjo.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      } else if(instrument === 'Harp') {
+        result.push(<Image source={require('../assets/Harp.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      }  else if(instrument === 'Guitar' || instrument === 'Ukulele') {
+        result.push(<Image source={require('../assets/Guitar.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      }  else if(instrument === 'Drum Set') {
+        result.push(<Image source={require('../assets/DrumSet.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      } else if(instrument === 'Bongos') {
+        result.push(<Image source={require('../assets/Bongos.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      } else if(instrument === 'French Horn') {
+        result.push(<Image source={require('../assets/FrenchHorn.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      } else if(instrument === 'Snare Drum') {
+        result.push(<Image source={require('../assets/SnareDrum.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      } else if(instrument === 'Violin' || instrument === 'Viola') {
+        result.push(<Image source={require('../assets/Violin.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      } else if(instrument === 'Cello' || instrument === 'Double Bass') {
+        result.push(<Image source={require('../assets/Cello.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      }  else if(instrument === 'Tambourine') {
+        result.push(<Image source={require('../assets/Tambourine.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      }  else if(instrument === 'Trumpet') {
+        result.push(<Image source={require('../assets/Trumpet.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      }  else if(instrument === 'Mandolin') {
+        result.push(<Image source={require('../assets/Mandolin.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      } else if(instrument === 'Piano' || instrument === 'Harpsichord' || instrument === 'Organ') {
+        result.push(<Image source={require('../assets/Piano.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      } else if(instrument === 'Flute') {
+        result.push(<Image source={require('../assets/Flute.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      } else if(instrument === 'Electric Guitar') {
+        result.push(<Image source={require('../assets/ElectricGuitar.png')}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />)
+      }
+      else {
+        notes = [<Image source={require(`../assets/note1.png`)}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />, <Image source={require(`../assets/note2.png`)}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />, <Image source={require(`../assets/note3.png`)}
+        style={{width: 25, height: 25, marginRight: 5}}
+        />]
+        // result.push(notes[Math.floor(Math.random() * 3)])
+        result.push(notes[2])
       }
     })
       return result

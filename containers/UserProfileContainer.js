@@ -38,6 +38,7 @@ export default class UserProfileContainer extends Component {
         city={this.props.userInfo.city_state}
         email={this.props.userInfo.email}
         navigate={this.props.navigate}
+        user={this.props.userInfo}
         />
         {this.props.userInfo.social_media ? (
           <SocialMedia links={this.props.userInfo.social_media}

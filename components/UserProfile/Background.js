@@ -35,7 +35,7 @@ export const Background = (props) => {
           {city}
         </Text>) : null
       }
-      <Button onPress={() => props.navigate('Chat')} title="Go to chat" />
+      <Button onPress={() => props.navigate('Chat', props.user)} title="Go to chat" />
     </View>
   );
 }
@@ -110,3 +110,4 @@ const styles = StyleSheet.create({
 // title= 'full name'
 // caption= 'email address'
 // />
+// <Button onPress={() => props.navigate('Chat', {props.user})} title="Go to chat" />

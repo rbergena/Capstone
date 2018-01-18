@@ -88,7 +88,7 @@ export default class ChatScreen extends React.Component {
             // get children as an array
             var items = [];
             snap.forEach((child) => {
-                var avatar = child.val().uid == this.user.uid? currentUser.picture.thumb : this.recipient.picture.thumb;
+                var avatar = child.val().uid == this.user.uid? currentUser.picture.thumbnail : this.recipient.picture.thumbnail;
                 var name = child.val().uid == this.user.uid? currentUser.name: this.recipient.name
                 console.log(' chat name and avatar')
                 console.log(name)

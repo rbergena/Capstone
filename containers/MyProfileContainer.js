@@ -32,7 +32,10 @@ var options = {
   storageOptions: {
     skipBackup: true,
     path: 'images'
-  }
+  },
+  maxWidth: 500,
+  maxHeight: 500,
+  quality: 0.3,
 };
 
 export default class MultiSelectGenresInstruments extends Component {

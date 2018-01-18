@@ -31,25 +31,31 @@ export default class LoginContainer extends Component {
     })
     console.log(this.state.email);
     console.log(this.state.password);
-    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+    .then((user) => {
+      console.log('current loggged in user')
+      console.log(firebase.auth().currentUser);
+      this.props.navigate('Tabs');
+    })
+    .catch(function(error) {
       // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
       alert(errorMessage);
       console.log(error);
     });
-    console.log('current loggged in user')
-    console.log(firebase.auth().currentUser);
-    this.setState({
-      email: '',
-      password: '',
-      loaded: true
-    });
-    var user = firebase.auth().currentUser;
-    if (user) {
-      // If user is signed in. Then navigate to Tabs screen.
-      this.props.navigate('Tabs');
-    }
+    // console.log('current loggged in user')
+    // console.log(firebase.auth().currentUser);
+    // this.setState({
+    //   email: '',
+    //   password: '',
+    //   loaded: true
+    // });
+    // var user = firebase.auth().currentUser;
+    // if (user) {
+    //   // If user is signed in. Then navigate to Tabs screen.
+    //   this.props.navigate('Tabs');
+    // }
   }
   logout(){
     firebase.auth().signOut().then(function() {

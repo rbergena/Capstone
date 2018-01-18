@@ -16,6 +16,10 @@ import MapScreen from '../screens/MapScreen.js';
 
 import WebViewScreen from '../screens/WebViewScreen.js';
 import LogoutScreen from '../screens/LogoutScreen.js';
+import ChatScreen from '../screens/ChatScreen.js';
+import MyMessagesScreen from '../screens/MyMessagesScreen.js';
+
+
 import * as firebase from 'firebase';
 
 
@@ -57,6 +61,12 @@ export const UsersFeedNavigator = StackNavigator({
       tabBarLabel: 'Social',
     }),
   },
+  Chat: {
+    screen: ChatScreen,
+    navigationOptions: {
+      title: 'Chat',
+    }
+  },
 });
 
 export const MapNavigator = StackNavigator({
@@ -80,6 +90,12 @@ export const MapNavigator = StackNavigator({
       tabBarLabel: 'Social',
     },
   },
+  Chat: {
+    screen: ChatScreen,
+    navigationOptions: {
+      title: 'Chat',
+    }
+  },
 });
 
 export const MyProfileNavigator = StackNavigator({
@@ -87,6 +103,23 @@ export const MyProfileNavigator = StackNavigator({
     screen: MyProfileScreen,
     navigationOptions: {
       title: 'My Profile',
+    }
+  },
+})
+
+// messages navigator
+export const MessagesNavigator =
+StackNavigator({
+  Messages: {
+    screen: MyMessagesScreen,
+    navigationOptions: {
+      title: 'Messages',
+    }
+  },
+  Chat: {
+    screen: ChatScreen,
+    navigationOptions: {
+      title: 'Chat',
     }
   },
 })
@@ -108,6 +141,12 @@ export const TabsNavigator = TabNavigator({
     screen: MapNavigator,
     navigationOptions: {
     tabBarIcon: ({ tintColor }) => <Icon name="map" size={35} color={tintColor} />
+    }
+  },
+  Messages: {
+    screen: MessagesNavigator,
+    navigationOptions: {
+    tabBarIcon: ({ tintColor }) => <Icon name="email" size={35} color={tintColor} />
     }
   },
   Logout: {

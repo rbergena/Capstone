@@ -35,7 +35,7 @@ export const Background = (props) => {
           {city}
         </Text>) : null
       }
-      <Button onPress={() => props.navigate('Chat', props.user)} title="Go to chat" />
+      <Button onPress={() => props.navigate('Chat', {user: props.user})} title="Go to chat" />
     </View>
   );
 }

@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
+  Button,
 } from 'react-native';
 import { Tile, Avatar } from 'react-native-elements'
 
@@ -34,6 +35,7 @@ export const Background = (props) => {
           {city}
         </Text>) : null
       }
+      <Button onPress={() => props.navigate('Chat')} title="Go to chat" />
     </View>
   );
 }

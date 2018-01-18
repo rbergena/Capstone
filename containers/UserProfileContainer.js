@@ -33,10 +33,11 @@ export default class UserProfileContainer extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-        <Background picture={ this.props.userInfo.picture ? (this.props.userInfo.picture.large) : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'   
+        <Background picture={ this.props.userInfo.picture ? (this.props.userInfo.picture.large) : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
         }
         city={this.props.userInfo.city_state}
         email={this.props.userInfo.email}
+        navigate={this.props.navigate}
         />
         {this.props.userInfo.social_media ? (
           <SocialMedia links={this.props.userInfo.social_media}

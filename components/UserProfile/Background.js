@@ -3,9 +3,8 @@ import {
   StyleSheet,
   View,
   Text,
-  Button,
 } from 'react-native';
-import { Tile, Avatar } from 'react-native-elements'
+import { Tile, Avatar, Button } from 'react-native-elements'
 
 // functional component to display user background (photo and information (city, state etc.))
 // NOTE: react-native-elements Tile component style raises a warning
@@ -27,6 +26,14 @@ export const Background = (props) => {
           activeOpacity={0.7}
           containerStyle={{marginTop: 30}}
         />
+        <Button
+          raised
+          icon={{name: 'email'}}
+          title='Chat'
+          rounded={true}
+          buttonStyle={{padding: 5, marginTop: 10}}
+          onPress={() => props.navigate('Chat', {user: props.user})}
+          />
         <Text style={styles.text}>
           {email}
         </Text>
@@ -35,7 +42,8 @@ export const Background = (props) => {
           {city}
         </Text>) : null
       }
-      <Button onPress={() => props.navigate('Chat', {user: props.user})} title="Go to chat" />
+
+
     </View>
   );
 }
@@ -111,3 +119,4 @@ const styles = StyleSheet.create({
 // caption= 'email address'
 // />
 // <Button onPress={() => props.navigate('Chat', {props.user})} title="Go to chat" />
+      // <Button onPress={() => props.navigate('Chat', {user: props.user})} title="Go to chat" />

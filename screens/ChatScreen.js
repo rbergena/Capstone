@@ -78,7 +78,7 @@ export default class ChatScreen extends React.Component {
   listenForItems(chatRef) {
     firebase.database().ref('/users/' + this.user.uid).once('value').then((snapshot) => {
        console.log('this is the user snapshot')
-       console.log(snapshot.val())
+      //  console.log(snapshot.val())
          let currentUser = snapshot.val()
       //  currentUser.push(snapshot.val())
        return currentUser

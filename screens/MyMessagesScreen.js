@@ -34,10 +34,12 @@ export default class MyMessagesScreen extends React.Component {
       //  currentUser.push(snapshot.val())
        return users
      }).then((users) => {
-    let chatPartners = [];
         chatRef.on('value', (snap) => {
             // go through each chat pair key and see if the chat is for the current user
+            let chatPartners = [];
             (Object.keys(snap.val())).forEach((chatPair) => {
+              console.log('in my messages chatref listener')
+
               // if current user is a member of the chat, then add chat to messages screen
               if(chatPair.includes(this.user.uid)) {
                 console.log('the current user is involved in this chat');

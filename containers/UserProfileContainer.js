@@ -60,6 +60,8 @@ export default class UserProfileContainer extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // backgroundColor: 'white',
+    // backgroundColor: 'rgba(241,222,218,0.8)',
     backgroundColor: 'hsla(0, 100%, 90%, 0.2)'
     // backgroundColor: 'rgba(255,255,255, 0.2)'
     // backgroundColor: 'white',

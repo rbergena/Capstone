@@ -25,16 +25,21 @@ export default class FilterableUsersTable extends Component {
     }
     this.handleOnPress = this.handleOnPress.bind(this);
     this.handleSubmitEditing = this.handleSubmitEditing.bind(this);
-
+    // get reference to users node
+    this.usersRef = firebase.database().ref().child('users/');
   }
   // after component mounts, get users data from FBDB in order to populate list
-  componentWillMount(){
-    this.getUsersData();
+  // componentWillMount(){
+  //   this.getUsersData();
+  // }
+  componentDidMount() {
+    this.listenForUsers(this.usersRef);
   }
 
-  getUsersData(){
+  listenForUsers(usersRef){
     const userId = firebase.auth().currentUser.uid;
-    firebase.database().ref('/users/').once('value').then((snapshot) => {
+    // firebase.database().ref('/users/').once('value').then((snapshot) => {
+      usersRef.on('value', (snapshot) => {
       // console.log('#######MAPCONTAINER GETUSER DATA#############')
       // console.log('in component did mount')
       // console.log(snapshot.val())
@@ -59,7 +64,13 @@ export default class FilterableUsersTable extends Component {
                 // console.log('current user object')
                 // console.log(currentUser[0])
               } else {
-              results.push(userObject)
+                // check if user has coordinates, name and instruments
+                // console.log('user object')
+                // console.log(userObject)
+                if(userObject.coordinates && userObject.name && userObject.instruments) {
+                  // console.log('user object pushed into results')
+                  results.push(userObject)
+                }
             }
           }
       }
@@ -71,6 +82,11 @@ export default class FilterableUsersTable extends Component {
       })
     });
   }
+  // remove listener
+  componentWillUnmount() {
+      this.usersRef.off()
+  }
+
   // event handler to be passed to button
   handleOnPress(index) {
     this.setState({

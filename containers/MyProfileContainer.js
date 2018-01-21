@@ -66,30 +66,30 @@ export default class MultiSelectGenresInstruments extends Component {
   // set selected items to whatever is in DB for that user if there are instruments and genres. Otherwise selected genres and instruments state will be empty arrays
   componentDidMount(){
     this.setState({ loading: true });
-    console.log(`######### MY PROFILE CONTAINER'S componentDidMount ##############`)
+    // console.log(`######### MY PROFILE CONTAINER'S componentDidMount ##############`)
 
     const userId = firebase.auth().currentUser.uid;
     // get users information from user/uid node
       firebase.database().ref('/users/' + userId).once('value').then((snapshot) => {
-        console.log('*******IN THE FIREBASE CALL USER/UID IN PROFILE PAGE ********')
+        // console.log('*******IN THE FIREBASE CALL USER/UID IN PROFILE PAGE ********')
         let instrumentsObject = [];
         let genresObject = [];
         let avatar = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
         // if the instrument node exists, set the state of selected instruments to those currently in the DB
-          console.log('it returned a snapshot')
-          console.log(snapshot.val());
+          // console.log('it returned a snapshot')
+          // console.log(snapshot.val());
           let currentUserObject = snapshot.val();
           // if instruments or genres exist
           if(currentUserObject.instruments) {
             instrumentsObject =  Object.keys(currentUserObject.instruments)
           }
-          console.log('this is the instruments object')
-          console.log(instrumentsObject)
+          // console.log('this is the instruments object')
+          // console.log(instrumentsObject)
           if(currentUserObject.genres) {
             genresObject = Object.keys(currentUserObject.genres)
           }
-          console.log('this is the genres object')
-          console.log(genresObject)
+          // console.log('this is the genres object')
+          // console.log(genresObject)
           let name = '';
           let email = '';
           let description = '';
@@ -154,14 +154,14 @@ export default class MultiSelectGenresInstruments extends Component {
     // console.log(user.uid)
     // const userId = user.uid;
 
-    console.log('these are the selected items in the callback');
-    console.log(selectedInstruments);
+    // console.log('these are the selected items in the callback');
+    // console.log(selectedInstruments);
       let results = {};
       selectedInstruments.forEach((instrument) => {
         results[instrument] = true
       });
-      console.log('these are the results')
-      console.log(results);
+      // console.log('these are the results')
+      // console.log(results);
       firebase.database().ref('users/' + userId + '/instruments').set(
         results
       )
@@ -172,20 +172,20 @@ export default class MultiSelectGenresInstruments extends Component {
     // when selected items change, write over DB instruments values
     // first find the current user's uid
     const user = firebase.auth().currentUser
-    console.log('this is the current user');
-    console.log(user)
-    console.log(`this is the current user's uid`);
-    console.log(user.uid)
+    // console.log('this is the current user');
+    // console.log(user)
+    // console.log(`this is the current user's uid`);
+    // console.log(user.uid)
     const userId = user.uid;
 
-    console.log('these are the selected items in the callback');
-    console.log(selectedGenres);
+    // console.log('these are the selected items in the callback');
+    // console.log(selectedGenres);
       let results = {};
       selectedGenres.forEach((genre) => {
         results[genre] = true
       });
-      console.log('these are the results')
-      console.log(results);
+      // console.log('these are the results')
+      // console.log(results);
       firebase.database().ref('users/' + userId + '/genres').set(
         results
       )
@@ -212,7 +212,7 @@ export default class MultiSelectGenresInstruments extends Component {
     AlertIOS.prompt(
       'Enter Soundcloud Profile Name', null,
       text => {
-        console.log("You entered "+ text)
+        // console.log("You entered "+ text)
         const userId = firebase.auth().currentUser.uid;
         firebase.database().ref('users/' + userId + '/social_media/soundcloud').set(
           text
@@ -230,7 +230,7 @@ export default class MultiSelectGenresInstruments extends Component {
     AlertIOS.prompt(
       'Enter Twitter Handle', null,
       text => {
-        console.log("You entered "+ text)
+        // console.log("You entered "+ text)
         const userId = firebase.auth().currentUser.uid;
         firebase.database().ref('users/' + userId + '/social_media/twitter').set(
           text
@@ -247,7 +247,7 @@ export default class MultiSelectGenresInstruments extends Component {
     AlertIOS.prompt(
       'Enter Instagram Username', null,
       text => {
-        console.log("You entered "+ text)
+        // console.log("You entered "+ text)
         const userId = firebase.auth().currentUser.uid;
         firebase.database().ref('users/' + userId + '/social_media/instagram').set(
           text
@@ -264,7 +264,7 @@ export default class MultiSelectGenresInstruments extends Component {
     AlertIOS.prompt(
       'Enter Youtube Username', null,
       text => {
-        console.log("You entered "+ text)
+        // console.log("You entered "+ text)
         const userId = firebase.auth().currentUser.uid;
         firebase.database().ref('users/' + userId + '/social_media/youtube').set(
           text
@@ -311,21 +311,21 @@ export default class MultiSelectGenresInstruments extends Component {
    showImagePicker() {
      const userId = firebase.auth().currentUser.uid;
      ImagePicker.showImagePicker(options, (response) => {
-    console.log('Response = ', response);
+    // console.log('Response = ', response);
 
     if (response.didCancel) {
-      console.log('User cancelled image picker');
+      // console.log('User cancelled image picker');
     }
     else if (response.error) {
-      console.log('ImagePicker Error: ', response.error);
+      // console.log('ImagePicker Error: ', response.error);
     }
     else {
       let source = { uri: response.uri };
 
       // You can also display the image using data:
       // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-      console.log('this is the response uri')
-      console.log(response.uri)
+      // console.log('this is the response uri')
+      // console.log(response.uri)
       this.uploadImage(response.uri)
         // after the image is added to firebase storage, add it to appropriate location in FB RTDB under users/uid/picture/
         .then(url => {
@@ -339,17 +339,17 @@ export default class MultiSelectGenresInstruments extends Component {
 }
 
   render() {
-    console.log(`######### IN MY PROFILE CONTAINER'S RENDER ##############`)
-    console.log('this is the soundcloud profile name')
-    console.log(this.state.soundcloud);
-    console.log('selected items')
-    console.log(this.state.selectedInstruments)
+    // console.log(`######### IN MY PROFILE CONTAINER'S RENDER ##############`)
+    // console.log('this is the soundcloud profile name')
+    // console.log(this.state.soundcloud);
+    // console.log('selected items')
+    // console.log(this.state.selectedInstruments)
     const { selectedInstruments } = this.state;
     const { selectedGenres } = this.state;
-    console.log('this is the loading state')
-    console.log(this.state.loading)
-    console.log('this is the multiselect')
-    console.log(this.multiSelect);
+    // console.log('this is the loading state')
+    // console.log(this.state.loading)
+    // console.log('this is the multiselect')
+    // console.log(this.multiSelect);
     // debugger
     if (this.state.loading) {
       return (
@@ -440,7 +440,6 @@ export default class MultiSelectGenresInstruments extends Component {
           selectedItems={selectedGenres}
           selectText="Pick Genres"
           searchInputPlaceholderText="Search Genres..."
-          onChangeInput={ (text)=> console.log(text)}
           tagRemoveIconColor="red"
           tagBorderColor="#62929E"
           tagTextColor="#4A6D7C"
@@ -467,7 +466,6 @@ export default class MultiSelectGenresInstruments extends Component {
             selectedItems={selectedInstruments}
             selectText="Pick Instruments"
             searchInputPlaceholderText="Search Instruments..."
-            onChangeInput={ (text)=> console.log(text)}
             tagRemoveIconColor="red"
             tagBorderColor="#62929E"
             tagTextColor="#4A6D7C"

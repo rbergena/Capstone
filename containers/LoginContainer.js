@@ -29,12 +29,12 @@ export default class LoginContainer extends Component {
     this.setState({
       loaded: false
     })
-    console.log(this.state.email);
-    console.log(this.state.password);
+    // console.log(this.state.email);
+    // console.log(this.state.password);
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
     .then((user) => {
-      console.log('current loggged in user')
-      console.log(firebase.auth().currentUser);
+      // console.log('current loggged in user')
+      // console.log(firebase.auth().currentUser);
       this.props.navigate('Tabs');
     })
     .catch(function(error) {
@@ -42,7 +42,7 @@ export default class LoginContainer extends Component {
       const errorCode = error.code;
       const errorMessage = error.message;
       alert(errorMessage);
-      console.log(error);
+      // console.log(error);
     });
     // console.log('current loggged in user')
     // console.log(firebase.auth().currentUser);
@@ -59,9 +59,9 @@ export default class LoginContainer extends Component {
   }
   logout(){
     firebase.auth().signOut().then(function() {
-      console.log('Signed Out');
-      console.log('is user logged in?')
-      console.log(firebase.auth().currentUser);
+      // console.log('Signed Out');
+      // console.log('is user logged in?')
+      // console.log(firebase.auth().currentUser);
     }, function(error) {
       console.error('Sign Out Error', error);
     });

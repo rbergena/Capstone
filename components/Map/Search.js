@@ -23,13 +23,13 @@ export default class Search extends React.Component {
   }
   // pass search text to onSubmitEditing prop which calls handleSubmitEditing in parent which sets state to current text in search
   handleSubmitEditing(text) {
-    console.log('event native elevent')
-    console.log(text)
+    // console.log('event native elevent')
+    // console.log(text)
     this.props.onSumbitEditing(text);
   }
   // clear text should repopulate map with markers
   handleOnClearText() {
-    console.log('text cleared')
+    // console.log('text cleared')
     this.props.onSumbitEditing('');
   }
 
@@ -39,8 +39,8 @@ export default class Search extends React.Component {
     // const buttons = ['Instruments', 'Genres']
     const buttons = [{ element: Instruments }, { element: Genres }]
 
-    console.log('submit editing')
-    console.log(this.props.onSubmitEditing)
+    // console.log('submit editing')
+    // console.log(this.props.onSubmitEditing)
     return (
       <View>
       <ButtonGroup

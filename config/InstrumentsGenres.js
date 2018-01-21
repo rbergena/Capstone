@@ -229,12 +229,12 @@ export const genres = [{
 
 export const Icons = (props) => {
     let instruments = props.instruments;
-    console.log('in icons')
-    console.log(instruments)
+    // console.log('in icons')
+    // console.log(instruments)
     result = [];
     instruments.forEach((instrument) => {
       if(instrument === 'Djembe') {
-        console.log('in Djembe')
+        // console.log('in Djembe')
         result.push(<Image key={instrument} source={require('../assets/Djembe.png')}
         style={{width: 25, height: 25, marginRight: 5}}
         />)

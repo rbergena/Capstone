@@ -26,29 +26,29 @@ export default class UsersListContainer extends Component {
     // const { navigate } = this.props.navigation;
     // console.log('state users')
     // console.log(this.state.users)
-    console.log('this is this.props.user in the users list container')
-    console.log(this.props.users)
-    console.log('this is the props filterText')
-    console.log(this.props.filterText)
-    console.log('this is the props filterIndex')
-    console.log(this.props.filterIndex)
+    // console.log('this is this.props.user in the users list container')
+    // console.log(this.props.users)
+    // console.log('this is the props filterText')
+    // console.log(this.props.filterText)
+    // console.log('this is the props filterIndex')
+    // console.log(this.props.filterIndex)
     let filteredUsers = [];
     // if filtertext is not an empty string, filter users by instrument and genre
     if(this.props.filterText !== '') {
       // filter by instrument (at index 0)
       if(this.props.filterIndex === 0) {
         this.props.users.forEach((user) => {
-          console.log('this is a user in the user lists container')
-          console.log(user)
+          // console.log('this is a user in the user lists container')
+          // console.log(user)
           let userInstruments = Object.keys(user.instruments)
-          console.log('users instruments')
-          console.log(userInstruments)
+          // console.log('users instruments')
+          // console.log(userInstruments)
           userInstruments.forEach((instrument) => {
             // if instrument matches filter text, push user into filteredUsers array
-            console.log('this is the instrument')
-            console.log(instrument)
-            console.log('this is the filter text')
-            console.log(this.props.filterText)
+            // console.log('this is the instrument')
+            // console.log(instrument)
+            // console.log('this is the filter text')
+            // console.log(this.props.filterText)
             if(instrument.match(this.props.filterText)) {
               filteredUsers.push(user)
               // move to next user
@@ -58,8 +58,8 @@ export default class UsersListContainer extends Component {
 
 
         })
-        console.log('this is the filtered users array')
-        console.log(filteredUsers)
+        // console.log('this is the filtered users array')
+        // console.log(filteredUsers)
         // else if()
         // filter by instrument
 
@@ -68,17 +68,17 @@ export default class UsersListContainer extends Component {
     // filter by genre (at index 1)
     else if(this.props.filterIndex === 1) {
         this.props.users.forEach((user) => {
-          console.log('this is a user in the user lists container')
-          console.log(user)
+          // console.log('this is a user in the user lists container')
+          // console.log(user)
           let userGenres = Object.keys(user.genres)
-          console.log('users genres')
-          console.log(userGenres)
+          // console.log('users genres')
+          // console.log(userGenres)
           userGenres.forEach((genre) => {
             // if instrument matches filter text, push user into filteredUsers array
-            console.log('this is the instrument')
-            console.log(genre)
-            console.log('this is the filter text')
-            console.log(this.props.filterText)
+            // console.log('this is the instrument')
+            // console.log(genre)
+            // console.log('this is the filter text')
+            // console.log(this.props.filterText)
             if(genre.match(this.props.filterText)) {
               filteredUsers.push(user)
               // move to next user
@@ -87,8 +87,8 @@ export default class UsersListContainer extends Component {
           })
 
       })
-      console.log('this is the filtered users array')
-      console.log(filteredUsers)
+      // console.log('this is the filtered users array')
+      // console.log(filteredUsers)
       // else if()
       // filter by instrument
 
@@ -98,8 +98,8 @@ export default class UsersListContainer extends Component {
   else {
     Array.prototype.push.apply(filteredUsers,this.props.users)
     // filteredUsers.concat(this.props.users)
-    console.log('these are the filtered users with no search text')
-    console.log(filteredUsers)
+    // console.log('these are the filtered users with no search text')
+    // console.log(filteredUsers)
   }
     return (
       <View style={styles.container}>

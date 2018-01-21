@@ -10,13 +10,13 @@ import { Tile, Avatar, Button } from 'react-native-elements'
 // NOTE: react-native-elements Tile component style raises a warning
 // export function Background(props) {
 export const Background = (props) => {
-  console.log('these are the props passed down to background')
-  console.log(props);
+  // console.log('these are the props passed down to background')
+  // console.log(props);
   let profilePicture = props.picture;
   let city = props.city;
   let email = props.email;
-  console.log('this is the profile picture uri')
-  console.log(profilePicture)
+  // console.log('this is the profile picture uri')
+  // console.log(profilePicture)
   return (
       <View style={styles.container}>
         <Avatar

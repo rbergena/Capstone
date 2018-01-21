@@ -8,8 +8,8 @@ import {
 
 export default class WebViewScreen extends React.Component {
   render() {
-    console.log('these are the passed down params from navigation')
-    console.log(this.props.navigation.state.params)
+    // console.log('these are the passed down params from navigation')
+    // console.log(this.props.navigation.state.params)
     return (
       <WebView
         source={{uri: this.props.navigation.state.params.finalURI}}

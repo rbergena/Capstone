@@ -160,9 +160,9 @@ export const TabsNavigator = TabNavigator({
                      {text: 'Accept', onPress: () => {
                        // sign out user, then redirect to login route
                        firebase.auth().signOut().then(function() {
-                        console.log('Signed Out');
-                        console.log('this is the result for current user')
-                        console.log(firebase.auth().currentUser);
+                        // console.log('Signed Out');
+                        // console.log('this is the result for current user')
+                        // console.log(firebase.auth().currentUser);
                       }, function(error) {
                         console.error('Sign Out Error', error);
                       });

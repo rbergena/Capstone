@@ -21,8 +21,8 @@ export default class SocialMedia extends Component {
   }
   // when a social icon is pressed, navigate to appropriate webview
   goToWebView(uri, userhandle, socialName, user) {
-    console.log('this is the url produced');
-    console.log(uri + userhandle);
+    // console.log('this is the url produced');
+    // console.log(uri + userhandle);
     const finalURI = uri + userhandle;
     this.props.navigate('SocialMediaWebView', {finalURI, socialName, user})
   }

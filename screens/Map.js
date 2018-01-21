@@ -71,28 +71,28 @@ export default class Map extends Component {
     const usersRef = firebase.database().ref("users/");
 
     firebase.database().ref('/users/').once('value').then((snapshot) => {
-      console.log('*******IN THE FIREBASE CALL  IN MAP PAGE ********')
+      // console.log('*******IN THE FIREBASE CALL  IN MAP PAGE ********')
 
       let results = [];
       let users = snapshot.val()
-      console.log('snapshot');
-      console.log(users);
+      // console.log('snapshot');
+      // console.log(users);
       // get user data objects without having to know uid
 
       for(var propName in users) {
         if(users.hasOwnProperty(propName)) {
           var propValue = users[propName];
           // user data objects in array
-          console.log('propValue')
-          console.log(propValue)
+          // console.log('propValue')
+          // console.log(propValue)
           propValue.uid = propName
-          console.log('prop value object after adding uid key and value')
-          console.log(propValue)
+          // console.log('prop value object after adding uid key and value')
+          // console.log(propValue)
           results.push(propValue)
 
 
-          console.log('results after prop pushed in')
-          console.log(results)
+          // console.log('results after prop pushed in')
+          // console.log(results)
         }
       }
       // // push off last result
@@ -127,7 +127,7 @@ export default class Map extends Component {
 
   // //navigate to user details page and pass selected user object
   goToUserDetails(user){
-    console.log('callout was pressed: Now in userdetails event handler')
+    // console.log('callout was pressed: Now in userdetails event handler')
     // this.props.navigate('UserDetails', {...user})
     this.props.navigation.navigate('UsersDetailsFromMap', {...user})
   }
@@ -136,9 +136,9 @@ export default class Map extends Component {
   // could use onRegionChange to fetch every time we move map, but start off with just always rendering all markers
 
   render() {
-    console.log('########## MAP CONTAINER ###########')
-    console.log(this.state.markers)
-    console.log('in render');
+    // console.log('########## MAP CONTAINER ###########')
+    // console.log(this.state.markers)
+    // console.log('in render');
     // make 1px or
     return (
       <View style={styles.container}>

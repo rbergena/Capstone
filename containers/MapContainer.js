@@ -65,15 +65,15 @@ export default class Map extends Component {
   }
   // //navigate to user details page and pass selected user object
   goToUserDetails(user){
-    console.log('callout was pressed: Now in userdetails event handler')
+    // console.log('callout was pressed: Now in userdetails event handler')
     this.props.navigate('UsersDetailsFromMap', {...user})
   }
 
 
   // could use onRegionChange to fetch every time we move map, but start off with just always rendering all markers
   onRegionChange(region) {
-    console.log('this is the region')
-    console.log(region)
+    // console.log('this is the region')
+    // console.log(region)
     // this.setState({initialPosition: region});
   }
   // onRegionChangeComplete(region) {
@@ -84,16 +84,16 @@ export default class Map extends Component {
 
 
   render() {
-    console.log('########## MAP CONTAINER ###########')
-    console.log(this.props.users)
-    console.log('in render');
+    // console.log('########## MAP CONTAINER ###########')
+    // console.log(this.props.users)
+    // console.log('in render');
     // make 1px or
-    console.log('this is this.props.users in the map container')
-    console.log(this.props.users)
-    console.log('this is the props filterText')
-    console.log(this.props.searchText)
-    console.log('this is the props filterIndex')
-    console.log(this.props.searchIndex)
+    // console.log('this is this.props.users in the map container')
+    // console.log(this.props.users)
+    // console.log('this is the props filterText')
+    // console.log(this.props.searchText)
+    // console.log('this is the props filterIndex')
+    // console.log(this.props.searchIndex)
     let filteredUsers = [];
     // exclude users with no name, instruments, or genres
     // this.props.users.forEach((user) => {
@@ -106,17 +106,17 @@ export default class Map extends Component {
       // filter by instrument (at index 0)
       if(this.props.searchIndex === 0) {
         this.props.users.forEach((user) => {
-          console.log('this is a user in the user lists container')
-          console.log(user)
+          // console.log('this is a user in the user lists container')
+          // console.log(user)
           let userInstruments = Object.keys(user.instruments)
-          console.log('users instruments')
-          console.log(userInstruments)
+          // console.log('users instruments')
+          // console.log(userInstruments)
           userInstruments.forEach((instrument) => {
             // if instrument matches filter text, push user into filteredUsers array
-            console.log('this is the instrument')
-            console.log(instrument)
-            console.log('this is the search text')
-            console.log(this.props.searchText)
+            // console.log('this is the instrument')
+            // console.log(instrument)
+            // console.log('this is the search text')
+            // console.log(this.props.searchText)
             if(instrument.match(this.props.searchText)) {
               filteredUsers.push(user)
               // move to next user
@@ -126,23 +126,23 @@ export default class Map extends Component {
 
 
         })
-        console.log('this is the filtered users array')
-        console.log(filteredUsers)
+        // console.log('this is the filtered users array')
+        // console.log(filteredUsers)
       }
     // search by genre (at index 1)
     else if(this.props.searchIndex === 1) {
         this.props.users.forEach((user) => {
-          console.log('this is a user in the user lists container')
-          console.log(user)
+          // console.log('this is a user in the user lists container')
+          // console.log(user)
           let userGenres = Object.keys(user.genres)
-          console.log('users genres')
-          console.log(userGenres)
+          // console.log('users genres')
+          // console.log(userGenres)
           userGenres.forEach((genre) => {
             // if instrument matches filter text, push user into filteredUsers array
-            console.log('this is the instrument')
-            console.log(genre)
-            console.log('this is the filter text')
-            console.log(this.props.searchText)
+            // console.log('this is the instrument')
+            // console.log(genre)
+            // console.log('this is the filter text')
+            // console.log(this.props.searchText)
             if(genre.match(this.props.searchText)) {
               filteredUsers.push(user)
               // move to next user
@@ -151,8 +151,8 @@ export default class Map extends Component {
           })
 
       })
-      console.log('this is the filtered users array')
-      console.log(filteredUsers)
+      // console.log('this is the filtered users array')
+      // console.log(filteredUsers)
       // else if()
       // filter by instrument
 
@@ -162,8 +162,8 @@ export default class Map extends Component {
   else {
     Array.prototype.push.apply(filteredUsers,this.props.users)
     // filteredUsers.concat(this.props.users)
-    console.log('these are the filtered users with no search text')
-    console.log(filteredUsers)
+    // console.log('these are the filtered users with no search text')
+    // console.log(filteredUsers)
   }
     return (
       <View style={styles.container}>

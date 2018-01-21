@@ -46,14 +46,14 @@ export default class MultiSelectExample extends Component {
     // when selected items change, write over DB instruments values
     // first find the current user's uid
     const user = firebase.auth().currentUser
-    console.log('this is the current user');
-    console.log(user)
-    console.log(`this is the current user's uid`);
-    console.log(user.uid)
+    // console.log('this is the current user');
+    // console.log(user)
+    // console.log(`this is the current user's uid`);
+    // console.log(user.uid)
     const userId = user.uid;
 
-    console.log('these are the selected items in the callback');
-    console.log(selectedItems);
+    // console.log('these are the selected items in the callback');
+    // console.log(selectedItems);
     // selectedItems is an array of selected instruments (iterate through)
     // ISSUE: this only results in the latest instrument being added to the database... maybe need listener on this.state.selected items and then update when this changes?
     // BECAUSE set writes over the DB node completely
@@ -71,19 +71,19 @@ export default class MultiSelectExample extends Component {
       selectedItems.forEach((instrument) => {
         results[instrument] = true
       });
-      console.log('these are the results')
-      console.log(results);
+      // console.log('these are the results')
+      // console.log(results);
       firebase.database().ref('users/' + userId + '/instruments').set(
         results
       )
   };
 
   render() {
-    console.log('selected items')
-    console.log(this.state.selectedItems)
+    // console.log('selected items')
+    // console.log(this.state.selectedItems)
     const { selectedItems } = this.state;
-    console.log('this is the multiselect')
-    console.log(this.multiSelect);
+    // console.log('this is the multiselect')
+    // console.log(this.multiSelect);
     return (
       <View style={{ flex: 1, marginTop: 50 }}>
         <MultiSelect
@@ -95,7 +95,7 @@ export default class MultiSelectExample extends Component {
           selectedItems={selectedItems}
           selectText="Pick Instruments"
           searchInputPlaceholderText="Search Instruments..."
-          onChangeInput={ (text)=> console.log(text)}
+          // onChangeInput={ (text)=> console.log(text)}
           tagRemoveIconColor="#CCC"
           tagBorderColor="#CCC"
           tagTextColor="#CCC"

@@ -129,7 +129,7 @@ export default class CreateAccountForm extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'pink'
+    backgroundColor: '#4c69a5'
   },
   // logo: {
   //   width: 100,

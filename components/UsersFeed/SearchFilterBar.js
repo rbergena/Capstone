@@ -27,7 +27,7 @@ export default class SearchFilterBar extends React.Component {
 
   // clear text should repopulate list with users
   handleOnClearText() {
-    console.log('text cleared')
+    // console.log('text cleared')
     this.props.onFilterTextChange('');
   }
 
@@ -36,8 +36,8 @@ export default class SearchFilterBar extends React.Component {
     const filterIndex = this.props.filterIndex;
     // const buttons = ['Instruments', 'Genres']
     const buttons = [{ element: Instruments }, { element: Genres }]
-    console.log('onFilterTextChange editing')
-    console.log(this.props.onFilterTextChange)
+    // console.log('onFilterTextChange editing')
+    // console.log(this.props.onFilterTextChange)
     return (
       <View>
       <ButtonGroup

@@ -39,24 +39,24 @@ export default class UserProfile extends Component {
       let result = [];
       firebase.database().ref('/users/').once('value').then((snapshot) => {
         let userdata = snapshot.val()
-        console.log('these are the keys from the userdata from snapshot')
-        console.log(Object.keys(userdata))
+        // console.log('these are the keys from the userdata from snapshot')
+        // console.log(Object.keys(userdata))
         result = Object.keys(userdata);
       });
-      console.log('this is the result')
-      console.log(result)
+      // console.log('this is the result')
+      // console.log(result)
       result.forEach((uid) => {
         firebase.database().ref('/users/' + uid).once('value').then((snapshot) => {
           let userinfo = snapshot.val()
-          console.log('user information')
-          console.log(userinfo)
+          // console.log('user information')
+          // console.log(userinfo)
         });
       });
       this.setState({
         users: result,
       })
-      console.log('this is the users state')
-      console.log(this.state.users);
+      // console.log('this is the users state')
+      // console.log(this.state.users);
     }
 
 // add on press prop for social icons that will then go to webview

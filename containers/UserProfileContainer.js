@@ -25,10 +25,10 @@ export default class UserProfileContainer extends Component {
   // conditionally render social media section if the user has social media links
   render() {
     // const { userInfo } = this.props
-    console.log('user information')
-    console.log(this.props.userInfo)
-    console.log('social media information')
-    console.log(this.props.userInfo.social_media)
+    // console.log('user information')
+    // console.log(this.props.userInfo)
+    // console.log('social media information')
+    // console.log(this.props.userInfo.social_media)
 
     return (
       <View style={styles.container}>

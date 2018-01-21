@@ -25,74 +25,90 @@ export default class FilterableUsersTable extends Component {
     }
     this.handleOnPress = this.handleOnPress.bind(this);
     this.handleSubmitEditing = this.handleSubmitEditing.bind(this);
-
+    // get reference to users node
+    this.usersRef = firebase.database().ref().child('users/');
   }
   // after component mounts, get users data from FBDB in order to populate list
-  componentWillMount(){
-    this.getUsersData();
+  // componentWillMount(){
+  //   this.getUsersData();
+  // }
+  componentDidMount() {
+    this.listenForUsers(this.usersRef);
   }
 
-  getUsersData(){
+  listenForUsers(usersRef){
     const userId = firebase.auth().currentUser.uid;
-    firebase.database().ref('/users/').once('value').then((snapshot) => {
-      console.log('#######MAPCONTAINER GETUSER DATA#############')
-      console.log('in component did mount')
-      console.log(snapshot.val())
+    // firebase.database().ref('/users/').once('value').then((snapshot) => {
+      usersRef.on('value', (snapshot) => {
+      // console.log('#######MAPCONTAINER GETUSER DATA#############')
+      // console.log('in component did mount')
+      // console.log(snapshot.val())
       let users = snapshot.val()
       let results = [];
       let currentUser = [];
       for(var uid in users) {
           if(users.hasOwnProperty(uid)) {
-            console.log('this is the uid')
-            console.log(uid)
-            console.log('this is the uid object')
-            console.log(users[uid])
+            // console.log('this is the uid')
+            // console.log(uid)
+            // console.log('this is the uid object')
+            // console.log(users[uid])
               var userObject = users[uid];
-              console.log('this is the user object')
-              console.log(userObject)
+              // console.log('this is the user object')
+              // console.log(userObject)
                 // exclude currently logged in user (use user's uid and then only add to results array if currently logged in user's uid does not equal the userObject's uid)
               if (userId === uid) {
-                console.log('this is the current user')
+                // console.log('this is the current user')
                 currentUser.push(userObject)
-                console.log('user id')
-                console.log(userId)
-                console.log('current user object')
-                console.log(currentUser[0])
+                // console.log('user id')
+                // console.log(userId)
+                // console.log('current user object')
+                // console.log(currentUser[0])
               } else {
-              results.push(userObject)
+                // check if user has coordinates, name and instruments
+                // console.log('user object')
+                // console.log(userObject)
+                if(userObject.coordinates && userObject.name && userObject.instruments) {
+                  // console.log('user object pushed into results')
+                  results.push(userObject)
+                }
             }
           }
       }
-      console.log('these are the musicians after pulling all but current user from DB')
-      console.log(results)
+      // console.log('these are the musicians after pulling all but current user from DB')
+      // console.log(results)
       // set users with result from DB
       this.setState({
         users: results,
       })
     });
   }
+  // remove listener
+  componentWillUnmount() {
+      this.usersRef.off()
+  }
+
   // event handler to be passed to button
   handleOnPress(index) {
     this.setState({
       searchIndex: index,
     })
-    console.log('in the handle on press in searchable')
+    // console.log('in the handle on press in searchable')
   }
 
   handleSubmitEditing(searchText) {
     this.setState({
       searchText: searchText
     });
-    console.log('in the handle submit editing in searchable map')
+    // console.log('in the handle submit editing in searchable map')
   }
 
   render() {
-    console.log('this is this.state.users')
-    console.log(this.state.users)
-    console.log('this is the search index')
-    console.log(this.state.searchIndex)
-    console.log('this is the search text')
-    console.log(this.state.searchText)
+    // console.log('this is this.state.users')
+    // console.log(this.state.users)
+    // console.log('this is the search index')
+    // console.log(this.state.searchIndex)
+    // console.log('this is the search text')
+    // console.log(this.state.searchText)
     return(
       <View style={styles.container}>
       <Search

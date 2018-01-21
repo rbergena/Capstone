@@ -27,14 +27,28 @@ export default class MyMessagesScreen extends React.Component {
   }
   // listen for chats
   listenForItems(chatRef) {
-    firebase.database().ref('/users/').once('value').then((snapshot) => {
-       console.log('these are the users')
-       console.log(snapshot.val());
-         let users = snapshot.val();
-      //  currentUser.push(snapshot.val())
-       return users
-     }).then((users) => {
+    // firebase.database().ref().child('/users/').on('value', (snapshot) => {
+    //    console.log('these are the users')
+    //    console.log(snapshot.val());
+    //      let users = snapshot.val();
+    //   //  currentUser.push(snapshot.val())
+    //    return users
+    //  })
+    //  .then((users) => {
         chatRef.on('value', (snap) => {
+          // when chat node changes (i.e., chat is added), get a snapshot of app's users and use snapshot to identify chat partner's information
+          firebase.database().ref('/users/').once('value').then((snapshot) => {
+             console.log('these are the users')
+             console.log(snapshot.val());
+               let users = snapshot.val();
+            //  currentUser.push(snapshot.val())
+             return users
+           }).then((users) => {
+             console.log('these are the users')
+
+             console.log(users)
+
+          //  })
             // go through each chat pair key and see if the chat is for the current user
             let chatPartners = [];
             (Object.keys(snap.val())).forEach((chatPair) => {
@@ -78,6 +92,7 @@ export default class MyMessagesScreen extends React.Component {
   // stop listening for new chats
   componentWillUnmount() {
       this.chatRef.off()
+      // firebase.database().ref('/users/').off()
   }
   // go to chat
   goToChat(user) {
@@ -87,7 +102,7 @@ export default class MyMessagesScreen extends React.Component {
   render() {
     console.log('state of chat partners')
     console.log(this.state.chats)
-    console.log(this.chats)
+    // console.log(this.chats)
 
      return (
        <View style={styles.container}>

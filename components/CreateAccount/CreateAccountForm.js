@@ -9,6 +9,7 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Alert,
 } from 'react-native';
 import Login from '../Login/Login';
 import * as firebase from 'firebase';
@@ -29,33 +30,53 @@ export default class CreateAccountForm extends Component {
     this.setState({
       loaded: false
     })
-    console.log(this.state.email);
-    console.log(this.state.password);
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+    // console.log(this.state.email);
+    // console.log(this.state.password);
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
+          firebase.database().ref('users/' + user.uid).set({
+              email: user.email,
+              uid : user.uid,
+          });
+          // console.log("User added to DB.");
+          Alert.alert(
+            'You successfully created an account!',
+            null,
+            [
+              {text: 'OK', onPress: () => this.props.navigation.navigate('Login')},
+            ],
+            { cancelable: false }
+          )
+      this.setState({
+        email: '',
+        password: '',
+        loaded: true
+      });
+    })
+    .catch(function(error) {
       // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
       alert(errorMessage);
-      console.log(error);
+      // console.log(error);
     });
 
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        firebase.database().ref('users/' + user.uid).set({
-            email: user.email,
-            uid : user.uid,
-        });
-        console.log("User added to DB.");
-      } else {
-         console.log("No user added to DB.");
-      }
-    });
-
-    this.setState({
-      email: '',
-      password: '',
-      loaded: true
-    });
+    // firebase.auth().onAuthStateChanged(function(user) {
+    //   if (user) {
+    //     firebase.database().ref('users/' + user.uid).set({
+    //         email: user.email,
+    //         uid : user.uid,
+    //     });
+    //     console.log("User added to DB.");
+    //   } else {
+    //      console.log("No user added to DB.");
+    //   }
+    // });
+    //
+    // this.setState({
+    //   email: '',
+    //   password: '',
+    //   loaded: true
+    // });
   }
 
   render() {

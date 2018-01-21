@@ -77,7 +77,7 @@ export default class ChatScreen extends React.Component {
 
   listenForItems(chatRef) {
     firebase.database().ref('/users/' + this.user.uid).once('value').then((snapshot) => {
-       console.log('this is the user snapshot')
+      //  console.log('this is the user snapshot')
       //  console.log(snapshot.val())
          let currentUser = snapshot.val()
       //  currentUser.push(snapshot.val())
@@ -90,9 +90,9 @@ export default class ChatScreen extends React.Component {
             snap.forEach((child) => {
                 var avatar = child.val().uid == this.user.uid? currentUser.picture.thumbnail : this.recipient.picture.thumbnail;
                 var name = child.val().uid == this.user.uid? currentUser.name: this.recipient.name
-                console.log(' chat name and avatar')
-                console.log(name)
-                console.log(avatar)
+                // console.log(' chat name and avatar')
+                // console.log(name)
+                // console.log(avatar)
                 items.push({
                     _id: child.val().createdAt,
                     text: child.val().text,
@@ -140,15 +140,15 @@ onSend(messages = []) {
 }
 
   render() {
-    console.log('props in chat screen')
+    // console.log('props in chat screen')
     // the user's params including uid are passed down to the chat screen
-    console.log(this.props.navigation.state.params)
-    console.log('this is the current user')
-    console.log(this.user)
-    console.log('this is the recipient')
-    console.log(this.recipient)
-    console.log('chat ref')
-    console.log(this.chatRef)
+    // console.log(this.props.navigation.state.params)
+    // console.log('this is the current user')
+    // console.log(this.user)
+    // console.log('this is the recipient')
+    // console.log(this.recipient)
+    // console.log('chat ref')
+    // console.log(this.chatRef)
     return (
     <GiftedChat
         messages={this.state.messages}

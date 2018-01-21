@@ -27,36 +27,50 @@ export default class MyMessagesScreen extends React.Component {
   }
   // listen for chats
   listenForItems(chatRef) {
-    firebase.database().ref('/users/').once('value').then((snapshot) => {
-      //  console.log('these are the users')
-      //  console.log(snapshot.val());
-         let users = snapshot.val();
-      //  currentUser.push(snapshot.val())
-       return users
-     }).then((users) => {
+    // firebase.database().ref().child('/users/').on('value', (snapshot) => {
+    //    console.log('these are the users')
+    //    console.log(snapshot.val());
+    //      let users = snapshot.val();
+    //   //  currentUser.push(snapshot.val())
+    //    return users
+    //  })
+    //  .then((users) => {
         chatRef.on('value', (snap) => {
+          // when chat node changes (i.e., chat is added), get a snapshot of app's users and use snapshot to identify chat partner's information
+          firebase.database().ref('/users/').once('value').then((snapshot) => {
+             console.log('these are the users')
+             console.log(snapshot.val());
+               let users = snapshot.val();
+            //  currentUser.push(snapshot.val())
+             return users
+           }).then((users) => {
+             console.log('these are the users')
+
+             console.log(users)
+
+          //  })
             // go through each chat pair key and see if the chat is for the current user
             let chatPartners = [];
             (Object.keys(snap.val())).forEach((chatPair) => {
-              // console.log('in my messages chatref listener')
+              console.log('in my messages chatref listener')
 
               // if current user is a member of the chat, then add chat to messages screen
               if(chatPair.includes(this.user.uid)) {
-                // console.log('the current user is involved in this chat');
-                // console.log(chatPair);
-                // console.log(this.user.uid);
-                // console.log(`get the other user's id`)
-                // console.log(chatPair.split('-'))
+                console.log('the current user is involved in this chat');
+                console.log(chatPair);
+                console.log(this.user.uid);
+                console.log(`get the other user's id`)
+                console.log(chatPair.split('-'))
                 let chatPairIds = chatPair.split('-');
                 if(chatPairIds[0] === this.user.uid) {
-                  // console.log('in chat pair')
-                  // console.log('this is the other member of the chat pair')
-                  // console.log(users[chatPairIds[1]])
+                  console.log('in chat pair')
+                  console.log('this is the other member of the chat pair')
+                  console.log(users[chatPairIds[1]])
                   chatPartners.push(users[chatPairIds[1]])
                 } else {
-                  // console.log('in chat pair')
-                  // console.log('this is the other member of the chat pair')
-                  // console.log(users[chatPairIds[0]])
+                  console.log('in chat pair')
+                  console.log('this is the other member of the chat pair')
+                  console.log(users[chatPairIds[0]])
                   chatPartners.push(users[chatPairIds[0]])
                 }
 
@@ -78,6 +92,7 @@ export default class MyMessagesScreen extends React.Component {
   // stop listening for new chats
   componentWillUnmount() {
       this.chatRef.off()
+      // firebase.database().ref('/users/').off()
   }
   // go to chat
   goToChat(user) {
@@ -85,8 +100,8 @@ export default class MyMessagesScreen extends React.Component {
   }
 
   render() {
-    // console.log('state of chat partners')
-    // console.log(this.state.chats)
+    console.log('state of chat partners')
+    console.log(this.state.chats)
     // console.log(this.chats)
 
      return (

@@ -42,7 +42,7 @@ export default class CreateAccountForm extends Component {
             'You successfully created an account!',
             null,
             [
-              // {text: 'OK', onPress: () => console.log('OK Pressed')},
+              {text: 'OK', onPress: () => this.props.navigation.navigate('Login')},
             ],
             { cancelable: false }
           )

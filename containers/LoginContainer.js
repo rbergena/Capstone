@@ -8,11 +8,14 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 // import Login from './Login';
 import { StackNavigator } from 'react-navigation';
 import * as firebase from 'firebase';
+const window = Dimensions.get('window');
 
+const IMAGE_HEIGHT = window.width / 2;
 
 export default class LoginContainer extends Component {
   constructor(props) {
@@ -75,6 +78,7 @@ export default class LoginContainer extends Component {
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={styles.logoContainer}>
         <Image
+        source={require('../images/JamOutLogo.png')}
         style={styles.logo}
         />
         </View>
@@ -105,9 +109,6 @@ export default class LoginContainer extends Component {
           <Text style={styles.textLink} onPress={() => this.props.navigate('CreateAccount')}>
             Create an account
           </Text>
-          <Text style={styles.textLink} onPress={this.logout}>
-            Logout
-          </Text>
         </View>
       </KeyboardAvoidingView>
     );
@@ -117,12 +118,19 @@ export default class LoginContainer extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'pink'
+    backgroundColor: '#4c69a5'
   },
+  // logo: {
+  //   width: 100,
+  //   height: 100,
+  // },
   logo: {
-    width: 100,
-    height: 100,
-  },
+  height: IMAGE_HEIGHT,
+  resizeMode: 'contain',
+  marginBottom: 20,
+  padding:10,
+  marginTop:20
+},
   logoContainer: {
     alignItems: 'center',
     flexGrow: 1,
@@ -154,3 +162,6 @@ const styles = StyleSheet.create({
 });
 // add later
 // source={require('./images/JamOutLogo.png')}
+// <Text style={styles.textLink} onPress={this.logout}>
+//   Logout
+// </Text>

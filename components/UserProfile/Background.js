@@ -27,7 +27,6 @@ export const Background = (props) => {
           containerStyle={{marginTop: 30}}
         />
         <Button
-          raised
           icon={{name: 'email'}}
           title='Chat'
           rounded={true}

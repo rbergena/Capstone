@@ -5,6 +5,8 @@ import {
     Text,
     Button,
     Stylesheet,
+    ActivityIndicator,
+    StyleSheet,
 } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat'
 
@@ -114,6 +116,8 @@ export default class ChatScreen extends React.Component {
         });
     }
   componentDidMount() {
+    this.setState({ loading: true });
+
     this.listenForItems(this.chatRefData);
 }
 
@@ -149,6 +153,13 @@ onSend(messages = []) {
     // console.log(this.recipient)
     // console.log('chat ref')
     // console.log(this.chatRef)
+    if (this.state.loading) {
+      return (
+        <View style={[styles.container, styles.horizontal]}>
+        <ActivityIndicator size="large" />
+        </View>
+      )
+    } else {
     return (
     <GiftedChat
         messages={this.state.messages}
@@ -161,6 +172,19 @@ onSend(messages = []) {
 );
   }
 }
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+
+horizontal: {
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  padding: 10,
+},
+
+});
 //   render() {
 //     console.log(' props in chat screen')
 //     console.log(this.props.navigation.params)

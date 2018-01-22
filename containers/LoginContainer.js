@@ -78,9 +78,8 @@ export default class LoginContainer extends Component {
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
       <Animated.Image source={require('../images/JamOutLogo.png')} style={[styles.logo, { height: this.imageHeight }]} />
-        <View style={styles.loginContainer}>
           <TextInput
-            style={styles.input}
+            style={[styles.input, {marginTop: 40}]}
             placeholder='email'
             onSumbitEditing={() => this.passwordInput.focus()}
             returnKeyType='next'
@@ -106,7 +105,6 @@ export default class LoginContainer extends Component {
           <Text style={styles.textLink} onPress={() => this.props.navigate('CreateAccount')}>
             Create an account
           </Text>
-        </View>
       </KeyboardAvoidingView>
     );
   }
@@ -135,10 +133,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     backgroundColor: '#FFF',
     paddingHorizontal: 10,
+    marginHorizontal: 20,
   },
   buttonContainer: {
     backgroundColor: 'rgb(189, 195, 199)',
     paddingVertical: 15,
+    marginHorizontal: 20,
   },
   buttonText: {
     textAlign: 'center',

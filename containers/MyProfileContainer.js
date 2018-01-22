@@ -422,6 +422,7 @@ export default class MultiSelectGenresInstruments extends Component {
       />
       <FormLabel labelStyle={{fontSize: 14, color:'#525966', fontWeight: 'normal'}}>Description</FormLabel>
       <FormInput
+      inputStyle={{  paddingRight: 40 }}
       placeholder= 'Please enter a description...'
       containerStyle={styles.input}
       multiline={true}

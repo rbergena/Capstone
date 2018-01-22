@@ -35,7 +35,7 @@ var options = {
   },
   maxWidth: 500,
   maxHeight: 500,
-  quality: 0.3,
+  quality: 0.2,
 };
 
 export default class MultiSelectGenresInstruments extends Component {

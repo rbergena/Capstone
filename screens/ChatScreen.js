@@ -168,6 +168,7 @@ onSend(messages = []) {
             _id: this.user.uid,
         }}
         showUserAvatar={true}
+        isLoadingEarlier={true}
         bottomOffset={56}
         />
 );

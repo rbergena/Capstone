@@ -1,7 +1,6 @@
-// Login Form Component
+// Create Account Form Component
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
@@ -11,13 +10,15 @@ import {
   KeyboardAvoidingView,
   Alert,
   Dimensions,
+  Animated,
+  Keyboard,
 } from 'react-native';
-import Login from '../Login/Login';
+
 import * as firebase from 'firebase';
-import firebaseApp from '../../services/firebase';
 const window = Dimensions.get('window');
 
-const IMAGE_HEIGHT = window.width / 2;
+const IMAGE_HEIGHT_SMALL = window.width /3;
+const IMAGE_HEIGHT = window.width / 1.5;
 
 export default class CreateAccountForm extends Component {
   constructor(props) {
@@ -27,20 +28,19 @@ export default class CreateAccountForm extends Component {
       email: '',
       password: ''
     }
+    this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
   }
+
   createaccount(){
     // TODO: will use for loading visual later
     this.setState({
       loaded: false
     })
-    // console.log(this.state.email);
-    // console.log(this.state.password);
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
           firebase.database().ref('users/' + user.uid).set({
               email: user.email,
               uid : user.uid,
           });
-          // console.log("User added to DB.");
           Alert.alert(
             'You successfully created an account!',
             null,
@@ -60,39 +60,38 @@ export default class CreateAccountForm extends Component {
       const errorCode = error.code;
       const errorMessage = error.message;
       alert(errorMessage);
-      // console.log(error);
     });
-
-    // firebase.auth().onAuthStateChanged(function(user) {
-    //   if (user) {
-    //     firebase.database().ref('users/' + user.uid).set({
-    //         email: user.email,
-    //         uid : user.uid,
-    //     });
-    //     console.log("User added to DB.");
-    //   } else {
-    //      console.log("No user added to DB.");
-    //   }
-    // });
-    //
-    // this.setState({
-    //   email: '',
-    //   password: '',
-    //   loaded: true
-    // });
   }
+  componentWillMount () {
+    this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+    this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
+  }
+
+  componentWillUnmount() {
+    this.keyboardWillShowSub.remove();
+    this.keyboardWillHideSub.remove();
+  }
+
+  keyboardWillShow = (event) => {
+    Animated.timing(this.imageHeight, {
+      duration: event.duration,
+      toValue: IMAGE_HEIGHT_SMALL,
+    }).start();
+  };
+
+  keyboardWillHide = (event) => {
+    Animated.timing(this.imageHeight, {
+      duration: event.duration,
+      toValue: IMAGE_HEIGHT,
+    }).start();
+  };
 
   render() {
     const {navigate} = this.props.navigation;
 
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
-        <View style={styles.logoContainer}>
-        <Image
-        source={require('../../images/JamOutLogo.png')}
-        style={styles.logo}
-        />
-        </View>
+        <Animated.Image source={require('../../images/JamOutLogo.png')} style={[styles.logo, { height: this.imageHeight }]} />
         <View style={styles.loginContainer}>
           <TextInput
             style={styles.input}
@@ -110,6 +109,7 @@ export default class CreateAccountForm extends Component {
             placeholder='password'
             secureTextEntry
             returnKeyType='go'
+            onSubmitEditing={this.createaccount.bind(this)}
             onChangeText={(text) => this.setState({password: text})}
             value={this.state.password}
             ref={(input) => this.passwordInput = input}
@@ -131,24 +131,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#4c69a5'
   },
-  // logo: {
-  //   width: 100,
-  //   height: 100,
-  // },
   logo: {
-  height: IMAGE_HEIGHT,
-  resizeMode: 'contain',
-  marginBottom: 20,
-  padding:10,
-  marginTop:20
-},
-  logoContainer: {
-    alignItems: 'center',
-    flexGrow: 1,
-    justifyContent: 'center'
+    height: IMAGE_HEIGHT,
+    resizeMode: 'contain',
+    marginBottom: 20,
+    padding:10,
+    marginTop:20
   },
   loginContainer: {
     padding: 20,
+    flex: 2,
+    justifyContent: 'center'
   },
   input: {
     height: 40,
@@ -171,5 +164,3 @@ const styles = StyleSheet.create({
     color: 'gray'
   }
 });
-// add later
-// source={require('./images/JamOutLogo.png')}

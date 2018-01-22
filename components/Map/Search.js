@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { ButtonGroup, SearchBar} from "react-native-elements"
 
-  const Instruments = () => <Text style={styles.instruments}>Instruments</Text>
+const Instruments = () => <Text style={styles.instruments}>Instruments</Text>
 const Genres = () => <Text style={styles.genres}>Genres</Text>
 
 export default class Search extends React.Component {
@@ -23,24 +23,18 @@ export default class Search extends React.Component {
   }
   // pass search text to onSubmitEditing prop which calls handleSubmitEditing in parent which sets state to current text in search
   handleSubmitEditing(text) {
-    // console.log('event native elevent')
-    // console.log(text)
     this.props.onSumbitEditing(text);
   }
   // clear text should repopulate map with markers
   handleOnClearText() {
-    // console.log('text cleared')
     this.props.onSumbitEditing('');
   }
 
   render() {
     const searchText = this.props.searchText;
     const searchIndex = this.props.searchIndex;
-    // const buttons = ['Instruments', 'Genres']
     const buttons = [{ element: Instruments }, { element: Genres }]
 
-    // console.log('submit editing')
-    // console.log(this.props.onSubmitEditing)
     return (
       <View>
       <ButtonGroup
@@ -48,7 +42,7 @@ export default class Search extends React.Component {
         selectedIndex={this.props.searchIndex}
         buttons={buttons}
         containerStyle={{height: 50}}
-        selectedBackgroundColor="#D8E2DC"
+        selectedBackgroundColor='#9CAFB7'
       />
       <SearchBar
         round
@@ -69,14 +63,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   instruments: {
-    // color: '#9C7178',
-    // color: '#548089'
     color: '#00171F',
     fontWeight: 'bold',
   },
   genres: {
-    // color: '#829356',
-    // color: '#9C7178'
     color: '#003459',
     fontWeight: 'bold',
   },

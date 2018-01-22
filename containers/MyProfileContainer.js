@@ -59,37 +59,25 @@ export default class MultiSelectGenresInstruments extends Component {
     this.instagramPressed = this.instagramPressed.bind(this);
     this.twitterPressed = this.twitterPressed.bind(this);
     this.soundcloudPressed = this.soundcloudPressed.bind(this);
-
-
-
   }
   // set selected items to whatever is in DB for that user if there are instruments and genres. Otherwise selected genres and instruments state will be empty arrays
   componentDidMount(){
     this.setState({ loading: true });
-    // console.log(`######### MY PROFILE CONTAINER'S componentDidMount ##############`)
 
     const userId = firebase.auth().currentUser.uid;
     // get users information from user/uid node
       firebase.database().ref('/users/' + userId).once('value').then((snapshot) => {
-        // console.log('*******IN THE FIREBASE CALL USER/UID IN PROFILE PAGE ********')
         let instrumentsObject = [];
         let genresObject = [];
         let avatar = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
-        // if the instrument node exists, set the state of selected instruments to those currently in the DB
-          // console.log('it returned a snapshot')
-          // console.log(snapshot.val());
           let currentUserObject = snapshot.val();
-          // if instruments or genres exist
+          // if the instruments or genre nodes exists, set the state of selected instruments or genres to those currently in the DB
           if(currentUserObject.instruments) {
             instrumentsObject =  Object.keys(currentUserObject.instruments)
           }
-          // console.log('this is the instruments object')
-          // console.log(instrumentsObject)
           if(currentUserObject.genres) {
             genresObject = Object.keys(currentUserObject.genres)
           }
-          // console.log('this is the genres object')
-          // console.log(genresObject)
           let name = '';
           let email = '';
           let description = '';
@@ -148,20 +136,11 @@ export default class MultiSelectGenresInstruments extends Component {
     // when selected items change, write over DB instruments values
     // first find the current user's uid
     const userId = firebase.auth().currentUser.uid
-    // console.log('this is the current user');
-    // console.log(user)
-    // console.log(`this is the current user's uid`);
-    // console.log(user.uid)
-    // const userId = user.uid;
 
-    // console.log('these are the selected items in the callback');
-    // console.log(selectedInstruments);
       let results = {};
       selectedInstruments.forEach((instrument) => {
         results[instrument] = true
       });
-      // console.log('these are the results')
-      // console.log(results);
       firebase.database().ref('users/' + userId + '/instruments').set(
         results
       )
@@ -169,23 +148,15 @@ export default class MultiSelectGenresInstruments extends Component {
 
   onSelectedGenresChange = selectedGenres => {
     this.setState({ selectedGenres });
-    // when selected items change, write over DB instruments values
+    // when selected items change, write over DB Genres values
     // first find the current user's uid
     const user = firebase.auth().currentUser
-    // console.log('this is the current user');
-    // console.log(user)
-    // console.log(`this is the current user's uid`);
-    // console.log(user.uid)
     const userId = user.uid;
 
-    // console.log('these are the selected items in the callback');
-    // console.log(selectedGenres);
       let results = {};
       selectedGenres.forEach((genre) => {
         results[genre] = true
       });
-      // console.log('these are the results')
-      // console.log(results);
       firebase.database().ref('users/' + userId + '/genres').set(
         results
       )
@@ -304,14 +275,10 @@ export default class MultiSelectGenresInstruments extends Component {
       })
   })
 }
-  /**
-   * The first arg is the options object for customization (it can also be null or omitted for default options),
-   * The second arg is the callback which sends object: response (more info below in README)
-   */
+
    showImagePicker() {
      const userId = firebase.auth().currentUser.uid;
      ImagePicker.showImagePicker(options, (response) => {
-    // console.log('Response = ', response);
 
     if (response.didCancel) {
       // console.log('User cancelled image picker');
@@ -322,10 +289,6 @@ export default class MultiSelectGenresInstruments extends Component {
     else {
       let source = { uri: response.uri };
 
-      // You can also display the image using data:
-      // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-      // console.log('this is the response uri')
-      // console.log(response.uri)
       this.uploadImage(response.uri)
         // after the image is added to firebase storage, add it to appropriate location in FB RTDB under users/uid/picture/
         .then(url => {
@@ -339,18 +302,9 @@ export default class MultiSelectGenresInstruments extends Component {
 }
 
   render() {
-    // console.log(`######### IN MY PROFILE CONTAINER'S RENDER ##############`)
-    // console.log('this is the soundcloud profile name')
-    // console.log(this.state.soundcloud);
-    // console.log('selected items')
-    // console.log(this.state.selectedInstruments)
     const { selectedInstruments } = this.state;
     const { selectedGenres } = this.state;
-    // console.log('this is the loading state')
-    // console.log(this.state.loading)
-    // console.log('this is the multiselect')
-    // console.log(this.multiSelect);
-    // debugger
+
     if (this.state.loading) {
       return (
         <View style={[styles.container, styles.horizontal]}>
@@ -360,132 +314,130 @@ export default class MultiSelectGenresInstruments extends Component {
     } else {
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
-      <ScrollView >
-      <View style={styles.header}>
-      <View style={styles.avatarContainer}>
-      <Avatar
-        xlarge
-        rounded
-        source={{uri: this.state.avatar}}
-        activeOpacity={0.7}
-        containerStyle={{marginTop: 30, justifyContent: 'center'}}
-      />
-      </View>
-      <View style={styles.button}>
-      <TouchableOpacity
-      style={{ borderRadius: 15, backgroundColor: '#4A6D7C', paddingVertical: 6, paddingHorizontal: 11}}
-      onPress={this.showImagePicker}
-      >
-        <Text style={styles.buttonText}>Edit Photo</Text>
-      </TouchableOpacity>
+        <ScrollView >
+          <View style={styles.header}>
+            <View style={styles.avatarContainer}>
+              <Avatar
+                xlarge
+                rounded
+                source={{uri: this.state.avatar}}
+                activeOpacity={0.7}
+                containerStyle={{marginTop: 30, justifyContent: 'center'}}
+              />
+            </View>
+            <View style={styles.button}>
 
-
-      </View>
-      <View style={styles.socialContainer}>
-        <SocialIcon
-          raised={false}
-          type='soundcloud'
-          onPress={this.soundcloudPressed}
-          onLongPress={this.soundcloudPressed}
-        />
-        <SocialIcon
-        type='twitter'
-        onPress={this.twitterPressed}
-        onLongPress={this.twitterPressed}
-        />
-        <SocialIcon
-          light
-          type='youtube'
-          onPress={this.youtubePressed}
-          onLongPress={this.youtubePressed}
-        />
-        <SocialIcon
-          light
-          type='instagram'
-          onPress={this.instagramPressed}
-          onLongPress={this.instagramPressed}
-        />
-      </View>
-      </View>
-      <View style={styles.form}>
-      <FormLabel labelStyle={{fontSize: 14, color:'#525966', fontWeight: 'normal'}}>Name</FormLabel>
-      <FormInput
-      placeholder= 'Please enter your name...'
-      onChangeText={(text) => this.nameChange(text)}
-      defaultValue={this.state.name}
-      />
-      <FormLabel labelStyle={{fontSize: 14, color:'#525966', fontWeight: 'normal'}}>Email</FormLabel>
-      <FormInput
-      placeholder= 'Please enter your email...'
-      onChangeText={(text) => this.emailChange(text)}
-      defaultValue={this.state.email}
-      />
-      <FormLabel labelStyle={{fontSize: 14, color:'#525966', fontWeight: 'normal'}}>Description</FormLabel>
-      <FormInput
-      inputStyle={{  paddingRight: 40 }}
-      placeholder= 'Please enter a description...'
-      containerStyle={styles.input}
-      multiline={true}
-      onChangeText={(text) => this.descriptionChange(text)}
-      defaultValue={this.state.description}
-      />
-      </View>
-      <View style={styles.form}>
-        <ScrollView>
-        <MultiSelect
-          hideTags
-          items={genres}
-          uniqueKey="genre"
-          ref={(component) => { this.multiSelect = component }}
-          onSelectedItemsChange={this.onSelectedGenresChange}
-          selectedItems={selectedGenres}
-          selectText="Pick Genres"
-          searchInputPlaceholderText="Search Genres..."
-          tagRemoveIconColor="red"
-          tagBorderColor="#62929E"
-          tagTextColor="#4A6D7C"
-          selectedItemTextColor="#CCC"
-          selectedItemIconColor="#CCC"
-          itemTextColor="#000"
-          displayKey="name"
-          searchInputStyle={{ color: '#CCC', minHeight: 50 }}
-          submitButtonColor="#CCC"
-          submitButtonText="Submit Genres"
-          hideTags={false}
-          fixedHeight={false}
-        />
-        </ScrollView>
-
-        <ScrollView>
-
-          <MultiSelect
-            hideTags
-            items={instruments}
-            uniqueKey="id"
-            ref={(component) => { this.multiSelect = component }}
-            onSelectedItemsChange={this.onSelectedInstrumentsChange}
-            selectedItems={selectedInstruments}
-            selectText="Pick Instruments"
-            searchInputPlaceholderText="Search Instruments..."
-            tagRemoveIconColor="red"
-            tagBorderColor="#62929E"
-            tagTextColor="#4A6D7C"
-            selectedItemTextColor="#CCC"
-            selectedItemIconColor="#CCC"
-            itemTextColor="#000"
-            displayKey="name"
-            searchInputStyle={{ color: '#CCC', minHeight: 50  }}
-            submitButtonColor="#CCC"
-            submitButtonText="Submit Instruments"
-            hideTags={false}
-            fixedHeight={false}
-          />
-          </ScrollView>
+              <Button
+                icon={{name: 'photo'}}
+                title='Edit'
+                rounded={true}
+                buttonStyle={{padding: 5, backgroundColor: '#4A6D7C' }}
+                onPress={this.showImagePicker}
+                />
+            </View>
+            <View style={styles.socialContainer}>
+              <SocialIcon
+                raised={false}
+                type='soundcloud'
+                onPress={this.soundcloudPressed}
+                onLongPress={this.soundcloudPressed}
+              />
+              <SocialIcon
+              type='twitter'
+              onPress={this.twitterPressed}
+              onLongPress={this.twitterPressed}
+              />
+              <SocialIcon
+                light
+                type='youtube'
+                onPress={this.youtubePressed}
+                onLongPress={this.youtubePressed}
+              />
+              <SocialIcon
+                light
+                type='instagram'
+                onPress={this.instagramPressed}
+                onLongPress={this.instagramPressed}
+              />
+            </View>
           </View>
-          </ScrollView>
-
-          </KeyboardAvoidingView>
-
+          <View style={styles.form}>
+            <FormLabel labelStyle={{fontSize: 15, color:'#4c69a5', fontWeight: 'bold'}}>Name</FormLabel>
+            <FormInput
+            inputStyle={{ color: '#525966' }}
+            placeholder= 'Please enter your name...'
+            onChangeText={(text) => this.nameChange(text)}
+            defaultValue={this.state.name}
+            />
+            <FormLabel labelStyle={{fontSize: 15, color:'#4c69a5', fontWeight: 'bold'}}>Email</FormLabel>
+            <FormInput
+            inputStyle={{ color: '#525966' }}
+            placeholder= 'Please enter your email...'
+            onChangeText={(text) => this.emailChange(text)}
+            defaultValue={this.state.email}
+            />
+            <FormLabel labelStyle={{fontSize: 15, color:'#4c69a5', fontWeight: 'bold'}}>Description</FormLabel>
+            <FormInput
+            inputStyle={{  paddingRight: 40, color: '#525966' }}
+            placeholder= 'Please enter a description...'
+            containerStyle={styles.input}
+            multiline={true}
+            onChangeText={(text) => this.descriptionChange(text)}
+            defaultValue={this.state.description}
+            />
+          </View>
+          <View style={styles.form}>
+            <ScrollView>
+              <MultiSelect
+                hideTags
+                items={genres}
+                uniqueKey="genre"
+                ref={(component) => { this.multiSelect = component }}
+                onSelectedItemsChange={this.onSelectedGenresChange}
+                selectedItems={selectedGenres}
+                selectText="Pick Genres"
+                searchInputStyle={{fontSize: 16, color: '#CCC', fontWeight: 'bold', minHeight: 50}}
+                searchInputPlaceholderText="Search Genres..."
+                tagRemoveIconColor="red"
+                tagBorderColor="#62929E"
+                tagTextColor="#4A6D7C"
+                selectedItemTextColor='#4c69a5'
+                selectedItemIconColor='#4c69a5'
+                itemTextColor="#000"
+                displayKey="name"
+                submitButtonColor="#CCC"
+                submitButtonText="Submit Genres"
+                hideTags={false}
+                fixedHeight={false}
+              />
+            </ScrollView>
+            <ScrollView>
+              <MultiSelect
+                hideTags
+                items={instruments}
+                uniqueKey="id"
+                ref={(component) => { this.multiSelect = component }}
+                onSelectedItemsChange={this.onSelectedInstrumentsChange}
+                selectedItems={selectedInstruments}
+                selectText="Pick Instruments"
+                searchInputPlaceholderText="Search Instruments..."
+                tagRemoveIconColor="red"
+                tagBorderColor="#62929E"
+                tagTextColor="#4A6D7C"
+                selectedItemTextColor='#4c69a5'
+                selectedItemIconColor='#4c69a5'
+                itemTextColor="#000"
+                displayKey="name"
+                searchInputStyle={{fontSize: 16, color: '#CCC', fontWeight: 'bold', minHeight: 50}}
+                submitButtonColor="#CCC"
+                submitButtonText="Submit Instruments"
+                hideTags={false}
+                fixedHeight={false}
+              />
+            </ScrollView>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -495,58 +447,46 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-
   },
   input: {
   minHeight: 100,
   borderBottomWidth: 0,
-  // backgroundColor: '#fff',
-  // marginHorizontal: 10,
-  // marginVertical: 5,
- // paddingVertical: 5,
-  // paddingHorizontal: 15,
-  // width: window.width - 30,
-},
-horizontal: {
-  flexDirection: 'row',
-  justifyContent: 'space-around',
-  padding: 10
-},
-avatarContainer: {
-  flexDirection: 'row',
-  justifyContent: 'center',
-  paddingBottom: 20,
-},
-form: {
-  backgroundColor: '#fff',
-
-},
-socialContainer: {
-  flex: 1,
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
-},
-header: {
-  // backgroundColor: '#62929E'
-  backgroundColor: '#fff'
-},
-button: {
-  flexDirection: 'row',
-  justifyContent: 'center',
-  paddingBottom: 20,
-  // padding: 20,
-},
-buttonText: {
-  textAlign: 'center',
-  color: '#FFFFFF'
-},
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10
+  },
+  avatarContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingBottom: 20,
+  },
+  form: {
+    backgroundColor: '#fff',
+  },
+  socialContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  header: {
+    // backgroundColor: '#62929E'
+    backgroundColor: '#fff'
+  },
+  button: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingBottom: 20,
+    // padding: 20,
+  },
+  buttonText: {
+    textAlign: 'center',
+    color: '#FFFFFF'
+  },
 });
-// TODO: add selected items to DB and remove items from DB
-// <View>
-//   {this.multiSelect.getSelectedItemsExt(selectedItems)}
-// </View>
-//
+
 // <Button
 //   raised
 //   icon={{name: 'photo'}}
@@ -556,3 +496,10 @@ buttonText: {
 //   containerViewStyle={{borderRadius: 15, height: 20 }}
 //   onPress={this.showImagePicker}
 //    />
+
+// <TouchableOpacity
+// style={{ borderRadius: 15, backgroundColor: '#4A6D7C', paddingVertical: 6, paddingHorizontal: 11}}
+// onPress={this.showImagePicker}
+// >
+//   <Text style={styles.buttonText}>Edit Photo</Text>
+// </TouchableOpacity>

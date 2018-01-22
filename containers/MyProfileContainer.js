@@ -360,7 +360,7 @@ export default class MultiSelectGenresInstruments extends Component {
     } else {
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
-      <ScrollView style={{flex:1}}>
+      <ScrollView >
       <View style={styles.header}>
       <View style={styles.avatarContainer}>
       <Avatar
@@ -494,6 +494,8 @@ export default class MultiSelectGenresInstruments extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
+
   },
   input: {
   minHeight: 100,

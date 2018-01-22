@@ -18,7 +18,6 @@ import firebaseApp from './services/firebase';
 import * as firebase from 'firebase';
 import { SignInStack, RootNavigator } from './config/Router.js'
 import Map from './screens/Map';
-import UserProfile from './components/UserProfile/UserProfile';
 import UserList from './components/UsersFeed/UserList';
 
 console.disableYellowBox = true;

@@ -1,4 +1,4 @@
-// Filterable Product Table will store state: users, searchText, and filterBy
+// Searchable Map will store state: users, searchText, and searchIndex
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -29,59 +29,37 @@ export default class FilterableUsersTable extends Component {
     this.usersRef = firebase.database().ref().child('users/');
   }
   // after component mounts, get users data from FBDB in order to populate list
-  // componentWillMount(){
-  //   this.getUsersData();
-  // }
   componentDidMount() {
     this.listenForUsers(this.usersRef);
   }
 
   listenForUsers(usersRef){
     const userId = firebase.auth().currentUser.uid;
-    // firebase.database().ref('/users/').once('value').then((snapshot) => {
       usersRef.on('value', (snapshot) => {
-      // console.log('#######MAPCONTAINER GETUSER DATA#############')
-      // console.log('in component did mount')
-      // console.log(snapshot.val())
-      let users = snapshot.val()
-      let results = [];
-      let currentUser = [];
-      for(var uid in users) {
+        let users = snapshot.val()
+        let results = [];
+        let currentUser = [];
+        for(var uid in users) {
           if(users.hasOwnProperty(uid)) {
-            // console.log('this is the uid')
-            // console.log(uid)
-            // console.log('this is the uid object')
-            // console.log(users[uid])
-              var userObject = users[uid];
-              // console.log('this is the user object')
-              // console.log(userObject)
-                // exclude currently logged in user (use user's uid and then only add to results array if currently logged in user's uid does not equal the userObject's uid)
-              if (userId === uid) {
-                // console.log('this is the current user')
-                currentUser.push(userObject)
-                // console.log('user id')
-                // console.log(userId)
-                // console.log('current user object')
-                // console.log(currentUser[0])
-              } else {
-                // check if user has coordinates, name and instruments
-                // console.log('user object')
-                // console.log(userObject)
-                if(userObject.coordinates && userObject.name && userObject.instruments) {
-                  // console.log('user object pushed into results')
-                  results.push(userObject)
-                }
+            var userObject = users[uid];
+              // exclude currently logged in user (use user's uid and then only add to results array if currently logged in user's uid does not equal the userObject's uid)
+            if (userId === uid) {
+              currentUser.push(userObject)
+            } else {
+              // check if user has coordinates, name and instruments
+              if(userObject.coordinates && userObject.name && userObject.instruments) {
+                results.push(userObject)
+              }
             }
           }
-      }
-      // console.log('these are the musicians after pulling all but current user from DB')
-      // console.log(results)
-      // set users with result from DB
-      this.setState({
-        users: results,
-      })
+        }
+        // set users with result from DB
+        this.setState({
+          users: results,
+        })
     });
   }
+
   // remove listener
   componentWillUnmount() {
       this.usersRef.off()
@@ -92,43 +70,34 @@ export default class FilterableUsersTable extends Component {
     this.setState({
       searchIndex: index,
     })
-    // console.log('in the handle on press in searchable')
   }
 
   handleSubmitEditing(searchText) {
     this.setState({
       searchText: searchText
     });
-    // console.log('in the handle submit editing in searchable map')
   }
 
   render() {
-    // console.log('this is this.state.users')
-    // console.log(this.state.users)
-    // console.log('this is the search index')
-    // console.log(this.state.searchIndex)
-    // console.log('this is the search text')
-    // console.log(this.state.searchText)
     return(
       <View style={styles.container}>
-      <Search
-        searchText={this.state.searchText}
-        searchIndex={this.state.searchIndex}
-        onPress={this.handleOnPress}
-        onSumbitEditing={this.handleSubmitEditing}
-        onClearText={this.handleSubmitEditing}
-      />
-      <MapContainer
-        searchText={this.state.searchText}
-        searchIndex={this.state.searchIndex}
-        navigate={this.props.navigate}
-        users={this.state.users}
-      />
+        <Search
+          searchText={this.state.searchText}
+          searchIndex={this.state.searchIndex}
+          onPress={this.handleOnPress}
+          onSumbitEditing={this.handleSubmitEditing}
+          onClearText={this.handleSubmitEditing}
+        />
+        <MapContainer
+          searchText={this.state.searchText}
+          searchIndex={this.state.searchIndex}
+          navigate={this.props.navigate}
+          users={this.state.users}
+        />
       </View>
-    );
-
+      );
+    }
   }
-}
 
 const styles = StyleSheet.create({
   container: {

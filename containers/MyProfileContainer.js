@@ -183,7 +183,6 @@ export default class MultiSelectGenresInstruments extends Component {
     AlertIOS.prompt(
       'Enter Soundcloud Profile Name', null,
       text => {
-        // console.log("You entered "+ text)
         const userId = firebase.auth().currentUser.uid;
         firebase.database().ref('users/' + userId + '/social_media/soundcloud').set(
           text
@@ -201,7 +200,6 @@ export default class MultiSelectGenresInstruments extends Component {
     AlertIOS.prompt(
       'Enter Twitter Handle', null,
       text => {
-        // console.log("You entered "+ text)
         const userId = firebase.auth().currentUser.uid;
         firebase.database().ref('users/' + userId + '/social_media/twitter').set(
           text
@@ -218,7 +216,6 @@ export default class MultiSelectGenresInstruments extends Component {
     AlertIOS.prompt(
       'Enter Instagram Username', null,
       text => {
-        // console.log("You entered "+ text)
         const userId = firebase.auth().currentUser.uid;
         firebase.database().ref('users/' + userId + '/social_media/instagram').set(
           text
@@ -235,7 +232,6 @@ export default class MultiSelectGenresInstruments extends Component {
     AlertIOS.prompt(
       'Enter Youtube Username', null,
       text => {
-        // console.log("You entered "+ text)
         const userId = firebase.auth().currentUser.uid;
         firebase.database().ref('users/' + userId + '/social_media/youtube').set(
           text
@@ -449,8 +445,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   input: {
-  minHeight: 100,
-  borderBottomWidth: 0,
+    minHeight: 100,
+    borderBottomWidth: 0,
   },
   horizontal: {
     flexDirection: 'row',
@@ -486,20 +482,3 @@ const styles = StyleSheet.create({
     color: '#FFFFFF'
   },
 });
-
-// <Button
-//   raised
-//   icon={{name: 'photo'}}
-//   title='Edit'
-//   backgroundColor='#4A6D7C'
-//   borderRadius={15}
-//   containerViewStyle={{borderRadius: 15, height: 20 }}
-//   onPress={this.showImagePicker}
-//    />
-
-// <TouchableOpacity
-// style={{ borderRadius: 15, backgroundColor: '#4A6D7C', paddingVertical: 6, paddingHorizontal: 11}}
-// onPress={this.showImagePicker}
-// >
-//   <Text style={styles.buttonText}>Edit Photo</Text>
-// </TouchableOpacity>

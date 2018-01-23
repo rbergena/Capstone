@@ -158,14 +158,9 @@ export const TabsNavigator = TabNavigator({
                    ,[
                      {text: 'Accept', onPress: () => {
                        // sign out user, then redirect to login route
-                       firebase.auth().signOut().then(function() {
-                        // console.log('Signed Out');
-                        // console.log('this is the result for current user')
-                        // console.log(firebase.auth().currentUser);
-                      }, function(error) {
+                       firebase.auth().signOut().then(function() {}, function(error) {
                         console.error('Sign Out Error', error);
                       });
-
                        // navigate to login route
                         navigation.dispatch(NavigationActions.navigate({ routeName: 'Login' }))
                    }},
@@ -185,7 +180,6 @@ export const TabsNavigator = TabNavigator({
 // }
 );
 
-// TODO
 export const RootNavigator = StackNavigator({
   SignIn: {
     screen: SignInStack,

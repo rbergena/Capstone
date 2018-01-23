@@ -11,7 +11,6 @@ import CreateAccountForm from '../components/CreateAccount/CreateAccountForm.js'
 import MyProfileScreen from '../screens/MyProfileScreen.js';
 import UserDetailsScreen from '../screens/UserDetailsScreen.js';
 import UsersFeedScreen from '../screens/UsersFeedScreen.js';
-// import Map from '../screens/Map.js';
 import MapScreen from '../screens/MapScreen.js';
 
 import WebViewScreen from '../screens/WebViewScreen.js';

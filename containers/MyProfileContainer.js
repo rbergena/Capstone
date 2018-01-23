@@ -38,7 +38,7 @@ var options = {
   quality: 0.2,
 };
 
-export default class MultiSelectGenresInstruments extends Component {
+export default class MyProfileContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -50,7 +50,9 @@ const styles = StyleSheet.create({
     // backgroundColor: 'white',
     // backgroundColor: 'rgba(241,222,218,0.8)',
     // backgroundColor: 'hsla(0, 100%, 90%, 0.2)'
-    backgroundColor: '#4c69a5',
+    // backgroundColor: '#4c69a5',
+    // backgroundColor: '#565E69',
+    backgroundColor: 'rgba(76,105,165, 0.6)'
 
     // backgroundColor: 'rgba(255,255,255, 0.2)'
     // backgroundColor: 'white',

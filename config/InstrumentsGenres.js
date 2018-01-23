@@ -194,47 +194,13 @@ export const genres = [{
     name: 'Soul',
   },
 ];
-// African
-// Blues
-// Classical
-// Country
-// Electronic
-// Folk
-// Funk
-// Hip Hop
-// Jazz
-// Latin
-// Metal
-// Pop
-// R&B
-// Reggae
-// Rock
-// Soul
-
-// export function Icons(instrument) {
-//   console.log('in icons')
-//   console.log(instrument)
-//   if(instrument === 'Djembe') {
-//     console.log('in Djembe')
-//     return (<Image source={require('../assets/Djembe.png')}
-//     style={{width: 25, height: 25, marginRight: 5}}
-//     />)
-//   } else if(instrument === 'Harmonica')  {
-//     return (<Image source={require('../assets/Harmonica.png')}
-//     style={{width: 25, height: 25, marginRight: 5}}
-//     />)
-//   }
-// 		// return <img src='https://s3.amazonaws.com/codecademy-content/courses/React/react_photo-octopus.jpg' />;
-// }
 
 export const Icons = (props) => {
     let instruments = props.instruments;
-    // console.log('in icons')
-    // console.log(instruments)
+
     result = [];
     instruments.forEach((instrument) => {
       if(instrument === 'Djembe') {
-        // console.log('in Djembe')
         result.push(<Image key={instrument} source={require('../assets/Djembe.png')}
         style={{width: 25, height: 25, marginRight: 5}}
         />)
@@ -328,39 +294,10 @@ export const Icons = (props) => {
         />)
       }
       else {
-        // notes = [<Image source={require(`../assets/note1.png`)}
-        // style={{width: 25, height: 25, marginRight: 5}}
-        // />, <Image source={require(`../assets/note2.png`)}
-        // style={{width: 25, height: 25, marginRight: 5}}
-        // />, <Image source={require(`../assets/note3.png`)}
-        // style={{width: 25, height: 25, marginRight: 5}}
-        // />]
-        // result.push(notes[Math.floor(Math.random() * 3)])
-        // result.push(notes[2])
         result.push(<Image key={instrument} source={require(`../assets/note3.png`)}
         style={{width: 25, height: 25, marginRight: 5}}
         />)
       }
     })
-      return result
-
-
-
-
-    // // if(instrument === 'Djembe') {
-    // //   console.log('in Djembe')
-    //   return (<Image source={require('../assets/Djembe.png')}
-    //   style={{width: 25, height: 25, marginRight: 5}}
-    //   />)
-    // } else if(instrument === 'Harmonica')  {
-    //   return (<Image source={require('../assets/Harmonica.png')}
-    //   style={{width: 25, height: 25, marginRight: 5}}
-    //   />)
-    // }
-    // return (
-    //   <div>
-    //     <h1>Cute Guinea Pigs</h1>
-    //     <img src={src} />
-    //   </div>
-    // );
+  return result
 }

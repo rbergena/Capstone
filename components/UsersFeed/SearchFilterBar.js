@@ -27,33 +27,31 @@ export default class SearchFilterBar extends React.Component {
 
   // clear text should repopulate list with users
   handleOnClearText() {
-    // console.log('text cleared')
     this.props.onFilterTextChange('');
   }
 
   render() {
     const filterText = this.props.filterText;
     const filterIndex = this.props.filterIndex;
-    // const buttons = ['Instruments', 'Genres']
+
     const buttons = [{ element: Instruments }, { element: Genres }]
-    // console.log('onFilterTextChange editing')
-    // console.log(this.props.onFilterTextChange)
+
     return (
       <View>
-      <ButtonGroup
-        onPress={this.handlePress}
-        selectedIndex={this.props.filterIndex}
-        buttons={buttons}
-        containerStyle={{height: 50}}
-        selectedBackgroundColor='#9CAFB7'
-      />
-      <SearchBar
-        round
-        onChangeText={(text) => {this.handleFilterTextChange(text)}}
-        onClearText={this.handleOnClearText}
-        placeholder='Search'
-        clearIcon={{name: 'clear'}}
+        <ButtonGroup
+          onPress={this.handlePress}
+          selectedIndex={this.props.filterIndex}
+          buttons={buttons}
+          containerStyle={{height: 50}}
+          selectedBackgroundColor='#9CAFB7'
         />
+        <SearchBar
+          round
+          onChangeText={(text) => {this.handleFilterTextChange(text)}}
+          onClearText={this.handleOnClearText}
+          placeholder='Search'
+          clearIcon={{name: 'clear'}}
+          />
       </View>
     );
   }
@@ -65,14 +63,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   instruments: {
-    // color: '#9C7178',
-    // color: '#548089'
     color: '#00171F',
     fontWeight: 'bold',
   },
   genres: {
-    // color: '#829356',
-    // color: '#9C7178'
     color: '#003459',
     fontWeight: 'bold',
   },

@@ -11,7 +11,7 @@ import {
   View,
   StatusBar,
 } from 'react-native';
-import Login from './components/Login/Login';
+// import Login from './components/Login/Login';
 // import LoginForm from './components/Login/LoginForm';
 import CreateAccountForm from './components/CreateAccount/CreateAccountForm';
 import firebaseApp from './services/firebase';

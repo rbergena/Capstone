@@ -14,43 +14,30 @@ import { Description } from '../components/UserProfile/Description';
 export default class UserProfileContainer extends Component {
   constructor(props) {
     super(props);
-    // don't need state
-    // user information is passed through navigation props
   }
 
-
-  // eventually refactor out presentational component
-  // need to display instruments from object and genres from object
-  // pass social media links as props to the social media component
-  // conditionally render social media section if the user has social media links
   render() {
-    // const { userInfo } = this.props
-    // console.log('user information')
-    // console.log(this.props.userInfo)
-    // console.log('social media information')
-    // console.log(this.props.userInfo.social_media)
-
     return (
       <View style={styles.container}>
         <ScrollView>
-        <Background picture={ this.props.userInfo.picture ? (this.props.userInfo.picture.large) : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
-        }
-        city={this.props.userInfo.city_state}
-        email={this.props.userInfo.email}
-        navigate={this.props.navigate}
-        user={this.props.userInfo}
-        />
-        {this.props.userInfo.social_media ? (
-          <SocialMedia links={this.props.userInfo.social_media}
-          userName={this.props.userInfo.name}
+          <Background picture={ this.props.userInfo.picture ? (this.props.userInfo.picture.large) : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+          }
+          city={this.props.userInfo.city_state}
+          email={this.props.userInfo.email}
           navigate={this.props.navigate}
+          user={this.props.userInfo}
           />
-        ) : null}
-        <Description
-          description={this.props.userInfo.description}
-          genres={this.props.userInfo.genres}
-          instruments={this.props.userInfo.instruments}
-        />
+          {this.props.userInfo.social_media ? (
+            <SocialMedia links={this.props.userInfo.social_media}
+            userName={this.props.userInfo.name}
+            navigate={this.props.navigate}
+            />
+          ) : null}
+          <Description
+            description={this.props.userInfo.description}
+            genres={this.props.userInfo.genres}
+            instruments={this.props.userInfo.instruments}
+          />
         </ScrollView>
       </View>
     );

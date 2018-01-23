@@ -10,8 +10,6 @@ export default class UserDetailScreen extends React.Component {
   // pass navigate to userprofile container which will then pass it to the social media component so that you can navigate between profile and social media webview
   render() {
     const {state} = this.props.navigation;
-    // console.log('navigation state params')
-    // console.log(state.params)
     return (
         <UserProfileContainer userInfo={state.params} navigate={ this.props.navigation.navigate}/>
      )

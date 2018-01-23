@@ -15,5 +15,3 @@ export default class UsersFeedScreen extends React.Component {
      )
    }
 }
-
-// <UsersListContainer navigate={ this.props.navigation.navigate}/>

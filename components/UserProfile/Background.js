@@ -49,9 +49,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 16,
     color: '#43484d',
+    backgroundColor: 'transparent'
   },
   font: {
     fontSize: 12,
     color: '#43484d',
+    backgroundColor: 'transparent',
   }
 });

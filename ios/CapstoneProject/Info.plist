@@ -38,7 +38,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>JamOut would like to use your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>JamOut would like access to your photo gallery</string>
 	<key>UIAppFonts</key>

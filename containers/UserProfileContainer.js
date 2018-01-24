@@ -10,6 +10,7 @@ import {
 import SocialMedia from '../components/UserProfile/SocialMedia';
 import { Background } from '../components/UserProfile/Background';
 import { Description } from '../components/UserProfile/Description';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default class UserProfileContainer extends Component {
   constructor(props) {
@@ -18,7 +19,9 @@ export default class UserProfileContainer extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <LinearGradient colors={['#fdfcfb', '#e2d1c3']} style={styles.linearGradient}>
+
+      <View >
         <ScrollView>
           <Background picture={ this.props.userInfo.picture ? (this.props.userInfo.picture.large) : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
           }
@@ -40,6 +43,7 @@ export default class UserProfileContainer extends Component {
           />
         </ScrollView>
       </View>
+      </LinearGradient>
     );
   }
 }
@@ -59,4 +63,24 @@ const styles = StyleSheet.create({
     // opacity: 0.5,
     // paddingTop: 20,
   },
+  linearGradient: {
+    flex: 1,
+  },
 });
+
+// color gradients
+// colors={['#ff9a9e', '#fad0c4']
+// ['#ee9ca7', '#ffdde1']
+// ['#29323c', '#485563']
+// ['#09203f', '#537895']
+
+// OR THIS ONE
+// ['#434343', '#000000']
+// this ONE
+// ['#fdfcfb', '#e2d1c3']
+// OR
+// ['#f5f7fa', '#c3cfe2']
+// ['#a3bded', '#6991c7']
+//['#feada6', '#f5efef']
+// ['#fdfbfb', '#ebedee']
+// ['#29323c', '#485563']
